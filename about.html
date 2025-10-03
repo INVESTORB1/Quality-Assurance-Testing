@@ -8,23 +8,28 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header style="position:sticky;top:0;z-index:1000;background:#3365c1;padding:0.7rem 0 0.7rem 0;overflow:hidden;min-height:64px;">
-        <div style="position:absolute;inset:0;z-index:0;background:linear-gradient(-360deg,rgba(3, 2, 103, 0.92) 60%,rgba(3, 77, 150, 0.85) 100%);border-radius:0 0 18px 18px;"></div>
-        <div style="max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:2rem;position:relative;z-index:1;">
-            <div style="display:flex;align-items:center;gap:0.5rem;">
-                <img src="BOB.png" alt="B.O.B Academy Logo" style="height:72px;">
-                <span style="font-size:2rem;font-style:italic;color:#4285f4;margin-left:-0.4rem;align-self:flex-end;">Academy</span>
+    <header class="main-header">
+        <div class="header-bg"></div>
+        <div class="header-content">
+            <div class="logo-area">
+                <img src="BOB.png" alt="B.O.B Academy Logo" class="logo-img">
+                <span class="logo-text">Academy</span>
             </div>
-            <nav style="display:flex;gap:1.5rem;flex:1;justify-content:center;margin-left:14rem;">
-                <a href="engainsmedia-homepage.html" style="color:#f7f7f8;font-size:1.25rem;font-weight:500;text-decoration:none;">Home</a>
-                <a href="signup.html" style="color:#f7f7f8;font-size:1.25rem;font-weight:500;text-decoration:none;">Account</a>
-                <a href="courses.html" style="color:#f7f7f8;font-size:1.25rem;font-weight:500;text-decoration:none;">Courses</a>
-                <a href="#services" style="color:#f7f7f8;font-size:1.25rem;font-weight:500;text-decoration:none;">Services</a>
-                <a href="about.html" style="color:#f7f7f8;font-size:1.25rem;font-weight:500;text-decoration:none;">About Us</a>
-                <a href="#contact" style="color:#f7f7f8;font-size:1.25rem;font-weight:500;text-decoration:none;">Contact Us</a>
+            <button class="hamburger" id="hamburgerBtn" aria-label="Open navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav class="main-nav" id="mainNav">
+                <a href="engainsmedia-homepage.html">Home</a>
+                <a href="signup.html">Account</a>
+                <a href="courses.html">Courses</a>
+                <a href="#services">Services</a>
+                <a href="about.html">About Us</a>
+                <a href="#contact">Contact Us</a>
             </nav>
-            <div style="width:44px;height:44px;background:#e6007a;border-radius:50%;display:flex;align-items:center;justify-content:center;">
-                <span style="font-size:1.7rem;color:#fff;">🧑‍💻</span>
+            <div class="header-icon">
+                <span>🧑‍💻</span>
             </div>
         </div>
     </header>
