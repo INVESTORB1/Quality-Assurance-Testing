@@ -293,4 +293,40 @@ footer {
 @media (max-width: 600px) {
     .login-card { padding: 1.2rem 0.5rem; min-width: 90vw; }
     main { padding: 0.5rem; }
+        header {
+            padding: 0.7rem 0.2rem;
+            min-height: 48px;
+        }
+        header > div {
+            flex-direction: column !important;
+            gap: 0.5rem !important;
+            align-items: flex-start !important;
+        }
+        nav {
+            flex-direction: column !important;
+            gap: 0.5rem !important;
+            margin-left: 0 !important;
+            align-items: center !important;
+        }
+        .feature-slideshow {
+            width: 100vw;
+            min-width: 0;
+            height: auto;
+        }
+        .feature-slideshow-container {
+            margin: 0.5rem 0;
+        }
+        .stat, .feature, .step {
+            min-width: 90vw;
+            width: 98vw;
+            padding: 1rem 0.5rem;
+        }
+        .cta {
+            padding: 0.7rem 1rem;
+            font-size: 1rem;
+        }
+        img {
+            max-width: 90vw;
+            height: auto;
+        }
 }
