@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - EngainsMedia</title>
+    <link rel="stylesheet" href="engainsmedia-homepage.css">
+    <style>
+        .signup-container {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            min-height: 80vh;
+            gap: 2.5rem;
+        }
+        .signup-form {
+            background: #f8faff;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px #1a73e820;
+            padding: 2.5rem 2.5rem 2rem 2.5rem;
+            min-width: 320px;
+            max-width: 370px;
+            width: 100%;
+        }
+        .signup-form h2 {
+            color: #1a73e8;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        .signup-form form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.1rem;
+        }
+        .signup-form label {
+            font-weight: 500;
+            margin-bottom: 0.2rem;
+        }
+        .signup-form input {
+            padding: 0.7rem;
+            border-radius: 6px;
+            border: 1px solid #b6c6e3;
+            font-size: 1rem;
+            background: #fff;
+            transition: border 0.2s;
+        }
+        .signup-form input:focus {
+            border: 1.5px solid #1a73e8;
+            outline: none;
+        }
+        .signup-form button {
+            background: linear-gradient(90deg, #1a73e8 60%, #4285f4 100%);
+            color: #fff;
+            border: none;
+            padding: 0.9rem;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 1.08rem;
+            cursor: pointer;
+            margin-top: 0.5rem;
+            transition: background 0.2s;
+        }
+        .signup-form button:hover {
+            background: #174ea6;
+        }
+        .signup-side {
+            min-width: 260px;
+            text-align: center;
+        }
+        .signup-side img {
+            max-width: 220px;
+            width: 100%;
+            margin-bottom: 1.2rem;
+        }
+        .signup-side h3 {
+            color: #1a73e8;
+            margin-bottom: 0.7rem;
+        }
+        .signup-links {
+            margin-top: 1.2rem;
+            text-align: center;
+        }
+        .signup-links a {
+            color: #1a73e8;
+            margin: 0 1rem;
+            font-size: 0.98rem;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .signup-links a:hover {
+            color: #174ea6;
+        }
+        @media (max-width: 900px) {
+            .signup-container { flex-direction: column; gap: 1.5rem; }
+            .signup-side img { max-width: 160px; }
+        }
+    </style>
+</head>
+<body>
+    <header style="position:sticky;top:0;z-index:1000;background:#3365c1;padding:0.7rem 0 0.7rem 0;overflow:hidden;min-height:64px;">
+        <div style="position:absolute;inset:0;z-index:0;background:linear-gradient(-360deg,rgba(3, 2, 103, 0.92) 60%,rgba(3, 77, 150, 0.85) 100%);border-radius:0 0 18px 18px;"></div>
+        <div style="max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:2rem;position:relative;z-index:1;">
+            <!-- Logo -->
+            <div style="display:flex;align-items:center;gap:0.5rem;">
+                <img src="bob.png" alt="EngainsMedia Logo" style="height:72px;">
+                <span style="font-size:2rem;font-style:italic;color:#4285f4;margin-left:-0.4rem;align-self:flex-end;">Academy</span>
+            </div>
+            <!-- Navigation -->
+            <nav style="display:flex;gap:1.5rem;flex:1;justify-content:center;margin-left:14rem;">
+                <a href="engainsmedia-homepage.html" style="color:#f7f7f8;font-size:1.25rem;font-weight:500;text-decoration:none;">Home</a>
+                <a href="signup.html" style="color:#f7f7f8;font-size:1.25rem;font-weight:500;text-decoration:none;">Account</a>
+                <a href="courses.html" style="color:#f7f7f8;font-size:1.25rem;font-weight:500;text-decoration:none;">Courses</a>
+                <a href="#services" style="color:#f7f7f8;font-size:1.25rem;font-weight:500;text-decoration:none;">Services</a>
+                <a href="about.html" style="color:#f7f7f8;font-size:1.25rem;font-weight:500;text-decoration:none;">About Us</a>
+                <a href="#contact" style="color:#f7f7f8;font-size:1.25rem;font-weight:500;text-decoration:none;">Contact Us</a>
+            </nav>
+            <!-- Icon/Button -->
+            <div style="width:44px;height:44px;background:#e6007a;border-radius:50%;display:flex;align-items:center;justify-content:center;">
+                <span style="font-size:1.7rem;color:#fff;">🧑‍💻</span>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="signup-container" style="min-height:70vh;display:flex;align-items:stretch;justify-content:center;background:#f8f9fa;box-shadow:0 2px 12px #0001;border-radius:18px;overflow:hidden;max-width:900px;margin:2.5rem auto 2rem auto;">
+            <!-- Left illustration -->
+            <div style="flex:1;display:flex;align-items:stretch;justify-content:stretch;background:#f4f6fb;min-width:260px;min-height:400px;padding:0;overflow:hidden;">
+                <img src="QA1.png" alt="Sign up illustration" style="max-width:130%;height:auto;display:block;">
+            </div>
+            <!-- Right tabbed form -->
+            <div style="flex:1;display:flex;align-items:center;justify-content:center;background:#fff;padding:2.5rem 2rem;">
+                <div style="width:100%;max-width:350px;">
+                    <div id="tab-switch" style="display:flex;gap:0;margin-bottom:2rem;">
+                        <button id="loginTab" type="button" style="flex:1;padding:0.8rem 0;font-size:1.1rem;font-weight:600;border:none;border-radius:18px 0 0 18px;outline:none;cursor:pointer;background:linear-gradient(90deg,#1a73e8 60%,#4285f4 100%);color:#fff;box-shadow:0 2px 8px #1a73e820;">Login</button>
+                        <button id="signupTab" type="button" style="flex:1;padding:0.8rem 0;font-size:1.1rem;font-weight:600;border:none;border-radius:0 18px 18px 0;outline:none;cursor:pointer;background:#fff;color:#222;box-shadow:none;">Signup</button>
+                    </div>
+                    <div id="loginForm" style="display:block;">
+                        <h2 style="font-size:2rem;font-weight:800;color:#222;margin-bottom:0.5rem;">Login to B.O.B Academy</h2>
+                        <form style="display:flex;flex-direction:column;gap:1.1rem;">
+                            <label for="login-email" style="font-weight:500;">Email</label>
+                            <input type="email" id="login-email" name="login-email" required placeholder="Enter your email" style="padding:0.8rem;border-radius:6px;border:1.5px solid #e3eafc;font-size:1rem;">
+                            <label for="login-password" style="font-weight:500;">Password</label>
+                            <input type="password" id="login-password" name="login-password" required placeholder="Enter your password" style="padding:0.8rem;border-radius:6px;border:1.5px solid #e3eafc;font-size:1rem;">
+                            <button type="submit" style="margin-top:1.2rem;background:linear-gradient(90deg,#1a73e8 60%,#4285f4 100%);color:#fff;font-size:1.15rem;font-weight:700;padding:0.9rem 0;border:none;border-radius:8px;box-shadow:0 2px 8px #1a73e820;cursor:pointer;">Login</button>
+                        </form>
+                    </div>
+                    <div id="signupForm" style="display:none;">
+                        <h2 style="font-size:2rem;font-weight:800;color:#222;margin-bottom:0.5rem;">Welcome to B.O.B Academy!</h2>
+                        <form style="display:flex;flex-direction:column;gap:1.1rem;">
+                            <label for="username" style="font-weight:500;">Name</label>
+                            <input type="text" id="username" name="username" required placeholder="Enter your name" style="padding:0.8rem;border-radius:6px;border:1.5px solid #e3eafc;font-size:1rem;">
+                            <label for="email" style="font-weight:500;">Email</label>
+                            <input type="email" id="email" name="email" required placeholder="Enter your email" style="padding:0.8rem;border-radius:6px;border:1.5px solid #e3eafc;font-size:1rem;">
+                            <label for="password" style="font-weight:500;">Password</label>
+                            <input type="password" id="password" name="password" required placeholder="Enter your password" style="padding:0.8rem;border-radius:6px;border:1.5px solid #e3eafc;font-size:1rem;">
+                            <label for="confirm-password" style="font-weight:500;">Confirm Password</label>
+                            <input type="password" id="confirm-password" name="confirm-password" required placeholder="Confirm your password" style="padding:0.8rem;border-radius:6px;border:1.5px solid #e3eafc;font-size:1rem;">
+                            <button type="submit" style="margin-top:1.2rem;background:linear-gradient(90deg,#6a5cff 60%,#4285f4 100%);color:#fff;font-size:1.15rem;font-weight:700;padding:0.9rem 0;border:none;border-radius:8px;box-shadow:0 2px 8px #6a5cff22;cursor:pointer;">Sign Up</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+        // Tab switching logic
+        const loginTab = document.getElementById('loginTab');
+        const signupTab = document.getElementById('signupTab');
+        const loginForm = document.getElementById('loginForm');
+        const signupForm = document.getElementById('signupForm');
+        loginTab.onclick = function() {
+            loginTab.style.background = 'linear-gradient(90deg,#1a73e8 60%,#4285f4 100%)';
+            loginTab.style.color = '#fff';
+            signupTab.style.background = '#fff';
+            signupTab.style.color = '#222';
+            loginForm.style.display = 'block';
+            signupForm.style.display = 'none';
+        };
+        signupTab.onclick = function() {
+            signupTab.style.background = 'linear-gradient(90deg,#1a73e8 60%,#4285f4 100%)';
+            signupTab.style.color = '#fff';
+            loginTab.style.background = '#fff';
+            loginTab.style.color = '#222';
+            loginForm.style.display = 'none';
+            signupForm.style.display = 'block';
+        };
+        </script>
+        
+    </main>
+    <footer>
+        <div>
+            <h4>Contact Us</h4>
+            <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:2.5rem 1.5rem;padding:1.2rem 0 0.5rem 0;color:#fff;font-size:1.12rem;background:transparent;">
+                <span>Contact: <a href="mailto:qa-support@engains.com" style="color:#fff;text-decoration:none;font-weight:500;">qa-support@engains.com</a> | <a href="tel:+1234567890" style="color:#fff;text-decoration:none;font-weight:500;">+1 (234) 567-890</a> | <span style="color:#fff;">123 Academy Lane, Suite 200, Lagos, Nigeria</span></span>
+            </div>
+            <div style="text-align:center;color:#fff;font-size:1rem;margin-top:0.5rem;">
+                Advancing software quality through education, practice, and certification.<br>© 2025 B.O.B QA Academy. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
