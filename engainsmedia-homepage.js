@@ -1,20 +1,6 @@
 // Feature Slideshow Logic
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Hamburger menu logic
-    const hamburgerBtn = document.getElementById('hamburgerBtn');
-    const mainNav = document.getElementById('mainNav');
-    if (hamburgerBtn && mainNav) {
-        hamburgerBtn.addEventListener('click', function() {
-            mainNav.classList.toggle('open');
-        });
-        // Optional: close nav when link is clicked (mobile)
-        mainNav.querySelectorAll('a').forEach(function(link) {
-            link.addEventListener('click', function() {
-                mainNav.classList.remove('open');
-            });
-        });
-    }
     const featureSlides = document.querySelectorAll('.feature-slide');
     const featureDots = [];
     const featurePrev = document.getElementById('prevFeature');
