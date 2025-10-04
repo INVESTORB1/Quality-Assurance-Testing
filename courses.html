@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QA Academy Courses</title>
     <link rel="stylesheet" href="engainsmedia-homepage.css">
+    <link rel="stylesheet" href="hamburger-nav.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <script defer src="hamburger-nav.js"></script>
 </head>
 <body>
     <header style="position:sticky;top:0;z-index:1000;background:#3365c1;padding:0.7rem 0 0.7rem 0;overflow:hidden;min-height:64px;">
@@ -29,8 +31,24 @@
             <div style="width:44px;height:44px;background:#e6007a;border-radius:50%;display:flex;align-items:center;justify-content:center;">
                 <span style="font-size:1.7rem;color:#fff;">🧑‍💻</span>
             </div>
+            <!-- Hamburger menu for mobile (moved to right) -->
+            <div class="hamburger" id="hamburger-menu" style="margin-left:1.5rem;">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
         </div>
     </header>
+    <!-- Mobile nav links moved outside header for visibility -->
+    <ul class="mobile-nav-links" id="mobile-nav">
+        <li class="mobile-nav-close"><button id="close-mobile-nav" aria-label="Close menu">&times;</button></li>
+        <li><a href="engainsmedia-homepage.html">Home</a></li>
+        <li><a href="signup.html">Account</a></li>
+        <li><a href="courses.html">Courses</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="#contact">Contact Us</a></li>
+    </ul>
     <div style="display:flex;align-items:flex-start;min-height:calc(100vh - 120px);max-width:1200px;margin:2.5rem auto 2rem auto;">
         <!-- Sticky Left Image -->
         <aside style="width:320px;flex:0 0 320px;position:fixed;top:120px;left:0;height:calc(100vh - 120px);overflow:hidden;display:flex;align-items:flex-start;justify-content:center;z-index:900;background:#fff;">

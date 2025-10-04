@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up - EngainsMedia</title>
     <link rel="stylesheet" href="engainsmedia-homepage.css">
+    <link rel="stylesheet" href="hamburger-nav.css">
+    <script defer src="hamburger-nav.js"></script>
     <style>
         .signup-container {
             display: flex;
@@ -119,8 +121,24 @@
             <div style="width:44px;height:44px;background:#e6007a;border-radius:50%;display:flex;align-items:center;justify-content:center;">
                 <span style="font-size:1.7rem;color:#fff;">🧑‍💻</span>
             </div>
+            <!-- Hamburger menu for mobile (moved to right) -->
+            <div class="hamburger" id="hamburger-menu" style="margin-left:1.5rem;">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
         </div>
     </header>
+    <!-- Mobile nav links moved outside header for visibility -->
+    <ul class="mobile-nav-links" id="mobile-nav">
+        <li class="mobile-nav-close"><button id="close-mobile-nav" aria-label="Close menu">&times;</button></li>
+        <li><a href="engainsmedia-homepage.html">Home</a></li>
+        <li><a href="signup.html">Account</a></li>
+        <li><a href="courses.html">Courses</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="#contact">Contact Us</a></li>
+    </ul>
     <main>
         <div class="signup-container" style="min-height:70vh;display:flex;align-items:stretch;justify-content:center;background:#f8f9fa;box-shadow:0 2px 12px #0001;border-radius:18px;overflow:hidden;max-width:900px;margin:2.5rem auto 2rem auto;">
             <!-- Left illustration -->
