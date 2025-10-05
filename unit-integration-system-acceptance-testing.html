@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit, Integration, System, Acceptance Testing</title>
+    <link rel="stylesheet" href="engainsmedia-homepage.css?v=2">
+        <style>
+        .mobile-nav-links {
+            position: fixed;
+            top: 0;
+            left: -100vw;
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(180deg,#3365c1 80%,#4285f4 100%);
+            box-shadow: 0 2px 16px #23408e40;
+            z-index: 2000;
+                display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding-top: 2.5rem;
+            margin: 0;
+            list-style: none;
+            font-size: 1.3rem;
+            font-weight: 600;
+            transition: left 0.3s;
+        }
+        .mobile-nav-links li {
+            margin: 1rem 0;
+            width: 90vw;
+            text-align: center;
+        }
+        .mobile-nav-links a {
+            color: #fff;
+            text-decoration: none;
+            display: block;
+            padding: 1rem 0;
+            border-radius: 8px;
+            background: none;
+            transition: background 0.2s, color 0.2s;
+        }
+        .mobile-nav-links a:hover {
+            background: #23408e;
+            color: #e3eafc;
+        }
+        .mobile-nav-close button {
+            font-size: 2rem;
+            background: #fff;
+            color: #23408e;
+            border: none;
+            border-radius: 50%;
+            width: 44px;
+            height: 44px;
+            margin-bottom: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 2px 8px #23408e20;
+        }
+        @media (max-width: 700px) {
+            nav {
+                display: none !important;
+                margin-left: 0 !important;
+            }
+            .hamburger {
+                display: flex !important;
+                position: absolute;
+                top: 18px;
+                right: 18px;
+                margin: 0 !important;
+                z-index: 1001;
+            }
+            .header-icon {
+                display: none !important;
+            }
+        }
+        @media (min-width: 701px) {
+            .hamburger {
+                display: none !important;
+            }
+            nav {
+                display: flex !important;
+            }
+        }
+        </style>
+</head>
+<body>
+    <header style="position:sticky;top:0;z-index:1000;background:#3365c1;padding:0.7rem 0 0.7rem 0;overflow:hidden;min-height:64px;">
+        <div style="position:absolute;inset:0;z-index:0;background:linear-gradient(-360deg,rgba(3, 2, 103, 0.92) 60%,rgba(3, 77, 150, 0.85) 100%);border-radius:0 0 18px 18px;"></div>
+        <div style="max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:2rem;position:relative;z-index:1;">
+            <!-- Logo -->
+            <div style="display:flex;align-items:center;gap:0.5rem;">
+                <img src="BOB.png" alt="EngainsMedia Logo" style="height:72px;">
+                <span style="font-size:2rem;font-style:italic;color:#4285f4;margin-left:-0.4rem;align-self:flex-end;">Academy</span>
+            </div>
+            <!-- Navigation -->
+            <nav style="display:flex;gap:1.5rem;flex:1;justify-content:center;margin-left:14rem;">
+                <a href="engainsmedia-homepage.html" style="color:#f7f7f8;font-size:1.25rem;font-weight:500;text-decoration:none;">Home</a>
+                <a href="signup.html" style="color:#f7f7f8;font-size:1.25rem;font-weight:500;text-decoration:none;">Account</a>
+                <a href="courses.html" style="color:#f7f7f8;font-size:1.25rem;font-weight:500;text-decoration:none;">Courses</a>
+                <a href="services.html" style="color:#f7f7f8;font-size:1.25rem;font-weight:500;text-decoration:none;">Services</a>
+                <a href="about.html" style="color:#f7f7f8;font-size:1.25rem;font-weight:500;text-decoration:none;">About Us</a>
+                <a href="contact.html" style="color:#f7f7f8;font-size:1.25rem;font-weight:500;text-decoration:none;">Contact Us</a>
+                            mobileNav.style.display = 'flex';
+            </nav>
+            <!-- Icon/Button -->
+            <div style="width:44px;height:44px;background:#e6007a;border-radius:50%;display:flex;align-items:center;justify-content:center;">
+                            mobileNav.style.display = 'none';
+                <span style="font-size:1.7rem;color:#fff;">🧑‍💻</span>
+            </div>
+            <!-- Hamburger menu for mobile (moved to right) -->
+            <div class="hamburger" id="hamburger-menu" style="margin-left:1.5rem;">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    <!-- Mobile nav links -->
+    </header>
+    <!-- Mobile nav links moved outside header for visibility -->
+    <ul class="mobile-nav-links" id="mobile-nav">
+        <li class="mobile-nav-close"><button id="close-mobile-nav" aria-label="Close menu">&times;</button></li>
+        <li><a href="engainsmedia-homepage.html">Home</a></li>
+        <li><a href="signup.html">Account</a></li>
+        <li><a href="courses.html">Courses</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+    </ul>
+    <main style="max-width:800px;margin:2.5rem auto;padding:2rem;background:#f7f9fc;border-radius:18px;box-shadow:0 4px 24px #23408e22;">
+        <a href="javascript:history.back()" style="display:inline-flex;align-items:center;gap:0.4rem;color:#1a73e8;font-size:1.1rem;text-decoration:none;margin-bottom:1.2rem;">
+            <span style="font-size:1.5rem;">&#8592;</span> Back
+        </a>
+        <h1 style="color:#23408e;">Unit, Integration, System, Acceptance Testing</h1>
+        <ul>
+            <li><b>Unit Testing:</b> Testing individual components or functions in isolation to ensure they work as intended.</li>
+            <li><b>Integration Testing:</b> Testing combined parts of an application to ensure they work together correctly.</li>
+            <li><b>System Testing:</b> Testing the complete and integrated software to verify it meets requirements.</li>
+            <li><b>Acceptance Testing:</b> Testing conducted to determine if the system satisfies business requirements and is ready for deployment.</li>
+        </ul>
+        <h2>Purpose</h2>
+        <p>Each level of testing helps catch different types of defects and ensures the software is robust and ready for release.</p>
+    </main>
+        <script>
+        // Hamburger menu toggle logic
+        document.addEventListener('DOMContentLoaded', function() {
+            var hamburger = document.getElementById('hamburger-menu');
+            var mobileNav = document.getElementById('mobile-nav');
+            var closeBtn = document.getElementById('close-mobile-nav');
+            if (hamburger && mobileNav && closeBtn) {
+                hamburger.addEventListener('click', function() {
+                    mobileNav.style.left = '0';
+                });
+                closeBtn.addEventListener('click', function() {
+                    mobileNav.style.left = '-100vw';
+                });
+            }
+        });
+        </script>
+    <footer style="background:#23408e;color:#fff;padding:2rem 0 1.2rem 0;margin-top:3rem;text-align:center;border-radius:0 0 18px 18px;box-shadow:0 -2px 12px #1a73e820;">
+        <div style="max-width:1200px;margin:0 auto;">
+            <div style="font-size:1.1rem;margin-bottom:0.7rem;">&copy; 2025 EngainsMedia Academy. All rights reserved.</div>
+            <div style="font-size:0.98rem;">Empowering the next generation of QA professionals.</div>
+        </div>
+    </footer>
+</body>
+</html>

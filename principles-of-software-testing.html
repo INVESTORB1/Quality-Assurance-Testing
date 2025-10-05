@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Principles of Software Testing</title>
+    <link rel="stylesheet" href="engainsmedia-homepage.css?v=2">
+<style>
+.mobile-nav-links {
+    position: fixed;
+    top: 0;
+    left: -100vw;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(180deg,#3365c1 80%,#4285f4 100%);
+    box-shadow: 0 2px 16px #23408e40;
+    z-index: 2000;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 2.5rem;
+    margin: 0;
+    list-style: none;
+    font-size: 1.3rem;
+    font-weight: 600;
+    transition: left 0.3s;
+}
+.mobile-nav-links li {
+    margin: 1rem 0;
+    width: 90vw;
+    text-align: center;
+    list-style: none;
+}
+.mobile-nav-links a {
+    color: #fff !important;
+    text-decoration: none;
+    display: block;
+    padding: 1rem 0;
+    border-radius: 8px;
+    background: none;
+    transition: background 0.2s, color 0.2s;
+    font-size: 1.2rem;
+}
+.mobile-nav-links a:hover {
+    background: #23408e;
+    color: #e3eafc !important;
+}
+.mobile-nav-close button {
+    font-size: 2rem;
+    background: #fff;
+    color: #23408e;
+    border: none;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    margin-bottom: 1.5rem;
+    cursor: pointer;
+    box-shadow: 0 2px 8px #23408e20;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.hamburger {
+    width: 44px;
+    height: 44px;
+    background: #e6007a;
+    border-radius: 50%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    cursor: pointer;
+    z-index: 1001;
+    box-shadow: 0 2px 8px #23408e20;
+}
+.hamburger span {
+    display: block;
+    width: 26px;
+    height: 4px;
+    background: #fff;
+    margin: 3px 0;
+    border-radius: 2px;
+}
+@media (max-width: 900px) {
+    nav {
+        display: none !important;
+        margin-left: 0 !important;
+    }
+    .hamburger {
+        display: flex !important;
+        position: absolute;
+        top: 18px;
+        right: 18px;
+        margin: 0 !important;
+        z-index: 1001;
+    }
+    .header-icon {
+        display: none !important;
+    }
+}
+@media (min-width: 901px) {
+    .hamburger {
+        display: none !important;
+    }
+    nav {
+        display: flex !important;
+    }
+}
+</style>
+        <a href="javascript:history.back()" style="display:inline-flex;align-items:center;gap:0.4rem;color:#1a73e8;font-size:1.1rem;text-decoration:none;margin-bottom:1.2rem;">
+            <span style="font-size:1.5rem;">&#8592;</span> Back
+        </a>
+        <h1 style="color:#23408e;">Principles of Software Testing</h1>
+        <p>Software testing is guided by several core principles that help ensure effective and efficient testing. These principles are widely recognized in the industry and form the foundation of good testing practices.</p>
+        <ul>
+            <li><b>Testing shows presence of defects:</b> Testing can show that defects are present, but cannot prove that there are no defects.</li>
+            <li><b>Exhaustive testing is impossible:</b> It’s not feasible to test all possible inputs and scenarios.</li>
+            <li><b>Early testing:</b> Testing activities should start as early as possible in the software development lifecycle.</li>
+            <li><b>Defect clustering:</b> A small number of modules usually contain most of the defects.</li>
+            <li><b>Pesticide paradox:</b> Repeating the same tests will not find new bugs; test cases need regular review and revision.</li>
+            <li><b>Testing is context dependent:</b> The approach to testing depends on the context of the software and its use.</li>
+            <li><b>Absence-of-errors fallacy:</b> Finding and fixing defects does not help if the system built is unusable or does not fulfill user needs.</li>
+        </ul>
+    </main>
+    <footer style="background:#23408e;color:#fff;padding:2rem 0 1.2rem 0;margin-top:3rem;text-align:center;border-radius:0 0 18px 18px;box-shadow:0 -2px 12px #1a73e820;">
+        <div style="max-width:1200px;margin:0 auto;">
+            <div style="font-size:1.1rem;margin-bottom:0.7rem;">&copy; 2025 EngainsMedia Academy. All rights reserved.</div>
+            <div style="font-size:0.98rem;">Empowering the next generation of QA professionals.</div>
+        </div>
+    </footer>
+</body>
+</html>

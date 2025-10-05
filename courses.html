@@ -1,11 +1,186 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<style>
+.mobile-nav-links {
+    position: fixed;
+    top: 0;
+    left: -100vw;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(180deg,#3365c1 80%,#4285f4 100%);
+    box-shadow: 0 2px 16px #23408e40;
+    z-index: 2000;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 2.5rem;
+    margin: 0;
+    list-style: none;
+    font-size: 1.3rem;
+    font-weight: 600;
+    transition: left 0.3s;
+}
+.mobile-nav-links li {
+    margin: 1rem 0;
+    width: 90vw;
+    text-align: center;
+    list-style: none;
+}
+.mobile-nav-links a {
+    color: #fff !important;
+    text-decoration: none;
+    display: block;
+    padding: 1rem 0;
+    border-radius: 8px;
+    background: none;
+    transition: background 0.2s, color 0.2s;
+    font-size: 1.2rem;
+}
+.mobile-nav-links a:hover {
+    background: #23408e;
+    color: #e3eafc !important;
+}
+.mobile-nav-close button {
+    font-size: 2rem;
+    background: #fff;
+    color: #23408e;
+    border: none;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    margin-bottom: 1.5rem;
+    cursor: pointer;
+    box-shadow: 0 2px 8px #23408e20;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.hamburger {
+    width: 44px;
+    height: 44px;
+    background: #e6007a;
+    border-radius: 50%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    cursor: pointer;
+    z-index: 1001;
+    box-shadow: 0 2px 8px #23408e20;
+}
+.hamburger span {
+    display: block;
+    width: 26px;
+    height: 4px;
+    background: #fff;
+    margin: 3px 0;
+    border-radius: 2px;
+}
+@media (max-width: 900px) {
+    nav {
+        display: none !important;
+        margin-left: 0 !important;
+    }
+    .hamburger {
+        display: flex !important;
+        position: absolute;
+        top: 18px;
+        right: 18px;
+        margin: 0 !important;
+        z-index: 1001;
+    }
+    .header-icon {
+        display: none !important;
+    }
+}
+@media (min-width: 901px) {
+    .hamburger {
+        display: none !important;
+    }
+    nav {
+        display: flex !important;
+    }
+}
+</style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QA Academy Courses</title>
     <link rel="stylesheet" href="engainsmedia-homepage.css?v=2">
-    <link rel="stylesheet" href="hamburger-nav.css?v=2">
+        <link rel="stylesheet" href="hamburger-nav.css?v=2">
+    <style>
+        body {
+            overflow-x: hidden;
+        }
+        header {
+            width: 100vw !important;
+            max-width: 100vw !important;
+            left: 0;
+            margin: 0;
+            padding: 0.7rem 0 0.7rem 0;
+            box-sizing: border-box;
+            overflow-x: hidden;
+        }
+        main, .main-content-section, section {
+            max-width: 100vw !important;
+            overflow-x: hidden;
+            box-sizing: border-box;
+        }
+        @media (max-width: 700px) {
+            main[style], main, .main-content-section, section {
+                margin-top: 90px !important; /* Enough space for sticky header */
+                padding-top: 1.2rem !important;
+                width: 100vw !important;
+                margin-left: 0 !important;
+                padding-left: 0 !important;
+                box-sizing: border-box;
+            }
+            .sidebar-image, .left-fixed-image, .fixed-left-image, aside.fixed-left-image {
+                display: none !important;
+            }
+            main img, .main-content-section img, section img {
+                max-width: 95vw !important;
+                height: auto !important;
+                display: block;
+                margin: 0.5rem 0 0.7rem 0.5rem !important;
+                border-radius: 10px;
+            }
+            ul, ol {
+                margin-left: 1.2rem !important;
+                margin-right: 0 !important;
+                padding-left: 1.2rem !important;
+                width: 95vw !important;
+                box-sizing: border-box;
+            }
+            nav {
+                margin-left: 0 !important;
+                display: none !important;
+            }
+            .hamburger {
+                display: flex !important;
+                position: absolute;
+                top: 18px;
+                right: 18px;
+                margin: 0 !important;
+                z-index: 1001;
+            }
+            .header-icon {
+                display: none !important;
+            }
+        }
+        @media (min-width: 701px) {
+            .hamburger {
+                display: none !important;
+            }
+            nav {
+                display: flex !important;
+            }
+            .header-icon {
+                display: flex !important;
+            }
+        }
+    </style>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
     <script defer src="hamburger-nav.js?v=2"></script>
 </head>
@@ -29,7 +204,7 @@
             </nav>
             <!-- Icon/Button -->
             <div style="width:44px;height:44px;background:#e6007a;border-radius:50%;display:flex;align-items:center;justify-content:center;">
-                <span style="font-size:1.7rem;color:#fff;">🧑‍💻</span>
+                <span class="header-icon" style="font-size:1.7rem;color:#fff;">🧑‍💻</span>
             </div>
             <!-- Hamburger menu for mobile (moved to right) -->
             <div class="hamburger" id="hamburger-menu" style="margin-left:1.5rem;">
@@ -38,6 +213,7 @@
                 <span></span>
             </div>
         </div>
+    <!-- Mobile nav links -->
     </header>
     <!-- Mobile nav links moved outside header for visibility -->
     <ul class="mobile-nav-links" id="mobile-nav">
@@ -49,13 +225,29 @@
     <li><a href="about.html">About Us</a></li>
     <li><a href="contact.html">Contact Us</a></li>
     </ul>
-    <div style="display:flex;align-items:flex-start;min-height:calc(100vh - 120px);max-width:1200px;margin:2.5rem auto 2rem auto;">
-        <!-- Sticky Left Image -->
-        <aside style="width:320px;flex:0 0 320px;position:fixed;top:120px;left:0;height:calc(100vh - 120px);overflow:hidden;display:flex;align-items:flex-start;justify-content:center;z-index:900;background:#fff;">
-            <img src="QA1.png" alt="BugTracker Ad" style="width:100%;height:100%;object-fit:cover;border-radius:16px;box-shadow:0 2px 12px #1a73e820;">
+    <script>
+    // Hamburger menu toggle logic
+    document.addEventListener('DOMContentLoaded', function() {
+        var hamburger = document.getElementById('hamburger-menu');
+        var mobileNav = document.getElementById('mobile-nav');
+        var closeBtn = document.getElementById('close-mobile-nav');
+        if (hamburger && mobileNav && closeBtn) {
+            hamburger.addEventListener('click', function() {
+                mobileNav.style.left = '0';
+            });
+            closeBtn.addEventListener('click', function() {
+                mobileNav.style.left = '-100vw';
+            });
+        }
+    });
+    </script>
+    <div style="display:block;min-height:calc(100vh - 120px);max-width:1200px;margin:2.5rem auto 2rem auto;position:relative;">
+        <!-- Fixed Left Image -->
+    <aside class="fixed-left-image" style="position:fixed;top:110px;left:0;width:320px;height:640px;overflow:hidden;display:flex;align-items:center;justify-content:center;z-index:900;background:#fff;border-radius:16px;box-shadow:0 2px 12px #1a73e820;">
+            <img src="testing.PNG" alt="BugTracker Ad" style="max-width:95%;max-height:320px;width:auto;height:auto;object-fit:contain;display:block;">
         </aside>
         <!-- Scrollable Right Content -->
-        <main style="flex:1 1 0;margin-left:340px;padding-left:3.5rem;display:flex;justify-content:center;align-items:flex-start;position:relative;">
+    <main style="margin-left:340px;padding-left:2.5rem;display:flex;justify-content:center;align-items:flex-start;position:relative;">
             <div style="position:absolute;left:-30px;top:0;height:100vh;width:2px;background:#e3eafc;box-shadow:0 0 8px #23408e22;border-radius:2px;"></div>
             <div style="background:#f7f9fc;border-radius:18px;box-shadow:0 4px 24px #23408e22;padding:2.5rem 2.2rem 2.2rem 2.2rem;max-width:760px;width:100%;margin-bottom:2rem;">
                 <h1 style="color:#23408e;font-family:'Inter','Segoe UI',sans-serif;font-weight:700;letter-spacing:0.01em;margin-bottom:0.5rem;display:flex;align-items:center;gap:0.7rem;"><span style="font-size:2rem;">&#128187;</span> Software Testing Tutorial</h1>
@@ -150,46 +342,20 @@
 
                 <h2 style="margin-top:2.2rem;font-size:1.18rem;color:#23408e;font-weight:600;">Software Testing Syllabus (Tutorial)</h2>
                 <div style="margin-top:1.2rem;max-width:700px;">
-                    <details style="margin-bottom:1rem;background:#f8faff;border-radius:8px;box-shadow:0 2px 8px #1a73e820;padding:1rem;">
-                        <summary style="font-size:1.08rem;font-weight:600;color:#1a73e8;cursor:pointer;">Testing Fundamentals</summary>
-                        <ul style="margin-top:0.7rem;">
-                            <li>What is Software Testing?</li>
-                            <li>Why is Testing Important?</li>
-                            <li>Principles of Software Testing</li>
-                            <li>QA Roles & Responsibilities</li>
-                        </ul>
+                    <details style="margin-bottom:1rem;background:#f8faff;border-radius:12px;box-shadow:0 2px 8px #1a73e820;padding:0.7rem 1.2rem;transition:box-shadow 0.2s;">
+                        <summary style="font-size:1.23rem;font-weight:700;color:#1976d2;cursor:pointer;display:flex;align-items:center;gap:0.7rem;user-select:none;">&#9654; Testing Fundamentals</summary>
+                            <!-- Content removed as requested -->
                     </details>
-                    <details style="margin-bottom:1rem;background:#f8faff;border-radius:8px;box-shadow:0 2px 8px #1a73e820;padding:1rem;">
-                        <summary style="font-size:1.08rem;font-weight:600;color:#1a73e8;cursor:pointer;">Types of Testing</summary>
-                        <ul style="margin-top:0.7rem;">
-                            <li>Manual vs Automation Testing</li>
-                            <li>Functional & Non-Functional Testing</li>
-                            <li>Unit, Integration, System, Acceptance Testing</li>
-                        </ul>
+                    <details style="margin-bottom:1rem;background:#f8faff;border-radius:12px;box-shadow:0 2px 8px #1a73e820;padding:0.7rem 1.2rem;transition:box-shadow 0.2s;">
+                        <summary style="font-size:1.23rem;font-weight:700;color:#1976d2;cursor:pointer;display:flex;align-items:center;gap:0.7rem;user-select:none;">&#9654; Types of Testing</summary>
+                            <!-- Content removed as requested -->
                     </details>
-                    <details style="margin-bottom:1rem;background:#f8faff;border-radius:8px;box-shadow:0 2px 8px #1a73e820;padding:1rem;">
-                        <summary style="font-size:1.08rem;font-weight:600;color:#1a73e8;cursor:pointer;">TestCase Development</summary>
-                        <ul style="margin-top:0.7rem;">
-                            <li>Test Case Design Techniques</li>
-                            <li>Writing Effective Test Cases</li>
-                            <li>Test Data & Test Environment</li>
-                        </ul>
+                    <details style="margin-bottom:1rem;background:#f8faff;border-radius:12px;box-shadow:0 2px 8px #1a73e820;padding:0.7rem 1.2rem;transition:box-shadow 0.2s;">
+                        <summary style="font-size:1.23rem;font-weight:700;color:#1976d2;cursor:pointer;display:flex;align-items:center;gap:0.7rem;user-select:none;">&#9654; TestCase Development</summary>
+                            <!-- Content removed as requested -->
                     </details>
                 </div>
-                <!-- Example SVG image for sections missing images -->
-                <section style="margin-top:2.2rem;max-width:700px;">
-                    <h2 style="font-size:1.18rem;color:#23408e;font-weight:600;">QA Bug Icon Example</h2>
-                    <svg width="120" height="120" viewBox="0 0 120 120" style="display:block;margin-bottom:1.2rem;">
-                      <circle cx="60" cy="60" r="55" fill="#e3eafc" stroke="#23408e" stroke-width="4"/>
-                      <ellipse cx="60" cy="70" rx="30" ry="18" fill="#fff" stroke="#23408e" stroke-width="3"/>
-                      <circle cx="60" cy="70" r="10" fill="#23408e"/>
-                      <line x1="60" y1="52" x2="60" y2="40" stroke="#23408e" stroke-width="3"/>
-                      <line x1="40" y1="70" x2="20" y2="60" stroke="#23408e" stroke-width="3"/>
-                      <line x1="80" y1="70" x2="100" y2="60" stroke="#23408e" stroke-width="3"/>
-                      <text x="60" y="115" text-anchor="middle" font-size="18" fill="#23408e">QA</text>
-                    </svg>
-                    <p>This is a custom SVG bug icon with QA text, used as a placeholder image for sections missing visuals.</p>
-                </section>
+               
                 <section style="margin-top:2.2rem;max-width:700px;">
                     <details id="testing-fundamentals" style="background:#f7f9fc;border-radius:8px;padding:1.2rem 1.5rem;margin-bottom:1.5rem;box-shadow:0 2px 8px #1a73e820;">
                         <summary style="font-size:1.15rem;font-weight:600;color:#23408e;display:flex;align-items:center;">
@@ -220,14 +386,31 @@
             </div>
         </main>
     </div>
-    <footer class="contact" style="margin-top:2rem;">
-        git config --global user.name "Your Name"
-        git config --global user.email "your@email.com"        <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:2.5rem 1.5rem;padding:1.2rem 0 0.5rem 0;color:#fff;font-size:1.12rem;background:transparent;">
-            <span>Contact: <a href="mailto:qa-support@engains.com" style="color:#fff;text-decoration:none;font-weight:500;">qa-support@engains.com</a> | <a href="tel:+1234567890" style="color:#fff;text-decoration:none;font-weight:500;">+1 (234) 567-890</a> | <span style="color:#fff;">123 Academy Lane, Suite 200, Lagos, Nigeria</span></span>
-        </div>
-        <div style="text-align:center;color:#fff;font-size:1rem;margin-top:0.5rem;">
-            Advancing software quality through education, practice, and certification.<br>© 2025 B.O.B QA Academy. All Rights Reserved.
+        <footer style="background:#23408e;color:#fff;padding:2rem 0 1.2rem 0;margin-top:3rem;text-align:center;border-radius:0 0 18px 18px;box-shadow:0 -2px 12px #1a73e820;">
+            <div style="max-width:1200px;margin:0 auto;">
+            <div style="font-size:1.1rem;margin-bottom:0.7rem;">Contact: <a href="mailto:qa-support@engains.com" style="color:#fff;text-decoration:underline;font-weight:500;">qa-support@engains.com</a> | <a href="tel:+1234567890" style="color:#fff;text-decoration:underline;font-weight:500;">+1 (234) 567-890</a> | 123 Academy Lane, Suite 200, Lagos, Nigeria</div>
+            <div style="font-size:0.98rem;">Advancing software quality through education, practice, and certification.</div>
+            <div style="font-size:1rem;margin-top:0.7rem;color:#b6c6e3;">&copy; 2025 B.O.B QA Academy. All Rights Reserved.</div>
         </div>
     </footer>
+    </body>
+    <script>
+    // Hide sidebar when footer is in view
+    window.addEventListener('scroll', function() {
+        var sidebar = document.querySelector('aside');
+        var footer = document.querySelector('footer');
+        if (!sidebar || !footer) return;
+        var footerRect = footer.getBoundingClientRect();
+        var sidebarRect = sidebar.getBoundingClientRect();
+        // If the bottom of the sidebar is below the top of the footer, hide the sidebar
+        if (sidebarRect.bottom > footerRect.top) {
+            sidebar.style.visibility = 'hidden';
+            sidebar.style.pointerEvents = 'none';
+        } else {
+            sidebar.style.visibility = 'visible';
+            sidebar.style.pointerEvents = 'auto';
+        }
+    });
+    </script>
 </body>
 </html>

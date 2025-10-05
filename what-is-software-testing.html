@@ -1,97 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<style>
-.mobile-nav-links {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: linear-gradient(180deg,#3365c1 80%,#4285f4 100%);
-    box-shadow: 0 2px 16px #23408e40;
-    z-index: 2000;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    padding-top: 2.5rem;
-    margin: 0;
-    list-style: none;
-    font-size: 1.3rem;
-    font-weight: 600;
-    transition: left 0.3s;
-}
-.mobile-nav-links li {
-    margin: 1rem 0;
-    width: 90vw;
-    text-align: center;
-}
-.mobile-nav-links a {
-    color: #fff;
-    text-decoration: none;
-    display: block;
-    padding: 1rem 0;
-    border-radius: 8px;
-    background: none;
-    transition: background 0.2s, color 0.2s;
-}
-.mobile-nav-links a:hover {
-    background: #23408e;
-    color: #e3eafc;
-}
-.mobile-nav-close button {
-    font-size: 2rem;
-    background: #fff;
-    color: #23408e;
-    border: none;
-    border-radius: 50%;
-    width: 44px;
-    height: 44px;
-    margin-bottom: 1.5rem;
-    cursor: pointer;
-    box-shadow: 0 2px 8px #23408e20;
-}
-</style>
-<style>
-@media (max-width: 700px) {
-    nav {
-        display: none !important;
-        margin-left: 0 !important;
-    }
-    .hamburger {
-        display: flex !important;
-        position: absolute;
-        top: 18px;
-        right: 18px;
-        margin: 0 !important;
-        z-index: 1001;
-    }
-    .header-icon {
-        display: none !important;
-    }
-}
-@media (min-width: 701px) {
-    .hamburger {
-        display: none !important;
-    }
-    nav {
-        display: flex !important;
-    }
-    .header-icon {
-        display: flex !important;
-    }
-}
-</style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us - B.O.B Academy</title>
+    <title>What is Software Testing?</title>
     <link rel="stylesheet" href="engainsmedia-homepage.css?v=2">
     <link rel="stylesheet" href="hamburger-nav.css?v=2">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
     <script defer src="hamburger-nav.js?v=2"></script>
 </head>
 <body>
+    <!-- ...header and nav (same as other pages)... -->
     <header style="position:sticky;top:0;z-index:1000;background:#3365c1;padding:0.7rem 0 0.7rem 0;overflow:hidden;min-height:64px;">
         <div style="position:absolute;inset:0;z-index:0;background:linear-gradient(-360deg,rgba(3, 2, 103, 0.92) 60%,rgba(3, 77, 150, 0.85) 100%);border-radius:0 0 18px 18px;"></div>
         <div style="max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:2rem;position:relative;z-index:1;">
@@ -132,23 +51,22 @@
         <li><a href="about.html">About Us</a></li>
         <li><a href="contact.html">Contact Us</a></li>
     </ul>
-    <main style="max-width:900px;margin:3rem auto 2rem auto;padding:2.5rem;background:#f7f9fc;border-radius:18px;box-shadow:0 4px 24px #23408e22;">
-        <h1 style="color:#23408e;font-family:'Inter','Segoe UI',sans-serif;font-weight:800;letter-spacing:0.01em;margin-bottom:1.2rem;font-size:2.3rem;line-height:1.1;">Contact Us</h1>
-        <form style="display:flex;flex-direction:column;gap:1.3rem;max-width:500px;margin:0 auto;">
-            <label for="name" style="font-weight:500;">Name</label>
-            <input type="text" id="name" name="name" required style="padding:0.8rem;border-radius:6px;border:1.5px solid #e3eafc;font-size:1rem;">
-            <label for="email" style="font-weight:500;">Email</label>
-            <input type="email" id="email" name="email" required style="padding:0.8rem;border-radius:6px;border:1.5px solid #e3eafc;font-size:1rem;">
-            <label for="message" style="font-weight:500;">Message</label>
-            <textarea id="message" name="message" rows="5" required style="padding:0.8rem;border-radius:6px;border:1.5px solid #e3eafc;font-size:1rem;"></textarea>
-            <button type="submit" style="margin-top:1.2rem;background:linear-gradient(90deg,#1a73e8 60%,#4285f4 100%);color:#fff;font-size:1.15rem;font-weight:700;padding:0.9rem 0;border:none;border-radius:8px;box-shadow:0 2px 8px #1a73e820;cursor:pointer;">Send Message</button>
-        </form>
-        <div style="margin-top:2.5rem;text-align:center;color:#2d3a4a;font-size:1.1rem;">
-            <p>Email: <a href="mailto:info@bobacademy.com" style="color:#1a73e8;">info@bobacademy.com</a></p>
-            <p>Phone: <a href="tel:+1234567890" style="color:#1a73e8;">+1 234 567 890</a></p>
-            <p>Address: 123 QA Street, Lagos, Nigeria</p>
-        </div>
+    <main style="max-width:800px;margin:2.5rem auto;padding:2rem;background:#f7f9fc;border-radius:18px;box-shadow:0 4px 24px #23408e22;">
+        <a href="javascript:history.back()" style="display:inline-flex;align-items:center;gap:0.4rem;color:#1a73e8;font-size:1.1rem;text-decoration:none;margin-bottom:1.2rem;">
+            <span style="font-size:1.5rem;">&#8592;</span> Back
+        </a>
+        <h1 style="color:#23408e;">What is Software Testing?</h1>
+        <p>Software testing is the process of evaluating and verifying that a software application or system meets the specified requirements and works as intended. It involves executing software/system components using manual or automated tools to evaluate one or more properties of interest. The goal is to identify bugs, errors, or missing requirements in contrast to the actual requirements.</p>
+        <h2>Why Test?</h2>
+        <p>Testing helps ensure the quality, reliability, and performance of software before it is released to users. It is a critical phase in the software development lifecycle and helps prevent costly defects in production.</p>
+        <ul>
+            <li>Finds bugs and errors before users do</li>
+            <li>Ensures requirements are met</li>
+            <li>Improves user satisfaction and trust</li>
+            <li>Reduces maintenance and support costs</li>
+        </ul>
     </main>
+</main>
     <footer style="background:#23408e;color:#fff;padding:2rem 0 1.2rem 0;margin-top:3rem;text-align:center;border-radius:0 0 18px 18px;box-shadow:0 -2px 12px #1a73e820;">
         <div style="max-width:1200px;margin:0 auto;">
             <div style="font-size:1.1rem;margin-bottom:0.7rem;">&copy; 2025 EngainsMedia Academy. All rights reserved.</div>

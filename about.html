@@ -1,11 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<style>
+.mobile-nav-links {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(180deg,#3365c1 80%,#4285f4 100%);
+    box-shadow: 0 2px 16px #23408e40;
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 2.5rem;
+    margin: 0;
+    list-style: none;
+    font-size: 1.3rem;
+    font-weight: 600;
+    transition: left 0.3s;
+}
+.mobile-nav-links li {
+    margin: 1rem 0;
+    width: 90vw;
+    text-align: center;
+}
+.mobile-nav-links a {
+    color: #fff;
+    text-decoration: none;
+    display: block;
+    padding: 1rem 0;
+    border-radius: 8px;
+    background: none;
+    transition: background 0.2s, color 0.2s;
+}
+.mobile-nav-links a:hover {
+    background: #23408e;
+    color: #e3eafc;
+}
+.mobile-nav-close button {
+    font-size: 2rem;
+    background: #fff;
+    color: #23408e;
+    border: none;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    margin-bottom: 1.5rem;
+    cursor: pointer;
+    box-shadow: 0 2px 8px #23408e20;
+}
+</style>
+<style>
+@media (max-width: 700px) {
+    nav {
+        display: none !important;
+        margin-left: 0 !important;
+    }
+    .hamburger {
+        display: flex !important;
+        position: absolute;
+        top: 18px;
+        right: 18px;
+        margin: 0 !important;
+        z-index: 1001;
+    }
+    .header-icon {
+        display: none !important;
+    }
+}
+@media (min-width: 701px) {
+    .hamburger {
+        display: none !important;
+    }
+    nav {
+        display: flex !important;
+    }
+    .header-icon {
+        display: flex !important;
+    }
+}
+</style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us - B.O.B Academy</title>
     <link rel="stylesheet" href="engainsmedia-homepage.css?v=2">
-    <link rel="stylesheet" href="hamburger-nav.css?v=2">
+        <link rel="stylesheet" href="hamburger-nav.css?v=2">
+        <style>
+            @media (max-width: 700px) {
+                .about-flex-row {
+                    flex-direction: column !important;
+                    align-items: center !important;
+                    gap: 1.2rem !important;
+                }
+                .about-flex-row img {
+                    margin-bottom: 0.5rem;
+                    max-width: 90vw !important;
+                }
+                .about-flex-row > div {
+                    width: 100%;
+                }
+            }
+        </style>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
     <script defer src="hamburger-nav.js?v=2"></script>
 </head>
@@ -15,7 +113,7 @@
         <div style="max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:2rem;position:relative;z-index:1;">
             <!-- Logo -->
             <div style="display:flex;align-items:center;gap:0.5rem;">
-                <img src="BOB.png" alt="B.O.B Academy Logo" style="height:72px;">
+                <img src="BOB.png" alt="EngainsMedia Logo" style="height:72px;">
                 <span style="font-size:2rem;font-style:italic;color:#4285f4;margin-left:-0.4rem;align-self:flex-end;">Academy</span>
             </div>
             <!-- Navigation -->
@@ -38,6 +136,7 @@
                 <span></span>
             </div>
         </div>
+    <!-- Mobile nav links -->
     </header>
     <!-- Mobile nav links moved outside header for visibility -->
     <ul class="mobile-nav-links" id="mobile-nav">
@@ -50,7 +149,7 @@
     <li><a href="contact.html">Contact Us</a></li>
     </ul>
     <main style="max-width:900px;margin:3rem auto 2rem auto;padding:2.5rem;background:#f7f9fc;border-radius:18px;box-shadow:0 4px 24px #23408e22;">
-        <div style="display:flex;align-items:flex-start;gap:2.2rem;margin-bottom:2.2rem;">
+    <div class="about-flex-row" style="display:flex;align-items:flex-start;gap:2.2rem;margin-bottom:2.2rem;">
             <img src="Profile .jpeg" alt="B.O.B Academy Team" style="max-width:320px;width:100%;border-radius:14px;box-shadow:0 2px 12px #23408e22;object-fit:cover;flex-shrink:0;">
             <div style="flex:1;min-width:0;">
                     <h1 style="color:#23408e;font-family:'Inter','Segoe UI',sans-serif;font-weight:800;letter-spacing:0.01em;margin-bottom:0.8rem;font-size:2.3rem;line-height:1.1;">About B.O.B Academy</h1>
@@ -82,12 +181,10 @@
                 <p style="text-align:justify;">Address: 123 Academy Lane, Suite 200, Lagos, Nigeria</p>
         </section>
     </main>
-    <footer style="margin-top:2rem;text-align:center;color:#23408e;font-size:1rem;">
-        <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:2.5rem 1.5rem;padding:1.2rem 0 0.5rem 0;color:#fff;font-size:1.12rem;background:transparent;">
-            <span>Contact: <a href="mailto:qa-support@engains.com" style="color:#fff;text-decoration:none;font-weight:500;">qa-support@engains.com</a> | <a href="tel:+1234567890" style="color:#fff;text-decoration:none;font-weight:500;">+1 (234) 567-890</a> | <span style="color:#fff;">123 Academy Lane, Suite 200, Lagos, Nigeria</span></span>
-        </div>
-        <div style="text-align:center;color:#fff;font-size:1rem;margin-top:0.5rem;">
-            Advancing software quality through education, practice, and certification.<br>© 2025 B.O.B QA Academy. All Rights Reserved.
+    <footer style="background:#23408e;color:#fff;padding:2rem 0 1.2rem 0;margin-top:3rem;text-align:center;border-radius:0 0 18px 18px;box-shadow:0 -2px 12px #1a73e820;">
+        <div style="max-width:1200px;margin:0 auto;">
+            <div style="font-size:1.1rem;margin-bottom:0.7rem;">&copy; 2025 EngainsMedia Academy. All rights reserved.</div>
+            <div style="font-size:0.98rem;">Empowering the next generation of QA professionals.</div>
         </div>
     </footer>
 <script src="engainsmedia-homepage.js"></script>
