@@ -85,7 +85,7 @@
 </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up - EngainsMedia</title>
+    <title>Sign Up - B.O.B Academy</title>
     <link rel="stylesheet" href="engainsmedia-homepage.css?v=2">
     <link rel="stylesheet" href="hamburger-nav.css?v=2">
     <script defer src="hamburger-nav.js?v=2"></script>
@@ -187,7 +187,7 @@
         <div style="max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:2rem;position:relative;z-index:1;">
             <!-- Logo -->
             <div style="display:flex;align-items:center;gap:0.5rem;">
-                <img src="BOB.png" alt="EngainsMedia Logo" style="height:72px;">
+                <img src="BOB.png" alt="B.O.B Academy Logo" style="height:72px;">
                 <span style="font-size:2rem;font-style:italic;color:#4285f4;margin-left:-0.4rem;align-self:flex-end;">Academy</span>
             </div>
             <!-- Navigation -->
@@ -246,7 +246,7 @@
                     </div>
                     <div id="signupForm" style="display:none;">
                         <h2 style="font-size:2rem;font-weight:800;color:#222;margin-bottom:0.5rem;">Welcome to B.O.B Academy!</h2>
-                        <form style="display:flex;flex-direction:column;gap:1.1rem;">
+                        <form id="signupFormElement" style="display:flex;flex-direction:column;gap:1.1rem;">
                             <label for="username" style="font-weight:500;">Name</label>
                             <input type="text" id="username" name="username" required placeholder="Enter your name" style="padding:0.8rem;border-radius:6px;border:1.5px solid #e3eafc;font-size:1rem;">
                             <label for="email" style="font-weight:500;">Email</label>
@@ -256,6 +256,7 @@
                             <label for="confirm-password" style="font-weight:500;">Confirm Password</label>
                             <input type="password" id="confirm-password" name="confirm-password" required placeholder="Confirm your password" style="padding:0.8rem;border-radius:6px;border:1.5px solid #e3eafc;font-size:1rem;">
                             <button type="submit" style="margin-top:1.2rem;background:linear-gradient(90deg,#6a5cff 60%,#4285f4 100%);color:#fff;font-size:1.15rem;font-weight:700;padding:0.9rem 0;border:none;border-radius:8px;box-shadow:0 2px 8px #6a5cff22;cursor:pointer;">Sign Up</button>
+                            <div id="signupMessage" style="margin-top:1rem;font-size:1rem;"></div>
                         </form>
                     </div>
                 </div>
@@ -283,12 +284,80 @@
             loginForm.style.display = 'none';
             signupForm.style.display = 'block';
         };
-        // Redirect to landing page on login submit
+        // Login form handler
         const loginFormElement = document.getElementById('loginFormElement');
         if (loginFormElement) {
-            loginFormElement.addEventListener('submit', function(e) {
+            loginFormElement.addEventListener('submit', async function(e) {
                 e.preventDefault();
-                window.location.href = 'login-landing.html';
+                const email = document.getElementById('login-email').value.trim();
+                const password = document.getElementById('login-password').value;
+                let msgDiv = document.getElementById('loginMessage');
+                if (!msgDiv) {
+                    msgDiv = document.createElement('div');
+                    msgDiv.id = 'loginMessage';
+                    loginFormElement.appendChild(msgDiv);
+                }
+                msgDiv.textContent = '';
+                try {
+                    const res = await fetch('http://localhost:4000/login', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email, password })
+                    });
+                    const data = await res.json();
+                    if (res.ok) {
+                        // Store user info in localStorage
+                        if (data.user) {
+                            localStorage.setItem('bobUser', JSON.stringify(data.user));
+                        }
+                        window.location.href = 'login-landing.html';
+                    } else {
+                        msgDiv.textContent = data.error || 'Login failed.';
+                        msgDiv.style.color = 'red';
+                    }
+                } catch (err) {
+                    msgDiv.textContent = 'Network error. Please try again.';
+                    msgDiv.style.color = 'red';
+                }
+            });
+        }
+        </script>
+        <script>
+        // Signup form handler
+        const signupFormElement = document.getElementById('signupFormElement');
+        if (signupFormElement) {
+            signupFormElement.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                const name = document.getElementById('username').value.trim();
+                const email = document.getElementById('email').value.trim();
+                const password = document.getElementById('password').value;
+                const confirmPassword = document.getElementById('confirm-password').value;
+                const msgDiv = document.getElementById('signupMessage');
+                msgDiv.textContent = '';
+                if (password !== confirmPassword) {
+                    msgDiv.textContent = 'Passwords do not match.';
+                    msgDiv.style.color = 'red';
+                    return;
+                }
+                try {
+                    const res = await fetch('http://localhost:4000/signup', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ name, email, password })
+                    });
+                    const data = await res.json();
+                    if (res.ok) {
+                        msgDiv.textContent = 'Signup successful! Pending admin approval.';
+                        msgDiv.style.color = 'green';
+                        signupFormElement.reset();
+                    } else {
+                        msgDiv.textContent = data.error || 'Signup failed.';
+                        msgDiv.style.color = 'red';
+                    }
+                } catch (err) {
+                    msgDiv.textContent = 'Network error. Please try again.';
+                    msgDiv.style.color = 'red';
+                }
             });
         }
         </script>

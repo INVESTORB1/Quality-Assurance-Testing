@@ -6,6 +6,56 @@
     <title>Welcome Dashboard</title>
     <link rel="stylesheet" href="engainsmedia-homepage.css">
     <style>
+        /* Overlay for sidebar on mobile */
+        #sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0,0,0,0.25);
+            z-index: 1001;
+        }
+        #sidebar.open ~ #sidebar-overlay {
+            display: block;
+        }
+        /* Sidebar mobile/desktop logic */
+        @media (max-width: 800px) {
+            #sidebar {
+                transform: translateX(-100%) !important;
+                position: fixed !important;
+                top: 0;
+                left: 0;
+                height: 100vh !important;
+                width: 70vw !important;
+                max-width: 320px;
+                min-width: 220px;
+                z-index: 1002;
+                box-shadow: 2px 0 16px #0002;
+                background: #13204a;
+                transition: transform 0.3s;
+            }
+            #sidebar.open {
+                transform: translateX(0) !important;
+            }
+            #hamburger-btn {
+                display: inline-block !important;
+                margin-left: 0.1rem !important;
+            }
+        }
+        @media (min-width: 801px) {
+            #hamburger-btn {
+                display: none !important;
+            }
+            #sidebar {
+                position: static !important;
+                transform: none !important;
+                width: 15% !important;
+                height: 100% !important;
+                box-shadow: 0 4px 24px #0004;
+            }
+        }
         :root {
             --dark-blue: #b9bcc1;
             --yellow: #ffd600;
@@ -118,8 +168,14 @@
                 font-size: 0.95rem !important;
                 margin: 0 0.2rem 0 0 !important;
             }
-            header button {
+            /* Hide only the logout button on mobile */
+            header button[onclick*='logout'],
+            header button[onclick*='signup'] {
                 display: none !important;
+            }
+            /* Always show the hamburger button on mobile */
+            #hamburger-btn {
+                display: inline-block !important;
             }
         }
         @media (max-width: 500px) {
@@ -148,31 +204,72 @@
     </style>
 </head>
 <body style="background: var(--dark-blue); color: #fff; margin: 0; font-family: 'Segoe UI', Arial, sans-serif; height: 100vh; overflow: hidden;">
-        <!-- Header (logo and Academy text left, user ID and logout right) -->
+    <!-- Header (logo and Academy text left, user ID and logout right) -->
         <header id="main-header" style="background:#13204a;padding:0.6rem 1.5rem;display:flex;align-items:center;justify-content:space-between;box-shadow:0 2px 8px #0001;position:relative;z-index:2;width:100vw;height:15vh;min-height:60px;">
             <div style="display:flex;align-items:center;gap:0.2rem;">
                 <img src="BOB.png" alt="EngainsMedia Logo" style="height:68px;">
                 <span style="font-size:1.5rem;font-style:italic;color:#4285f4;margin-left:-0.3rem;align-self:flex-end;">Academy</span>
             </div>
             <div style="display:flex;align-items:center;gap:2.7rem;">
-                <span style="color:#ffd600;font-weight:600;font-size:1.1rem;">User ID: 123456</span>
-                <button onclick="window.location.href='signup.html'" style="background:#ffd600;color:#13204a;font-weight:700;font-size:1rem;padding:0.6rem 4.5rem;border:none;border-radius:8px;cursor:pointer;">Logout</button>
-                <button id="hamburger-btn" aria-label="Open menu" style="display:none;background:none;border:none;outline:none;cursor:pointer;padding:0 1rem;">
-                    <span style="display:inline-block;width:32px;height:32px;position:relative;">
-                        <span style="background:#ffd600;height:4px;width:100%;display:block;position:absolute;top:6px;left:0;border-radius:2px;"></span>
-                        <span style="background:#ffd600;height:4px;width:100%;display:block;position:absolute;top:14px;left:0;border-radius:2px;"></span>
-                        <span style="background:#ffd600;height:4px;width:100%;display:block;position:absolute;top:22px;left:0;border-radius:2px;"></span>
-                    </span>
-                </button>
+                <span id="userIdSpan" style="color:#ffd600;font-weight:600;font-size:1.1rem;">User ID: </span>
+                <button id="logoutBtn" style="background:#ffd600;color:#13204a;font-weight:700;font-size:1rem;padding:0.6rem 4.5rem;border:none;border-radius:8px;cursor:pointer;">Logout</button>
             </div>
         </header>
+        <!-- Hamburger button below header for mobile -->
+        <button id="hamburger-btn" aria-label="Open menu" style="display:none;position:relative;top:0;left:0;margin:0.5rem 0 0 0.7rem;background:none;border:none;outline:none;cursor:pointer;padding:0 1rem;z-index:10;">
+            <span style="display:inline-block;width:32px;height:32px;position:relative;">
+                <span style="background:#ffd600;height:4px;width:100%;display:block;position:absolute;top:6px;left:0;border-radius:2px;"></span>
+                <span style="background:#ffd600;height:4px;width:100%;display:block;position:absolute;top:14px;left:0;border-radius:2px;"></span>
+                <span style="background:#ffd600;height:4px;width:100%;display:block;position:absolute;top:22px;left:0;border-radius:2px;"></span>
+            </span>
+        </button>
         <div style="display:flex;height:80vh;width:100vw;background:var(--dark-blue);overflow:hidden;">
-                    <!-- Sidebar (Left Tab - 16%) -->
-                        <aside id="sidebar" style="width:15%;height:100%;background:#13204a;padding:0.1rem 0.4rem 1.5rem 1.3rem;display:flex;flex-direction:column;justify-content:flex-start;border-radius:0 0 0 18px;box-shadow:0 4px 24px #0004;z-index:1;min-height:0;transition:transform 0.3s ease, left 0.3s;">
+            <!-- Sidebar (Left Tab - 16%) -->
+            <aside id="sidebar" style="width:15%;height:100%;background:#13204a;padding:0.1rem 0.4rem 1.5rem 1.3rem;display:flex;flex-direction:column;justify-content:flex-start;border-radius:0 0 0 18px;box-shadow:0 4px 24px #0004;z-index:1;min-height:0;transition:transform 0.3s ease, left 0.3s;">
             <div>
                 <div style="display:flex;align-items:center;gap:0.9rem;margin-bottom:2.6rem;cursor:pointer;" onclick="showSTLCContent('account')">
-                    <img src="Profile .jpeg" alt="User" style="width:38px;height:38px;border-radius:50%;object-fit:cover;">
-                    <span style="font-size:1.15rem;font-weight:600;color:#fff;">My Account</span>
+                    <span id="sidebarAvatar" style="width:38px;height:38px;display:inline-flex;align-items:center;justify-content:center;border-radius:50%;background:#e2eafc;color:#4285f4;font-size:1.25rem;font-weight:700;object-fit:cover;"></span>
+                    <span id="sidebarUserName" style="font-size:1.15rem;font-weight:600;color:#fff;">My Account</span>
+<script>
+// Sidebar avatar and name update, user ID display, logout and homepage fix
+document.addEventListener('DOMContentLoaded', function() {
+    const user = JSON.parse(localStorage.getItem('bobUser') || '{}');
+    const name = user.name || '';
+    const sidebarAvatar = document.getElementById('sidebarAvatar');
+    const sidebarUserName = document.getElementById('sidebarUserName');
+    const userIdSpan = document.getElementById('userIdSpan');
+    if (sidebarAvatar) {
+        if (name && name.trim().length > 0) {
+            sidebarAvatar.textContent = name.trim()[0].toUpperCase();
+        } else {
+            sidebarAvatar.textContent = '👤';
+        }
+    }
+    if (sidebarUserName) {
+        if (name && name.trim().length > 0) {
+            sidebarUserName.textContent = name.trim().split(' ')[0];
+        }
+    }
+    if (userIdSpan && user.id) {
+        userIdSpan.textContent = 'User ID: ' + user.id;
+    }
+    // Logout button logic
+    const logoutBtn = document.getElementById('logoutBtn');
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', function() {
+            localStorage.removeItem('bobUser');
+            window.location.href = 'signin.html';
+        });
+    }
+    // Fix Home button (Go to Home) in dashboard content
+    document.body.addEventListener('click', function(e) {
+        if (e.target && e.target.matches('a[href="index.html"]')) {
+            e.preventDefault();
+            window.location.href = 'index.html';
+        }
+    });
+});
+</script>
                 </div>
                 <div style="height:1.5rem;"></div>
                 <nav style="display:flex;flex-direction:column;gap:1.5rem;">
@@ -202,6 +299,8 @@
           </aside>
           <!-- Main content area (Right Tab - 80%) -->
                <div id="stlc-content" style="width:85%;height:85vh;background:linear-gradient(135deg,#f5f7fa 0%,#e2eafc 100%);display:flex;flex-direction:column;box-shadow:0 4px 24px #0004;align-items:center;justify-content:center;overflow:auto;">
+    <!-- Overlay for sidebar on mobile -->
+    <div id="sidebar-overlay" onclick="closeSidebar()"></div>
                    <!-- STLC content will be injected here -->
                </div>
                     <style>
@@ -211,9 +310,24 @@
                     aside a { transition:background 0.2s, color 0.2s; }
                     </style>
                     <script>
+                                        // Fix Home button to always reload homepage
+                                        document.addEventListener('DOMContentLoaded', function() {
+                                            const homeLinks = Array.from(document.querySelectorAll('a')).filter(a => a.textContent.trim().toLowerCase() === 'home');
+                                            homeLinks.forEach(link => {
+                                                link.addEventListener('click', function(e) {
+                                                    e.preventDefault();
+                                                    window.location.href = 'index.html';
+                                                });
+                                            });
+                                        });
+                                        function closeSidebar() {
+                                            const sidebar = document.getElementById('sidebar');
+                                            sidebar.classList.remove('open');
+                                        }
                     function showSTLCContent(phase) {
+                        // ...existing code...
                         const content = {
-                            account: `<div style='background:#fff;color:#14213d;padding:1.5rem -1.8rem;border-radius:30px;box-shadow:0 10px 48px 0 rgba(0,0,0,0.13), 0 2px 12px 0 rgba(0,0,0,0.10);border:1px solid #383558;max-width:480px;max-height:70vh;width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;animation:fadeInCard 0.7s ease;'><div style='font-size:3.2rem;margin-bottom:0.7rem;'>👋</div><h1 style='font-size:2.2rem;font-weight:800;margin-bottom:1.1rem;color:#14213d;text-align:center;'>Welcome back!</h1><p style='font-size:1.15rem;margin-bottom:2rem;color:#14213d;text-align:center;'>You have successfully logged in.<br>Here is your account information:</p><div style='text-align:left;margin:0 auto 2rem auto;max-width:320px;width:100%;'><div style='margin-bottom:1rem;font-size:1.13rem;border-bottom:1px solid #e3eafc;padding-bottom:0.7rem;'><span style='font-weight:700;'>Name:</span> John Doe</div><div style='margin-bottom:1rem;font-size:1.13rem;border-bottom:1px solid #e3eafc;padding-bottom:0.7rem;'><span style='font-weight:700;'>Email:</span> johndoe@email.com</div><div style='margin-bottom:1rem;font-size:1.13rem;'><span style='font-weight:700;'>User ID:</span> 123456</div></div><a href='index.html' style='display:inline-block;margin-top:1.2rem;background:#ffd600;color:#14213d;font-weight:800;font-size:1.18rem;padding:1rem 2.5rem;border:none;border-radius:14px;text-decoration:none;box-shadow:0 2px 12px #ffd60040;transition:background 0.2s;cursor:pointer;animation:popBtn 0.7s 0.3s ease backwards;' onmouseover="this.style.background='#ffe066'" onmouseout="this.style.background='#ffd600'">Go to Home</a><div style='margin-top:1.7rem;font-size:1.08rem;color:#4285f4;text-align:center;opacity:0.85;'>Tip: Explore your dashboard for new features and updates!</div></div>`,
+                            account: `<div style='background:#fff;color:#14213d;padding:1.5rem -1.8rem;border-radius:30px;box-shadow:0 10px 48px 0 rgba(0,0,0,0.13), 0 2px 12px 0 rgba(0,0,0,0.10);border:1px solid #383558;max-width:480px;max-height:70vh;width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;animation:fadeInCard 0.7s ease;'><div id='userAvatarBox' style='width:84px;height:84px;border-radius:50%;background:#e2eafc;display:flex;align-items:center;justify-content:center;font-size:2.7rem;font-weight:700;color:#4285f4;margin-bottom:1.1rem;box-shadow:0 2px 12px #4285f420;'></div><h1 style='font-size:2.2rem;font-weight:800;margin-bottom:1.1rem;color:#14213d;text-align:center;'>Welcome back!</h1><p style='font-size:1.15rem;margin-bottom:2rem;color:#14213d;text-align:center;'>You have successfully logged in.<br>Here is your account information:</p><div id='userInfoBox' style='text-align:left;margin:0 auto 2rem auto;max-width:320px;width:100%;'></div><a href='index.html' style='display:inline-block;margin-top:1.2rem;background:#ffd600;color:#14213d;font-weight:800;font-size:1.18rem;padding:1rem 2.5rem;border:none;border-radius:14px;text-decoration:none;box-shadow:0 2px 12px #ffd60040;transition:background 0.2s;cursor:pointer;animation:popBtn 0.7s 0.3s ease backwards;' onmouseover="this.style.background='#ffe066'" onmouseout="this.style.background='#ffd600'">Go to Home</a><div style='margin-top:1.7rem;font-size:1.08rem;color:#4285f4;text-align:center;opacity:0.85;'>Tip: Explore your dashboard for new features and updates!</div></div>`,
                             requirement: `<div style='background:#fff;color:#14213d;padding:2rem 2.5rem;border-radius:30px;box-shadow:0 10px 48px 0 rgba(0,0,0,0.13), 0 2px 12px 0 rgba(0,0,0,0.10);border:1px solid #383558;max-width:900px;width:100%;margin:auto;animation:fadeInCard 0.7s ease;overflow:auto;'><h2 style='color:#4285f4;'>Testing Requirement Analysis</h2><h3>1. Introduction</h3><p>Requirement Analysis in software testing is the first and most critical phase of the Software Testing Life Cycle (STLC). It involves studying and analyzing the requirements specified by stakeholders, clients, or business analysts to ensure they are testable, complete, and unambiguous.<br>Without a proper requirement analysis, the entire testing process may fail to meet the business needs, resulting in defective software, missed functionalities, or unsatisfied users.</p><h3>2. Objectives of Requirement Analysis in Testing</h3><ul><li>Understand what needs to be tested.</li><li>Identify and resolve ambiguities or inconsistencies in the requirements.</li><li>Determine the types of testing required (e.g., functional, non-functional).</li><li>Identify testable and non-testable requirements.</li><li>Estimate resources, tools, and effort required for testing.</li><li>Define high-level test scenarios and conditions.</li></ul><h3>3. Key Activities in Requirement Analysis</h3><table style='width:100%;border-collapse:collapse;'><tr><th style='border-bottom:1px solid #ccc;text-align:left;'>Activity</th><th style='border-bottom:1px solid #ccc;text-align:left;'>Description</th></tr><tr><td>Requirement Review</td><td>Study the Business Requirement Document (BRD), Functional Specification Document (FSD), and other artifacts.</td></tr><tr><td>Clarification Sessions</td><td>Conduct meetings with stakeholders (developers, BAs, clients) to clarify doubts.</td></tr><tr><td>Feasibility Study</td><td>Analyze whether requirements are testable within scope, time, and budget constraints.</td></tr><tr><td>Identify Test Conditions</td><td>Extract high-level test conditions from requirements.</td></tr><tr><td>Traceability Matrix Preparation</td><td>Begin drafting a Requirement Traceability Matrix (RTM) to ensure coverage.</td></tr></table><h3>4. Types of Requirements to Analyze</h3><ul><li>Business Requirements: High-level objectives of the organization.</li><li>Functional Requirements: Describes what the system should do.</li><li>Non-Functional Requirements: Includes performance, usability, reliability, and security.</li><li>Interface Requirements: External system interactions and data flows.</li><li>Regulatory Requirements: Compliance with laws, rules, or standards.</li></ul><h3>5. Challenges in Requirement Analysis</h3><ul><li>Incomplete or unclear requirements.</li><li>Frequently changing requirements.</li><li>Miscommunication among stakeholders.</li><li>Lack of domain knowledge.</li><li>Requirements that are not testable (e.g., vague terms like “fast”, “user-friendly”).</li></ul><h3>6. Best Practices</h3><ul><li>Involve QA early in the SDLC (Shift Left Testing).</li><li>Use checklists to review requirement documents.</li><li>Collaborate actively with stakeholders for clarification.</li><li>Maintain a living Requirement Traceability Matrix (RTM).</li><li>Prioritize requirements based on risk and business impact.</li><li>Use tools like JIRA, Confluence, or ALM for requirement management.</li></ul><h3>7. Tools for Requirement Analysis</h3><ul><li>JIRA: For requirement tracking and issue management.</li><li>Confluence: For documentation and collaboration.</li><li>DOORS: Requirements management tool by IBM.</li><li>ReqTest, TestRail: Tools for managing and analyzing requirements.</li></ul><h3>8. Output of Requirement Analysis</h3><ul><li>Requirement Review Reports</li><li>Clarification Logs</li><li>Identified Test Scenarios and Conditions</li><li>Requirement Traceability Matrix (Initial version)</li><li>Risk Analysis Report (if applicable)</li><li>Test Strategy (input for next phase)</li></ul><h3>9. Conclusion</h3><p>Requirement Analysis sets the foundation for a successful testing process. By thoroughly understanding and validating requirements before designing test cases, QA teams can ensure better coverage, fewer defects, and a more aligned end product. This proactive step reduces the cost of fixing defects in later stages and ensures that the final product meets user expectations.</p></div>`,
                             planning: `<div style='background:#fff;color:#14213d;padding:2rem 2.5rem;border-radius:30px;box-shadow:0 10px 48px 0 rgba(0,0,0,0.13), 0 2px 12px 0 rgba(0,0,0,0.10);border:1px solid #383558;max-width:900px;width:100%;margin:auto;animation:fadeInCard 0.7s ease;overflow:auto;'><h2 style='color:#4285f4;'>Test Planning</h2><h3>1. Introduction</h3><p>Test Planning is a fundamental phase in the Software Testing Life Cycle (STLC). It involves defining the scope, approach, resources, and schedule for the testing activities. The goal of the test planning phase is to create a Test Plan document that serves as a blueprint for the entire testing process.<br>Without a well-defined test plan, testing may become disorganized, inefficient, and unable to meet project goals or timelines.</p><h3>2. Objectives of Test Planning</h3><ul><li>Define the scope and objectives of testing.</li><li>Identify test deliverables and timelines.</li><li>Allocate resources and responsibilities.</li><li>Decide on test strategies, tools, and environments.</li><li>Outline risk management and mitigation plans.</li><li>Ensure traceability between requirements and test coverage.</li></ul><h3>3. Key Activities in Test Planning</h3><table style='width:100%;border-collapse:collapse;'><tr><th style='border-bottom:1px solid #ccc;text-align:left;'>Activity</th><th style='border-bottom:1px solid #ccc;text-align:left;'>Description</th></tr><tr><td>Understand Project Requirements</td><td>Analyze BRD, FRS, and technical specifications.</td></tr><tr><td>Define Test Objectives & Scope</td><td>What to test and what not to test.</td></tr><tr><td>Identify Testing Types</td><td>E.g., Functional, Regression, Performance, Security.</td></tr><tr><td>Select Test Design Techniques</td><td>Black-box, boundary value, decision tables, etc.</td></tr><tr><td>Determine Entry/Exit Criteria</td><td>Conditions to start or stop testing.</td></tr><tr><td>Estimate Effort & Resources</td><td>Based on scope and complexity.</td></tr><tr><td>Plan for Test Environment</td><td>Hardware, software, network, data requirements.</td></tr><tr><td>Define Roles and Responsibilities</td><td>Assign tasks to QA team members.</td></tr><tr><td>Risk Analysis and Mitigation</td><td>Identify potential risks and how to handle them.</td></tr><tr><td>Create a Test Schedule</td><td>Define timelines and milestones.</td></tr></table><h3>4. Components of a Test Plan Document</h3><ol><li>Test Plan ID</li><li>Introduction</li><li>Test Items (modules/features to be tested)</li><li>Features to be Tested</li><li>Features Not to be Tested</li><li>Test Strategy</li><li>Test Deliverables</li><li>Entry and Exit Criteria</li><li>Test Environment</li><li>Test Schedule</li><li>Resource Planning</li><li>Tools & Automation Approach</li><li>Risk and Contingency Plan</li><li>Approval & Sign-off</li></ol><h3>5. Roles Involved in Test Planning</h3><ul><li>Test Manager / QA Lead – Owns and prepares the test plan.</li><li>Project Manager – Provides inputs on scope, timelines, and priorities.</li><li>Business Analyst – Clarifies requirements.</li><li>Development Lead – Provides inputs on technical dependencies and environments.</li><li>QA Team – Estimates effort and gives feedback.</li></ul><h3>6. Test Planning Tools</h3><ul><li>Microsoft Excel / Word – For manual test plan documentation.</li><li>JIRA + Xray/TestRail – For test management.</li><li>Zephyr – Test management plugin for JIRA.</li><li>TestLink – Open-source test management tool.</li><li>qTest – Test case management, integrates with Agile tools.</li></ul><h3>7. Best Practices in Test Planning</h3><ul><li>Start early – align with development milestones (Shift Left).</li><li>Involve all stakeholders to gather accurate inputs.</li><li>Keep the plan realistic and aligned with available resources.</li><li>Update the plan regularly as the project evolves.</li><li>Link test plan with requirement traceability for better coverage.</li><li>Define clear metrics for success (e.g., defect density, test coverage).</li></ul><h3>8. Risks in Poor Test Planning</h3><ul><li>Scope creep and test coverage gaps.</li><li>Resource misallocation and project delays.</li><li>Inability to track testing progress or quality.</li><li>Missed deadlines or release issues.</li><li>Increased costs due to late defect discovery.</li></ul><h3>9. Conclusion</h3><p>Test Planning is the foundation of effective and efficient testing. A well-thought-out test plan not only guides the QA team but also aligns stakeholders toward common quality goals. It minimizes risk, improves test coverage, and ensures a smoother testing process from start to finish.</p><div style='margin-top:2.5rem;'></div><a href='sample-test-plan.docx' download style='display:inline-block;margin-top:1.2rem;background:#ffd600;color:#14213d;font-weight:700;font-size:1.08rem;padding:0.7rem 1.7rem;border:none;border-radius:10px;text-decoration:none;box-shadow:0 2px 12px #ffd60040;transition:background 0.2s;cursor:pointer;'>Download Sample Test Plan (Word)</a></div>`,
                             case: `<div style='background:#fff;color:#14213d;padding:2rem 2.5rem;border-radius:30px;box-shadow:0 10px 48px 0 rgba(0,0,0,0.13), 0 2px 12px 0 rgba(0,0,0,0.10);border:1px solid #383558;max-width:900px;width:100%;margin:auto;animation:fadeInCard 0.7s ease;overflow:auto;'>
@@ -539,6 +653,30 @@ In simple terms, it’s where the QA team “test drives” the application befo
 </a></div>`,
                         };
                         document.getElementById('stlc-content').innerHTML = content[phase] || '';
+                        if (phase === 'account') {
+                            // Fill user info
+                            const user = JSON.parse(localStorage.getItem('bobUser') || '{}');
+                            const id = user.id || '';
+                            const name = user.name || '';
+                            const email = user.email || '';
+                            const userInfoBox = document.getElementById('userInfoBox');
+                            if (userInfoBox) {
+                                userInfoBox.innerHTML = `
+                                  <div style='margin-bottom:1rem;font-size:1.13rem;border-bottom:1px solid #e3eafc;padding-bottom:0.7rem;'><span style='font-weight:700;'>Name:</span> ${name || 'N/A'}</div>
+                                  <div style='margin-bottom:1rem;font-size:1.13rem;border-bottom:1px solid #e3eafc;padding-bottom:0.7rem;'><span style='font-weight:700;'>Email:</span> ${email || 'N/A'}</div>
+                                  <div style='margin-bottom:1rem;font-size:1.13rem;'><span style='font-weight:700;'>User ID:</span> ${id || 'N/A'}</div>
+                                `;
+                            }
+                            // Set avatar initial or icon
+                            const userAvatarBox = document.getElementById('userAvatarBox');
+                            if (userAvatarBox) {
+                                if (name && name.trim().length > 0) {
+                                    userAvatarBox.textContent = name.trim()[0].toUpperCase();
+                                } else {
+                                    userAvatarBox.textContent = '👤';
+                                }
+                            }
+                        }
                     }
                                         // Show Requirement Analysis by default
                                         window.onload = function() { showSTLCContent('account'); };
@@ -546,35 +684,34 @@ In simple terms, it’s where the QA team “test drives” the application befo
                                         // Hamburger menu logic
                                         function toggleSidebar() {
                                             const sidebar = document.getElementById('sidebar');
-                                            const stlcContent = document.getElementById('stlc-content');
                                             if (window.innerWidth <= 800) {
-                                                if (sidebar.style.transform === 'translateX(-100%)') {
-                                                    sidebar.style.transform = 'translateX(0)';
-                                                    stlcContent.style.width = '85%';
+                                                sidebar.classList.toggle('open');
+                                                // Show/hide overlay
+                                                const overlay = document.getElementById('sidebar-overlay');
+                                                if (sidebar.classList.contains('open')) {
+                                                    overlay.style.display = 'block';
                                                 } else {
-                                                    sidebar.style.transform = 'translateX(-100%)';
-                                                    stlcContent.style.width = '100%';
+                                                    overlay.style.display = 'none';
                                                 }
                                             }
                                         }
                                         document.addEventListener('DOMContentLoaded', function() {
                                             const hamburgerBtn = document.getElementById('hamburger-btn');
                                             const sidebar = document.getElementById('sidebar');
-                                            const stlcContent = document.getElementById('stlc-content');
                                             function handleResize() {
-                                                if (window.innerWidth <= 800) {
-                                                    hamburgerBtn.style.display = 'inline-block';
-                                                    sidebar.style.transform = 'translateX(-100%)';
-                                                    stlcContent.style.width = '100%';
-                                                } else {
-                                                    hamburgerBtn.style.display = 'none';
-                                                    sidebar.style.transform = 'translateX(0)';
-                                                    stlcContent.style.width = '85%';
-                                                }
+                                                sidebar.classList.remove('open');
+                                                document.getElementById('sidebar-overlay').style.display = 'none';
                                             }
                                             hamburgerBtn.addEventListener('click', toggleSidebar);
                                             window.addEventListener('resize', handleResize);
                                             handleResize();
+                                            // Close sidebar when a sidebar link is clicked (mobile)
+                                            sidebar.addEventListener('click', function(e) {
+                                                if (window.innerWidth <= 800 && e.target.tagName === 'A') {
+                                                    closeSidebar();
+                                                    document.getElementById('sidebar-overlay').style.display = 'none';
+                                                }
+                                            });
                                         });
                                         </script>
             

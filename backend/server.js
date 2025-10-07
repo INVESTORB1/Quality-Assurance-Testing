@@ -7,6 +7,7 @@ import bcrypt from 'bcryptjs';
 
 import { readUsers, writeUsers } from './db.js';
 import { readMessages, writeMessages } from './messages-db.js';
+import { readInteractions, writeInteractions } from './interactions-db.js';
 
 const app = express();
 const PORT = 4000;
@@ -31,6 +32,17 @@ app.post('/messages', (req, res) => {
   };
   messages.push(newMsg);
   writeMessages(messages);
+  // Log interaction
+  const interactions = readInteractions();
+  interactions.push({
+    type: 'contact',
+    name,
+    email,
+    subject: subject || '',
+    message,
+    timestamp: newMsg.timestamp
+  });
+  writeInteractions(interactions);
   res.json({ success: true });
 });
 
@@ -83,6 +95,15 @@ app.post('/signup', (req, res) => {
     ...rest
   });
   writeUsers(users);
+  // Log interaction
+  const interactions = readInteractions();
+  interactions.push({
+    type: 'signup',
+    name,
+    email,
+    timestamp: new Date().toISOString()
+  });
+  writeInteractions(interactions);
   res.json({ success: true });
 });
 
@@ -120,6 +141,15 @@ app.post('/admin/create', (req, res) => {
     ...rest
   });
   writeUsers(users);
+  // Log interaction
+  const interactions = readInteractions();
+  interactions.push({
+    type: 'admin_create_user',
+    name,
+    email,
+    timestamp: new Date().toISOString()
+  });
+  writeInteractions(interactions);
   res.json({ success: true });
 });
 
@@ -130,7 +160,20 @@ app.post('/login', (req, res) => {
   const user = users.find(u => u.email === email && u.status === 'active');
   if (!user) return res.status(401).json({ error: 'Invalid credentials or not approved' });
   if (!bcrypt.compareSync(password, user.password)) return res.status(401).json({ error: 'Invalid credentials' });
+  // Log interaction
+  const interactions = readInteractions();
+  interactions.push({
+    type: 'login',
+    email,
+    timestamp: new Date().toISOString()
+  });
+  writeInteractions(interactions);
   res.json({ success: true, user: { id: user.id, name: user.name, email: user.email } });
+});
+// Admin: get all user interactions
+app.get('/admin/interactions', (req, res) => {
+  const interactions = readInteractions();
+  res.json(interactions);
 });
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

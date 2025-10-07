@@ -97,12 +97,12 @@
         <div style="max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:2rem;position:relative;z-index:1;">
             <!-- Logo -->
             <div style="display:flex;align-items:center;gap:0.5rem;">
-                <img src="BOB.png" alt="EngainsMedia Logo" style="height:72px;">
+                <img src="BOB.png" alt="B.O.B Logo" style="height:72px;">
                 <span style="font-size:2rem;font-style:italic;color:#4285f4;margin-left:-0.4rem;align-self:flex-end;">Academy</span>
             </div>
             <!-- Navigation -->
             <nav style="display:flex;gap:1.5rem;flex:1;justify-content:center;margin-left:14rem;">
-                <a href="engainsmedia-homepage.html" style="color:#f7f7f8;font-size:1.25rem;font-weight:500;text-decoration:none;">Home</a>
+                    <a href="bob-academy-homepage.html" style="color:#f7f7f8;font-size:1.25rem;font-weight:500;text-decoration:none;">Home</a>
                 <a href="signup.html" style="color:#f7f7f8;font-size:1.25rem;font-weight:500;text-decoration:none;">Account</a>
                 <a href="courses.html" style="color:#f7f7f8;font-size:1.25rem;font-weight:500;text-decoration:none;">Courses</a>
                 <a href="services.html" style="color:#f7f7f8;font-size:1.25rem;font-weight:500;text-decoration:none;">Services</a>
@@ -125,7 +125,7 @@
     <!-- Mobile nav links moved outside header for visibility -->
     <ul class="mobile-nav-links" id="mobile-nav">
         <li class="mobile-nav-close"><button id="close-mobile-nav" aria-label="Close menu">&times;</button></li>
-        <li><a href="engainsmedia-homepage.html">Home</a></li>
+        <li><a href="b.o.b.html">Home</a></li>
         <li><a href="signup.html">Account</a></li>
         <li><a href="courses.html">Courses</a></li>
         <li><a href="services.html">Services</a></li>
@@ -134,25 +134,58 @@
     </ul>
     <main style="max-width:900px;margin:3rem auto 2rem auto;padding:2.5rem;background:#f7f9fc;border-radius:18px;box-shadow:0 4px 24px #23408e22;">
         <h1 style="color:#23408e;font-family:'Inter','Segoe UI',sans-serif;font-weight:800;letter-spacing:0.01em;margin-bottom:1.2rem;font-size:2.3rem;line-height:1.1;">Contact Us</h1>
-        <form style="display:flex;flex-direction:column;gap:1.3rem;max-width:500px;margin:0 auto;">
+        <form id="contactForm" style="display:flex;flex-direction:column;gap:1.3rem;max-width:500px;margin:0 auto;">
             <label for="name" style="font-weight:500;">Name</label>
             <input type="text" id="name" name="name" required style="padding:0.8rem;border-radius:6px;border:1.5px solid #e3eafc;font-size:1rem;">
             <label for="email" style="font-weight:500;">Email</label>
             <input type="email" id="email" name="email" required style="padding:0.8rem;border-radius:6px;border:1.5px solid #e3eafc;font-size:1rem;">
+            <label for="subject" style="font-weight:500;">Subject (optional)</label>
+            <input type="text" id="subject" name="subject" style="padding:0.8rem;border-radius:6px;border:1.5px solid #e3eafc;font-size:1rem;">
             <label for="message" style="font-weight:500;">Message</label>
             <textarea id="message" name="message" rows="5" required style="padding:0.8rem;border-radius:6px;border:1.5px solid #e3eafc;font-size:1rem;"></textarea>
             <button type="submit" style="margin-top:1.2rem;background:linear-gradient(90deg,#1a73e8 60%,#4285f4 100%);color:#fff;font-size:1.15rem;font-weight:700;padding:0.9rem 0;border:none;border-radius:8px;box-shadow:0 2px 8px #1a73e820;cursor:pointer;">Send Message</button>
         </form>
+        <div id="contactStatus" style="margin-top:1.2rem;text-align:center;font-weight:600;"></div>
+<script>
+document.getElementById('contactForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const subject = document.getElementById('subject').value.trim();
+    const message = document.getElementById('message').value.trim();
+    const statusDiv = document.getElementById('contactStatus');
+    statusDiv.textContent = '';
+    try {
+        const res = await fetch('http://localhost:4000/messages', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name, email, subject, message })
+        });
+        const data = await res.json();
+        if (data.success) {
+            statusDiv.style.color = '#1a73e8';
+            statusDiv.textContent = 'Message sent successfully!';
+            document.getElementById('contactForm').reset();
+        } else {
+            statusDiv.style.color = 'red';
+            statusDiv.textContent = data.error || 'Failed to send message.';
+        }
+    } catch (err) {
+        statusDiv.style.color = 'red';
+        statusDiv.textContent = 'Failed to send message. Please try again later.';
+    }
+});
+</script>
         <div style="margin-top:2.5rem;text-align:center;color:#2d3a4a;font-size:1.1rem;">
             <p>Email: <a href="mailto:info@bobacademy.com" style="color:#1a73e8;">info@bobacademy.com</a></p>
-            <p>Phone: <a href="tel:+1234567890" style="color:#1a73e8;">+1 234 567 890</a></p>
+            <p>Phone: <a href="tel:+1234567890" style="color:#1a73e8;">+234 70 3080 3037</a></p>
             <p>Address: 123 QA Street, Lagos, Nigeria</p>
         </div>
     </main>
     <footer style="background:#23408e;color:#fff;padding:2rem 0 1.2rem 0;margin-top:3rem;text-align:center;border-radius:0 0 18px 18px;box-shadow:0 -2px 12px #1a73e820;">
         <div style="max-width:1200px;margin:0 auto;">
-            <div style="font-size:1.1rem;margin-bottom:0.7rem;">&copy; 2025 EngainsMedia Academy. All rights reserved.</div>
-            <div style="font-size:0.98rem;">Empowering the next generation of QA professionals.</div>
+            <div style="font-size:1.1rem;margin-bottom:0.7rem;">&copy; 2025 B.O.B Academy. All rights reserved.</div>
+                <div style="font-size:0.98rem;">Empowering the next generation of QA professionals.</div>
         </div>
     </footer>
 </body>
