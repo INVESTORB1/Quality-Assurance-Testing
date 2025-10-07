@@ -1,0 +1,71 @@
+Test Summary Report
+
+Project Name: Online Banking Application
+Test Cycle: Cycle 3 – Regression Testing
+Version: v3.2.1
+Date: October 7, 2025
+Prepared By: QA Team
+Reviewed By: Test Manager
+
+1. Objective
+The objective of this test cycle was to perform regression testing on the Online Banking Application after the integration of new features—Funds Transfer Enhancements and Two-Factor Authentication (2FA)—and to ensure that existing functionalities were not affected.
+
+2. Scope
+• In-Scope:
+  o Login and Authentication
+  o Funds Transfer Module
+  o Account Summary
+  o Transaction History
+• Out-of-Scope:
+  o Mobile App Version (Testing planned for next release)
+  o Performance and Load Testing
+
+3. Test Summary
+Item	Description
+Total Test Cases Planned	250
+Total Test Cases Executed	245
+Test Cases Passed	230
+Test Cases Failed	10
+Test Cases Blocked	5
+Execution Rate	98%
+Pass Percentage	94%
+
+4. Defect Summary
+Defect Severity	Count	Status
+Critical	2	Fixed & Verified
+Major	5	Fixed & Verified
+Minor	6	Deferred to Next Release
+Total	13
+Defect Density: 0.05 defects per test case
+Major Root Causes: Configuration issues, validation logic errors, and minor UI inconsistencies.
+
+5. Environment Details
+Component	Description
+Test Environment	QA Server 2
+OS	Windows Server 2022
+Database	MySQL 8.0
+Browser	Chrome 129, Edge 128
+Build Version	Build_2025.10.05
+
+6. Observations and Key Findings
+• The new 2FA feature performed as expected under normal and edge conditions.
+• Minor UI alignment issues were identified on smaller screen resolutions.
+• Funds Transfer validation logic failed under certain negative scenarios—fixed in Patch 3.2.1.1
+
+7. Risks and Mitigations
+Risk	Impact	Mitigation
+Deferred defects may affect user experience in rare cases	Low	Plan for quick fix in next patch cycle
+Limited device coverage in this cycle	Medium	Include mobile devices in next regression cycle
+
+8. Metrics
+• Defect Leakage Rate: 2%
+• Test Execution Productivity: 45 test cases/day/tester
+• Automation Coverage: 60% of regression suite
+
+9. Lessons Learned
+• Early environment setup improved test execution efficiency.
+• Better coordination with development reduced retest delays.
+• Test data reusability should be enhanced for faster turnaround.
+
+10. Conclusion
+All major functionalities have been verified, and the application meets the defined acceptance criteria. The system is recommended for UAT (User Acceptance Testing), with minor issues deferred to the next release.

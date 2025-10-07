@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Case Development Guide</title>
+  <style>
+    body { background: #f5f7fa; color: #14213d; font-family: Arial, sans-serif; margin: 0; padding: 0; }
+    .container { background: #fff; color: #14213d; padding: 2rem 2.5rem; border-radius: 30px; box-shadow: 0 10px 48px 0 rgba(0,0,0,0.13), 0 2px 12px 0 rgba(0,0,0,0.10); border: 1px solid #383558; max-width: 900px; width: 100%; margin: 2rem auto; }
+    h2 { color: #4285f4; }
+    table { width: 100%; border-collapse: collapse; border: 1px solid #4285f4; margin-bottom: 1.5rem; }
+    th, td { border: 1px solid #4285f4; padding: 8px; }
+    th { background: #e2eafc; }
+    ul { margin-bottom: 1.5rem; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>✅ Test Case Development: Complete Guide</h2>
+    <h3>1. What is Test Case Development?</h3>
+    <p>Test Case Development is the process of designing detailed, step-by-step instructions to verify that a software application functions as expected. A test case is a set of actions executed to verify a specific feature or functionality of the application under test (AUT).</p>
+    <ul><li>Validates whether the system meets the business requirements</li><li>Detects defects</li><li>Helps ensure quality and reliability</li></ul>
+    <h3>2. Objectives of Test Case Development</h3>
+    <ul><li>Translate business and technical requirements into verifiable checks</li><li>Ensure all functional and non-functional aspects are tested</li><li>Provide clear and repeatable steps for testers</li><li>Support traceability (link test cases to requirements)</li><li>Facilitate regression, automation, and UAT testing</li></ul>
+    <h3>3. Key Components of a Test Case</h3>
+    <table>
+      <tr><th>Field</th><th>Description</th></tr>
+      <tr><td>Test Case ID</td><td>Unique identifier (e.g., TC001, TC_Login_Valid)</td></tr>
+      <tr><td>Test Title</td><td>Brief title summarizing what the test case checks</td></tr>
+      <tr><td>Description</td><td>Detailed explanation of the test scenario</td></tr>
+      <tr><td>Preconditions</td><td>Any setup or state required before execution (e.g., login required)</td></tr>
+      <tr><td>Test Steps</td><td>Step-by-step actions to perform the test</td></tr>
+      <tr><td>Test Data</td><td>Input data used in the test</td></tr>
+      <tr><td>Expected Result</td><td>What should happen if the feature works correctly</td></tr>
+      <tr><td>Actual Result</td><td>What actually happens (filled during execution)</td></tr>
+      <tr><td>Status</td><td>Pass / Fail / Blocked / Not Run</td></tr>
+      <tr><td>Priority</td><td>Business importance (High, Medium, Low)</td></tr>
+      <tr><td>Requirement ID</td><td>Link to the business requirement or user story</td></tr>
+      <tr><td>Automation Status</td><td>Manual or Automated</td></tr>
+    </table>
+    <h3>4. Types of Test Cases</h3>
+    <table>
+      <tr><th>Type</th><th>Purpose</th></tr>
+      <tr><td>Functional</td><td>Validate specific functions of the application</td></tr>
+      <tr><td>UI/UX</td><td>Verify layout, visuals, and interactions</td></tr>
+      <tr><td>Integration</td><td>Test communication between modules or APIs</td></tr>
+      <tr><td>Boundary Value</td><td>Check limits (e.g., max/min input values)</td></tr>
+      <tr><td>Negative</td><td>Ensure system handles invalid inputs gracefully</td></tr>
+      <tr><td>Security</td><td>Test authentication, access control, and data security</td></tr>
+      <tr><td>Performance</td><td>Check system behavior under load/stress</td></tr>
+      <tr><td>Regression</td><td>Re-test existing functionality after changes</td></tr>
+      <tr><td>Smoke/Sanity</td><td>Basic checks for stability before deeper testing</td></tr>
+      <tr><td>User Acceptance (UAT)</td><td>Business-driven tests done by end users</td></tr>
+    </table>
+    <h3>5. Test Case Development Process (Step-by-Step)</h3>
+    <ul><li><strong>Step 1: Understand Requirements</strong><br>Analyze BRD, SRS, User Stories, and Mockups<br>Attend clarification sessions with stakeholders</li><li><strong>Step 2: Identify Test Scenarios</strong><br>High-level ideas that represent testable features or flows</li><li><strong>Step 3: Derive Test Cases from Scenarios</strong><br>Break down each scenario into multiple test cases<br>Include both positive and negative flows</li><li><strong>Step 4: Define Preconditions and Data</strong><br>Ensure setup is documented (user roles, environments, etc.)</li><li><strong>Step 5: Write Clear Test Steps and Expected Results</strong><br>Use concise and actionable language<br>Avoid ambiguity</li><li><strong>Step 6: Review and Validate</strong><br>Peer reviews and walkthroughs with QA/BA/devs</li></ul>
+    <h3>6. Best Practices for Writing Effective Test Cases</h3>
+    <ul><li>✅ Keep them clear and simple</li><li>✅ Focus on one objective per test case</li><li>✅ Make them repeatable and reusable</li><li>✅ Ensure coverage: functional, edge, error paths</li><li>✅ Use realistic test data</li><li>✅ Maintain traceability with requirements</li><li>✅ Version control test cases when changes are made</li><li>✅ Use consistent naming conventions</li><li>✅ Label tests by priority and risk</li></ul>
+    <h3>7. Common Mistakes to Avoid</h3>
+    <ul><li>❌ Combining multiple validations into one test case</li><li>❌ Using vague steps like “click around the page”</li><li>❌ Ignoring negative or boundary scenarios</li><li>❌ Not updating test cases after requirement changes</li><li>❌ Writing test cases that are too dependent on others (lack modularity)</li><li>❌ Lack of alignment with real user behavior</li></ul>
+    <h3>8. Manual vs. Automated Test Cases</h3>
+    <table>
+      <tr><th>Aspect</th><th>Manual</th><th>Automated</th></tr>
+      <tr><td>Execution</td><td>Human-performed</td><td>Scripted & executed by tools</td></tr>
+      <tr><td>Best For</td><td>Exploratory, UI, Ad hoc</td><td>Regression, data-driven, repetitive</td></tr>
+      <tr><td>Tools</td><td>Excel, JIRA, TestRail</td><td>Selenium, Cypress, Postman, JUnit</td></tr>
+      <tr><td>Maintenance</td><td>Lower</td><td>Requires regular updates</td></tr>
+      <tr><td>Cost</td><td>Lower upfront, higher over time</td><td>Higher setup, lower long-term cost</td></tr>
+    </table>
+    <h3>9. Example Test Case (Manual)</h3>
+    <table>
+      <tr><th>Field</th><th>Example</th></tr>
+      <tr><td>Test Case ID</td><td>TC_Login_001</td></tr>
+      <tr><td>Title</td><td>Ensure that user can log in with valid credentials</td></tr>
+      <tr><td>Preconditions</td><td>User is registered with valid username/password</td></tr>
+      <tr><td>Test Steps</td><td>1. Go to login page<br>2. Enter valid credentials<br>3. Click login</td></tr>
+      <tr><td>Test Data</td><td>Username: john.doe<br>Password: Test@123</td></tr>
+      <tr><td>Expected Result</td><td>User is redirected to the dashboard</td></tr>
+      <tr><td>Status</td><td>Not Run</td></tr>
+      <tr><td>Priority</td><td>High</td></tr>
+      <tr><td>Requirement ID</td><td>REQ-IMS-001</td></tr>
+    </table>
+    <h3>10. Tools for Test Case Development & Management</h3>
+    <table>
+      <tr><th>Tool</th><th>Use</th></tr>
+      <tr><td>TestRail</td><td>Full-featured test case management</td></tr>
+      <tr><td>JIRA + Zephyr/Xray</td><td>Test case tracking integrated with Agile boards</td></tr>
+      <tr><td>TestLink</td><td>Open-source test management</td></tr>
+      <tr><td>PractiTest</td><td>End-to-end test case and execution tracking</td></tr>
+      <tr><td>SpiraTest</td><td>Requirement and test case traceability</td></tr>
+    </table>
+    <h3>11. Benefits of Good Test Case Development</h3>
+    <ul><li>Enhances software quality and reliability</li><li>Reduces time spent on bug detection and fixing</li><li>Enables automation readiness</li><li>Improves team collaboration and transparency</li><li>Provides solid documentation for audits and future reference</li></ul>
+    <h3>12. Test Case Development Checklist ✅</h3>
+    <ul><li>Do all test cases map to a requirement?</li><li>Are both positive and negative paths covered?</li><li>Are test steps clear and reproducible?</li><li>Is test data defined and realistic?</li><li>Have edge cases and boundary conditions been addressed?</li><li>Are test cases prioritized?</li><li>Have test cases been reviewed?</li></ul>
+    <h3>Conclusion</h3>
+    <p>Test Case Development is not just a technical task—it’s a critical communication bridge between requirements and quality assurance. Well-designed test cases reduce risk, increase test efficiency, and ensure that the product aligns with business goals.</p>
+    <p>Whether you're testing manually or building automation scripts, starting with strong, maintainable, and purposeful test cases is non-negotiable for successful software delivery.</p>
+  </div>
+</body>
+</html>

@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome Dashboard</title>
+    <link rel="stylesheet" href="engainsmedia-homepage.css">
+    <style>
+        :root {
+            --dark-blue: #b9bcc1;
+            --yellow: #ffd600;
+        }
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem 0 1rem;
+        }
+        .banner {
+            background: var(--yellow);
+            color: #111c3a;
+            padding: 1.2rem 2rem;
+            border-radius: 0 0 18px 18px;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-weight: bold;
+        }
+        .banner button {
+            background: #fff;
+            color: var(--dark-blue);
+            border: none;
+            border-radius: 20px;
+            padding: 0.7rem 1.7rem;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .banner button:hover {
+            background: #e0c200;
+        }
+        .welcome-section {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        .welcome-section h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .welcome-section p {
+            font-size: 1.2rem;
+            color: #b0b8d1;
+        }
+        .cards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+        }
+        .card {
+            background: #13204a;
+            border-radius: 12px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+            padding: 2rem 2.5rem;
+            min-width: 260px;
+            max-width: 320px;
+            text-align: left;
+        }
+        .card h2 {
+            color: var(--yellow);
+            margin-bottom: 0.7rem;
+        }
+        .card p {
+            color: #dbe6fd;
+        }
+        @media (max-width: 900px) {
+            .cards {
+                flex-direction: column;
+                align-items: center;
+            }
+            .main-content {
+                padding: 0 0.5rem;
+            }
+        }
+        /* Responsive layout for sidebar and main content */
+        @media (max-width: 800px) {
+            body {
+                overflow: auto;
+            }
+            header {
+                flex-direction: column !important;
+                height: auto !important;
+                padding: 0.7rem 0.7rem !important;
+            }
+            header > div {
+                flex-direction: row !important;
+                justify-content: space-between !important;
+            }
+        }
+        @media (max-width: 800px) {
+            header {
+                flex-direction: row !important;
+                height: auto !important;
+                padding: 0.5rem 0.5rem !important;
+                align-items: center !important;
+                justify-content: space-between !important;
+            }
+            header > div {
+                flex-direction: row !important;
+                align-items: center !important;
+                justify-content: flex-start !important;
+                gap: 0.5rem !important;
+                width: auto;
+                margin-bottom: 0;
+            }
+            header span {
+                font-size: 0.95rem !important;
+                margin: 0 0.2rem 0 0 !important;
+            }
+            header button {
+                display: none !important;
+            }
+        }
+        @media (max-width: 500px) {
+            header {
+                flex-direction: row !important;
+                padding: 0.2rem 0.2rem !important;
+                align-items: center !important;
+                justify-content: space-between !important;
+            }
+            header > div {
+                flex-direction: row !important;
+                align-items: center !important;
+                justify-content: flex-start !important;
+                gap: 0.3rem !important;
+                width: auto;
+                margin-bottom: 0;
+            }
+            header span {
+                font-size: 0.9rem !important;
+                margin: 0 0.1rem 0 0 !important;
+            }
+            header button {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body style="background: var(--dark-blue); color: #fff; margin: 0; font-family: 'Segoe UI', Arial, sans-serif; height: 100vh; overflow: hidden;">
+        <!-- Header (logo and Academy text left, user ID and logout right) -->
+        <header id="main-header" style="background:#13204a;padding:0.6rem 1.5rem;display:flex;align-items:center;justify-content:space-between;box-shadow:0 2px 8px #0001;position:relative;z-index:2;width:100vw;height:15vh;min-height:60px;">
+            <div style="display:flex;align-items:center;gap:0.2rem;">
+                <img src="BOB.png" alt="EngainsMedia Logo" style="height:68px;">
+                <span style="font-size:1.5rem;font-style:italic;color:#4285f4;margin-left:-0.3rem;align-self:flex-end;">Academy</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:2.7rem;">
+                <span style="color:#ffd600;font-weight:600;font-size:1.1rem;">User ID: 123456</span>
+                <button onclick="window.location.href='signup.html'" style="background:#ffd600;color:#13204a;font-weight:700;font-size:1rem;padding:0.6rem 4.5rem;border:none;border-radius:8px;cursor:pointer;">Logout</button>
+                <button id="hamburger-btn" aria-label="Open menu" style="display:none;background:none;border:none;outline:none;cursor:pointer;padding:0 1rem;">
+                    <span style="display:inline-block;width:32px;height:32px;position:relative;">
+                        <span style="background:#ffd600;height:4px;width:100%;display:block;position:absolute;top:6px;left:0;border-radius:2px;"></span>
+                        <span style="background:#ffd600;height:4px;width:100%;display:block;position:absolute;top:14px;left:0;border-radius:2px;"></span>
+                        <span style="background:#ffd600;height:4px;width:100%;display:block;position:absolute;top:22px;left:0;border-radius:2px;"></span>
+                    </span>
+                </button>
+            </div>
+        </header>
+        <div style="display:flex;height:80vh;width:100vw;background:var(--dark-blue);overflow:hidden;">
+                    <!-- Sidebar (Left Tab - 16%) -->
+                        <aside id="sidebar" style="width:15%;height:100%;background:#13204a;padding:0.1rem 0.4rem 1.5rem 1.3rem;display:flex;flex-direction:column;justify-content:flex-start;border-radius:0 0 0 18px;box-shadow:0 4px 24px #0004;z-index:1;min-height:0;transition:transform 0.3s ease, left 0.3s;">
+            <div>
+                <div style="display:flex;align-items:center;gap:0.9rem;margin-bottom:2.6rem;cursor:pointer;" onclick="showSTLCContent('account')">
+                    <img src="Profile .jpeg" alt="User" style="width:38px;height:38px;border-radius:50%;object-fit:cover;">
+                    <span style="font-size:1.15rem;font-weight:600;color:#fff;">My Account</span>
+                </div>
+                <div style="height:1.5rem;"></div>
+                <nav style="display:flex;flex-direction:column;gap:1.5rem;">
+                    <a href="#" onclick="showSTLCContent('requirement')" style="display:flex;align-items:center;gap:0.8rem;color:#fff;text-decoration:none;font-size:0.8rem;font-weight:500;">
+                        <span style="font-size:1.3rem;">📝</span> Requirement Analysis
+                    </a>
+                    <a href="#" onclick="showSTLCContent('planning')" style="display:flex;align-items:center;gap:0.8rem;color:#fff;text-decoration:none;font-size:0.8rem;font-weight:500;">
+                        <span style="font-size:1.3rem;">🗂️</span> Test Planning
+                    </a>
+                    <a href="#" onclick="showSTLCContent('case')" style="display:flex;align-items:center;gap:0.8rem;color:#fff;text-decoration:none;font-size:0.8rem;font-weight:500;">
+                        <span style="font-size:1.3rem;">🧾</span> Test Case Development
+                    </a>
+                    <a href="#" onclick="showSTLCContent('environment')" style="display:flex;align-items:center;gap:0.8rem;color:#fff;text-decoration:none;font-size:0.8rem;font-weight:500;">
+                        <span style="font-size:1.3rem;">🖥️</span> Test Environment Setup
+                    </a>
+                    <a href="#" onclick="showSTLCContent('execution')" style="display:flex;align-items:center;gap:0.8rem;color:#fff;text-decoration:none;font-size:0.8rem;font-weight:500;">
+                        <span style="font-size:1.3rem;">✅</span> Test Execution
+                    </a>
+                    <a href="#" onclick="showSTLCContent('closure')" style="display:flex;align-items:center;gap:0.8rem;color:#fff;text-decoration:none;font-size:0.8rem;font-weight:500;">
+                        <span style="font-size:1.3rem;">📦</span> Test Cycle Closure
+                    </a>
+                    <a href="#" onclick="showSTLCContent('environment')" style="display:flex;align-items:center;gap:0.8rem;color:#fff;text-decoration:none;font-size:0.8rem;font-weight:500;">
+                        <span style="font-size:1.3rem;">🖥️</span> Test Environment
+                    </a>
+                </nav>
+            </div>
+          </aside>
+          <!-- Main content area (Right Tab - 80%) -->
+               <div id="stlc-content" style="width:85%;height:85vh;background:linear-gradient(135deg,#f5f7fa 0%,#e2eafc 100%);display:flex;flex-direction:column;box-shadow:0 4px 24px #0004;align-items:center;justify-content:center;overflow:auto;">
+                   <!-- STLC content will be injected here -->
+               </div>
+                    <style>
+                    @keyframes fadeInCard { from { opacity:0; transform:translateY(30px);} to { opacity:1; transform:translateY(0);} }
+                    @keyframes popBtn { 0% { transform:scale(0.8);} 80% { transform:scale(1.05);} 100% { transform:scale(1);} }
+                    aside a:hover, aside a:focus { background: #13204a22; color: #ffd600; border-radius:8px; transition:background 0.2s, color 0.2s; }
+                    aside a { transition:background 0.2s, color 0.2s; }
+                    </style>
+                    <script>
+                    function showSTLCContent(phase) {
+                        const content = {
+                            account: `<div style='background:#fff;color:#14213d;padding:1.5rem -1.8rem;border-radius:30px;box-shadow:0 10px 48px 0 rgba(0,0,0,0.13), 0 2px 12px 0 rgba(0,0,0,0.10);border:1px solid #383558;max-width:480px;max-height:70vh;width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;animation:fadeInCard 0.7s ease;'><div style='font-size:3.2rem;margin-bottom:0.7rem;'>👋</div><h1 style='font-size:2.2rem;font-weight:800;margin-bottom:1.1rem;color:#14213d;text-align:center;'>Welcome back!</h1><p style='font-size:1.15rem;margin-bottom:2rem;color:#14213d;text-align:center;'>You have successfully logged in.<br>Here is your account information:</p><div style='text-align:left;margin:0 auto 2rem auto;max-width:320px;width:100%;'><div style='margin-bottom:1rem;font-size:1.13rem;border-bottom:1px solid #e3eafc;padding-bottom:0.7rem;'><span style='font-weight:700;'>Name:</span> John Doe</div><div style='margin-bottom:1rem;font-size:1.13rem;border-bottom:1px solid #e3eafc;padding-bottom:0.7rem;'><span style='font-weight:700;'>Email:</span> johndoe@email.com</div><div style='margin-bottom:1rem;font-size:1.13rem;'><span style='font-weight:700;'>User ID:</span> 123456</div></div><a href='index.html' style='display:inline-block;margin-top:1.2rem;background:#ffd600;color:#14213d;font-weight:800;font-size:1.18rem;padding:1rem 2.5rem;border:none;border-radius:14px;text-decoration:none;box-shadow:0 2px 12px #ffd60040;transition:background 0.2s;cursor:pointer;animation:popBtn 0.7s 0.3s ease backwards;' onmouseover="this.style.background='#ffe066'" onmouseout="this.style.background='#ffd600'">Go to Home</a><div style='margin-top:1.7rem;font-size:1.08rem;color:#4285f4;text-align:center;opacity:0.85;'>Tip: Explore your dashboard for new features and updates!</div></div>`,
+                            requirement: `<div style='background:#fff;color:#14213d;padding:2rem 2.5rem;border-radius:30px;box-shadow:0 10px 48px 0 rgba(0,0,0,0.13), 0 2px 12px 0 rgba(0,0,0,0.10);border:1px solid #383558;max-width:900px;width:100%;margin:auto;animation:fadeInCard 0.7s ease;overflow:auto;'><h2 style='color:#4285f4;'>Testing Requirement Analysis</h2><h3>1. Introduction</h3><p>Requirement Analysis in software testing is the first and most critical phase of the Software Testing Life Cycle (STLC). It involves studying and analyzing the requirements specified by stakeholders, clients, or business analysts to ensure they are testable, complete, and unambiguous.<br>Without a proper requirement analysis, the entire testing process may fail to meet the business needs, resulting in defective software, missed functionalities, or unsatisfied users.</p><h3>2. Objectives of Requirement Analysis in Testing</h3><ul><li>Understand what needs to be tested.</li><li>Identify and resolve ambiguities or inconsistencies in the requirements.</li><li>Determine the types of testing required (e.g., functional, non-functional).</li><li>Identify testable and non-testable requirements.</li><li>Estimate resources, tools, and effort required for testing.</li><li>Define high-level test scenarios and conditions.</li></ul><h3>3. Key Activities in Requirement Analysis</h3><table style='width:100%;border-collapse:collapse;'><tr><th style='border-bottom:1px solid #ccc;text-align:left;'>Activity</th><th style='border-bottom:1px solid #ccc;text-align:left;'>Description</th></tr><tr><td>Requirement Review</td><td>Study the Business Requirement Document (BRD), Functional Specification Document (FSD), and other artifacts.</td></tr><tr><td>Clarification Sessions</td><td>Conduct meetings with stakeholders (developers, BAs, clients) to clarify doubts.</td></tr><tr><td>Feasibility Study</td><td>Analyze whether requirements are testable within scope, time, and budget constraints.</td></tr><tr><td>Identify Test Conditions</td><td>Extract high-level test conditions from requirements.</td></tr><tr><td>Traceability Matrix Preparation</td><td>Begin drafting a Requirement Traceability Matrix (RTM) to ensure coverage.</td></tr></table><h3>4. Types of Requirements to Analyze</h3><ul><li>Business Requirements: High-level objectives of the organization.</li><li>Functional Requirements: Describes what the system should do.</li><li>Non-Functional Requirements: Includes performance, usability, reliability, and security.</li><li>Interface Requirements: External system interactions and data flows.</li><li>Regulatory Requirements: Compliance with laws, rules, or standards.</li></ul><h3>5. Challenges in Requirement Analysis</h3><ul><li>Incomplete or unclear requirements.</li><li>Frequently changing requirements.</li><li>Miscommunication among stakeholders.</li><li>Lack of domain knowledge.</li><li>Requirements that are not testable (e.g., vague terms like “fast”, “user-friendly”).</li></ul><h3>6. Best Practices</h3><ul><li>Involve QA early in the SDLC (Shift Left Testing).</li><li>Use checklists to review requirement documents.</li><li>Collaborate actively with stakeholders for clarification.</li><li>Maintain a living Requirement Traceability Matrix (RTM).</li><li>Prioritize requirements based on risk and business impact.</li><li>Use tools like JIRA, Confluence, or ALM for requirement management.</li></ul><h3>7. Tools for Requirement Analysis</h3><ul><li>JIRA: For requirement tracking and issue management.</li><li>Confluence: For documentation and collaboration.</li><li>DOORS: Requirements management tool by IBM.</li><li>ReqTest, TestRail: Tools for managing and analyzing requirements.</li></ul><h3>8. Output of Requirement Analysis</h3><ul><li>Requirement Review Reports</li><li>Clarification Logs</li><li>Identified Test Scenarios and Conditions</li><li>Requirement Traceability Matrix (Initial version)</li><li>Risk Analysis Report (if applicable)</li><li>Test Strategy (input for next phase)</li></ul><h3>9. Conclusion</h3><p>Requirement Analysis sets the foundation for a successful testing process. By thoroughly understanding and validating requirements before designing test cases, QA teams can ensure better coverage, fewer defects, and a more aligned end product. This proactive step reduces the cost of fixing defects in later stages and ensures that the final product meets user expectations.</p></div>`,
+                            planning: `<div style='background:#fff;color:#14213d;padding:2rem 2.5rem;border-radius:30px;box-shadow:0 10px 48px 0 rgba(0,0,0,0.13), 0 2px 12px 0 rgba(0,0,0,0.10);border:1px solid #383558;max-width:900px;width:100%;margin:auto;animation:fadeInCard 0.7s ease;overflow:auto;'><h2 style='color:#4285f4;'>Test Planning</h2><h3>1. Introduction</h3><p>Test Planning is a fundamental phase in the Software Testing Life Cycle (STLC). It involves defining the scope, approach, resources, and schedule for the testing activities. The goal of the test planning phase is to create a Test Plan document that serves as a blueprint for the entire testing process.<br>Without a well-defined test plan, testing may become disorganized, inefficient, and unable to meet project goals or timelines.</p><h3>2. Objectives of Test Planning</h3><ul><li>Define the scope and objectives of testing.</li><li>Identify test deliverables and timelines.</li><li>Allocate resources and responsibilities.</li><li>Decide on test strategies, tools, and environments.</li><li>Outline risk management and mitigation plans.</li><li>Ensure traceability between requirements and test coverage.</li></ul><h3>3. Key Activities in Test Planning</h3><table style='width:100%;border-collapse:collapse;'><tr><th style='border-bottom:1px solid #ccc;text-align:left;'>Activity</th><th style='border-bottom:1px solid #ccc;text-align:left;'>Description</th></tr><tr><td>Understand Project Requirements</td><td>Analyze BRD, FRS, and technical specifications.</td></tr><tr><td>Define Test Objectives & Scope</td><td>What to test and what not to test.</td></tr><tr><td>Identify Testing Types</td><td>E.g., Functional, Regression, Performance, Security.</td></tr><tr><td>Select Test Design Techniques</td><td>Black-box, boundary value, decision tables, etc.</td></tr><tr><td>Determine Entry/Exit Criteria</td><td>Conditions to start or stop testing.</td></tr><tr><td>Estimate Effort & Resources</td><td>Based on scope and complexity.</td></tr><tr><td>Plan for Test Environment</td><td>Hardware, software, network, data requirements.</td></tr><tr><td>Define Roles and Responsibilities</td><td>Assign tasks to QA team members.</td></tr><tr><td>Risk Analysis and Mitigation</td><td>Identify potential risks and how to handle them.</td></tr><tr><td>Create a Test Schedule</td><td>Define timelines and milestones.</td></tr></table><h3>4. Components of a Test Plan Document</h3><ol><li>Test Plan ID</li><li>Introduction</li><li>Test Items (modules/features to be tested)</li><li>Features to be Tested</li><li>Features Not to be Tested</li><li>Test Strategy</li><li>Test Deliverables</li><li>Entry and Exit Criteria</li><li>Test Environment</li><li>Test Schedule</li><li>Resource Planning</li><li>Tools & Automation Approach</li><li>Risk and Contingency Plan</li><li>Approval & Sign-off</li></ol><h3>5. Roles Involved in Test Planning</h3><ul><li>Test Manager / QA Lead – Owns and prepares the test plan.</li><li>Project Manager – Provides inputs on scope, timelines, and priorities.</li><li>Business Analyst – Clarifies requirements.</li><li>Development Lead – Provides inputs on technical dependencies and environments.</li><li>QA Team – Estimates effort and gives feedback.</li></ul><h3>6. Test Planning Tools</h3><ul><li>Microsoft Excel / Word – For manual test plan documentation.</li><li>JIRA + Xray/TestRail – For test management.</li><li>Zephyr – Test management plugin for JIRA.</li><li>TestLink – Open-source test management tool.</li><li>qTest – Test case management, integrates with Agile tools.</li></ul><h3>7. Best Practices in Test Planning</h3><ul><li>Start early – align with development milestones (Shift Left).</li><li>Involve all stakeholders to gather accurate inputs.</li><li>Keep the plan realistic and aligned with available resources.</li><li>Update the plan regularly as the project evolves.</li><li>Link test plan with requirement traceability for better coverage.</li><li>Define clear metrics for success (e.g., defect density, test coverage).</li></ul><h3>8. Risks in Poor Test Planning</h3><ul><li>Scope creep and test coverage gaps.</li><li>Resource misallocation and project delays.</li><li>Inability to track testing progress or quality.</li><li>Missed deadlines or release issues.</li><li>Increased costs due to late defect discovery.</li></ul><h3>9. Conclusion</h3><p>Test Planning is the foundation of effective and efficient testing. A well-thought-out test plan not only guides the QA team but also aligns stakeholders toward common quality goals. It minimizes risk, improves test coverage, and ensures a smoother testing process from start to finish.</p><div style='margin-top:2.5rem;'></div><a href='sample-test-plan.docx' download style='display:inline-block;margin-top:1.2rem;background:#ffd600;color:#14213d;font-weight:700;font-size:1.08rem;padding:0.7rem 1.7rem;border:none;border-radius:10px;text-decoration:none;box-shadow:0 2px 12px #ffd60040;transition:background 0.2s;cursor:pointer;'>Download Sample Test Plan (Word)</a></div>`,
+                            case: `<div style='background:#fff;color:#14213d;padding:2rem 2.5rem;border-radius:30px;box-shadow:0 10px 48px 0 rgba(0,0,0,0.13), 0 2px 12px 0 rgba(0,0,0,0.10);border:1px solid #383558;max-width:900px;width:100%;margin:auto;animation:fadeInCard 0.7s ease;overflow:auto;'>
+<h2 style='color:#4285f4;'>✅ Test Case Development: Complete Guide</h2>
+<h3>1. What is Test Case Development?</h3>
+<p>Test Case Development is the process of designing detailed, step-by-step instructions to verify that a software application functions as expected. A test case is a set of actions executed to verify a specific feature or functionality of the application under test (AUT).</p>
+<ul><li>Validates whether the system meets the business requirements</li><li>Detects defects</li><li>Helps ensure quality and reliability</li></ul>
+<h3>2. Objectives of Test Case Development</h3>
+<ul><li>Translate business and technical requirements into verifiable checks</li><li>Ensure all functional and non-functional aspects are tested</li><li>Provide clear and repeatable steps for testers</li><li>Support traceability (link test cases to requirements)</li><li>Facilitate regression, automation, and UAT testing</li></ul>
+<h3>3. Key Components of a Test Case</h3>
+<table style='width:100%;border-collapse:collapse;border:1px solid #4285f4;'>
+<tr style='background:#e2eafc;'><th style='border:1px solid #4285f4;padding:8px;'>Field</th><th style='border:1px solid #4285f4;padding:8px;'>Description</th></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Test Case ID</td><td style='border:1px solid #4285f4;padding:8px;'>Unique identifier (e.g., TC001, TC_Login_Valid)</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Test Title</td><td style='border:1px solid #4285f4;padding:8px;'>Brief title summarizing what the test case checks</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Description</td><td style='border:1px solid #4285f4;padding:8px;'>Detailed explanation of the test scenario</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Preconditions</td><td style='border:1px solid #4285f4;padding:8px;'>Any setup or state required before execution (e.g., login required)</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Test Steps</td><td style='border:1px solid #4285f4;padding:8px;'>Step-by-step actions to perform the test</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Test Data</td><td style='border:1px solid #4285f4;padding:8px;'>Input data used in the test</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Expected Result</td><td style='border:1px solid #4285f4;padding:8px;'>What should happen if the feature works correctly</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Actual Result</td><td style='border:1px solid #4285f4;padding:8px;'>What actually happens (filled during execution)</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Status</td><td style='border:1px solid #4285f4;padding:8px;'>Pass / Fail / Blocked / Not Run</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Priority</td><td style='border:1px solid #4285f4;padding:8px;'>Business importance (High, Medium, Low)</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Requirement ID</td><td style='border:1px solid #4285f4;padding:8px;'>Link to the business requirement or user story</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Automation Status</td><td style='border:1px solid #4285f4;padding:8px;'>Manual or Automated</td></tr>
+</table>
+<h3>4. Types of Test Cases</h3>
+<table style='width:100%;border-collapse:collapse;border:1px solid #4285f4;'>
+<tr style='background:#e2eafc;'><th style='border:1px solid #4285f4;padding:8px;'>Type</th><th style='border:1px solid #4285f4;padding:8px;'>Purpose</th></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Functional</td><td style='border:1px solid #4285f4;padding:8px;'>Validate specific functions of the application</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>UI/UX</td><td style='border:1px solid #4285f4;padding:8px;'>Verify layout, visuals, and interactions</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Integration</td><td style='border:1px solid #4285f4;padding:8px;'>Test communication between modules or APIs</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Boundary Value</td><td style='border:1px solid #4285f4;padding:8px;'>Check limits (e.g., max/min input values)</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Negative</td><td style='border:1px solid #4285f4;padding:8px;'>Ensure system handles invalid inputs gracefully</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Security</td><td style='border:1px solid #4285f4;padding:8px;'>Test authentication, access control, and data security</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Performance</td><td style='border:1px solid #4285f4;padding:8px;'>Check system behavior under load/stress</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Regression</td><td style='border:1px solid #4285f4;padding:8px;'>Re-test existing functionality after changes</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Smoke/Sanity</td><td style='border:1px solid #4285f4;padding:8px;'>Basic checks for stability before deeper testing</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>User Acceptance (UAT)</td><td style='border:1px solid #4285f4;padding:8px;'>Business-driven tests done by end users</td></tr>
+</table>
+<h3>8. Manual vs. Automated Test Cases</h3>
+<table style='width:100%;border-collapse:collapse;border:1px solid #4285f4;'>
+<tr style='background:#e2eafc;'><th style='border:1px solid #4285f4;padding:8px;'>Aspect</th><th style='border:1px solid #4285f4;padding:8px;'>Manual</th><th style='border:1px solid #4285f4;padding:8px;'>Automated</th></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Execution</td><td style='border:1px solid #4285f4;padding:8px;'>Human-performed</td><td style='border:1px solid #4285f4;padding:8px;'>Scripted & executed by tools</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Best For</td><td style='border:1px solid #4285f4;padding:8px;'>Exploratory, UI, Ad hoc</td><td style='border:1px solid #4285f4;padding:8px;'>Regression, data-driven, repetitive</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Tools</td><td style='border:1px solid #4285f4;padding:8px;'>Excel, JIRA, TestRail</td><td style='border:1px solid #4285f4;padding:8px;'>Selenium, Cypress, Postman, JUnit</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Maintenance</td><td style='border:1px solid #4285f4;padding:8px;'>Lower</td><td style='border:1px solid #4285f4;padding:8px;'>Requires regular updates</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Cost</td><td style='border:1px solid #4285f4;padding:8px;'>Lower upfront, higher over time</td><td style='border:1px solid #4285f4;padding:8px;'>Higher setup, lower long-term cost</td></tr>
+</table>
+<h3>9. Example Test Case (Manual)</h3>
+<table style='width:100%;border-collapse:collapse;border:1px solid #4285f4;'>
+<tr style='background:#e2eafc;'><th style='border:1px solid #4285f4;padding:8px;'>Field</th><th style='border:1px solid #4285f4;padding:8px;'>Example</th></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Test Case ID</td><td style='border:1px solid #4285f4;padding:8px;'>TC_Login_001</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Title</td><td style='border:1px solid #4285f4;padding:8px;'>Ensure that user can log in with valid credentials</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Preconditions</td><td style='border:1px solid #4285f4;padding:8px;'>User is registered with valid username/password</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Test Steps</td><td style='border:1px solid #4285f4;padding:8px;'>1. Go to login page<br>2. Enter valid credentials<br>3. Click login</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Test Data</td><td style='border:1px solid #4285f4;padding:8px;'>Username: john.doe<br>Password: Test@123</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Expected Result</td><td style='border:1px solid #4285f4;padding:8px;'>User is redirected to the dashboard</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Status</td><td style='border:1px solid #4285f4;padding:8px;'>Not Run</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Priority</td><td style='border:1px solid #4285f4;padding:8px;'>High</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Requirement ID</td><td style='border:1px solid #4285f4;padding:8px;'>REQ-IMS-001</td></tr>
+</table>
+<h3>10. Tools for Test Case Development & Management</h3>
+<table style='width:100%;border-collapse:collapse;border:1px solid #4285f4;'>
+<tr style='background:#e2eafc;'><th style='border:1px solid #4285f4;padding:8px;'>Tool</th><th style='border:1px solid #4285f4;padding:8px;'>Use</th></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>TestRail</td><td style='border:1px solid #4285f4;padding:8px;'>Full-featured test case management</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>JIRA + Zephyr/Xray</td><td style='border:1px solid #4285f4;padding:8px;'>Test case tracking integrated with Agile boards</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>TestLink</td><td style='border:1px solid #4285f4;padding:8px;'>Open-source test management</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>PractiTest</td><td style='border:1px solid #4285f4;padding:8px;'>End-to-end test case and execution tracking</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>SpiraTest</td><td style='border:1px solid #4285f4;padding:8px;'>Requirement and test case traceability</td></tr>
+</table>
+<h3>11. Benefits of Good Test Case Development</h3>
+<ul><li>Enhances software quality and reliability</li><li>Reduces time spent on bug detection and fixing</li><li>Enables automation readiness</li><li>Improves team collaboration and transparency</li><li>Provides solid documentation for audits and future reference</li></ul>
+<h3>12. Test Case Development Checklist ✅</h3>
+<ul><li>Do all test cases map to a requirement?</li><li>Are both positive and negative paths covered?</li><li>Are test steps clear and reproducible?</li><li>Is test data defined and realistic?</li><li>Have edge cases and boundary conditions been addressed?</li><li>Are test cases prioritized?</li><li>Have test cases been reviewed?</li></ul>
+<h3>Conclusion</h3>
+<p>Test Case Development is not just a technical task—it’s a critical communication bridge between requirements and quality assurance. Well-designed test cases reduce risk, increase test efficiency, and ensure that the product aligns with business goals.</p>
+<p>Whether you're testing manually or building automation scripts, starting with strong, maintainable, and purposeful test cases is non-negotiable for successful software delivery.</p>
+<a href="testcase_sample.xlsx" download style="display:inline-block;margin-top:1.2rem;background:#ffd600;color:#14213d;font-weight:700;font-size:1.08rem;padding:0.7rem 1.7rem;border:none;border-radius:10px;text-decoration:none;box-shadow:0 2px 12px #ffd60040;transition:background 0.2s;cursor:pointer;">
+  Download Test Case Sample</a>
+</div>`,
+                            environment: 
+                            `<div style='background:#fff;color:#14213d;padding:2rem 2.5rem;border-radius:30px;box-shadow:0 10px 48px 0 rgba(0,0,0,0.13), 0 2px 12px 0 rgba(0,0,0,0.10);border:1px solid #383558;max-width:900px;width:100%;margin:auto;animation:fadeInCard 0.7s ease;overflow:auto;'>
+<h2 style='color:#4285f4;'>✅ Test Environment Setup: Complete Guide</h2>
+<h3>1. What is a Test Environment?</h3>
+<p>A Test Environment is a configured hardware and software setup where the testing team executes test cases. It simulates the real-world production environment to the extent possible and includes the necessary components to support the execution of functional, performance, and security tests.<br>
+In simple terms, it’s where the QA team “test drives” the application before it reaches end users.</p>
+<h3>2. Objectives of Test Environment Setup</h3>
+<ul>
+<li>Provide a stable and isolated space for testing activities</li>
+<li>Mimic the production environment as closely as possible</li>
+<li>Enable the execution of various types of tests (manual, automation, performance, etc.)</li>
+<li>Support early detection of defects</li>
+<li>Ensure consistency and repeatability of test results</li>
+</ul>
+<h3>3. Components of a Test Environment</h3>
+<table style='width:100%;border-collapse:collapse;border:1px solid #4285f4;'>
+<tr style='background:#e2eafc;'><th style='border:1px solid #4285f4;padding:8px;'>Component</th><th style='border:1px solid #4285f4;padding:8px;'>Description</th></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Hardware</td><td style='border:1px solid #4285f4;padding:8px;'>Physical or virtual machines used for hosting the application under test</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Software</td><td style='border:1px solid #4285f4;padding:8px;'>Application build, operating system, supporting software (e.g., Java, .NET)</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Database</td><td style='border:1px solid #4285f4;padding:8px;'>Structured test data in the appropriate DBMS (e.g., MySQL, Oracle, SQL Server)</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Network Configuration</td><td style='border:1px solid #4285f4;padding:8px;'>Bandwidth, firewalls, load balancers, etc., as applicable</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Test Tools</td><td style='border:1px solid #4285f4;padding:8px;'>Test management, automation, and reporting tools</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Third-party Integrations</td><td style='border:1px solid #4285f4;padding:8px;'>APIs, payment gateways, email servers, etc.</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Test Data</td><td style='border:1px solid #4285f4;padding:8px;'>Mock or production-like data used during execution</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Access Control</td><td style='border:1px solid #4285f4;padding:8px;'>User roles and credentials for testers</td></tr>
+</table>
+<h3>4. Test Environment Setup Process</h3>
+<ul>
+<li><b>Step 1: Understand Environment Requirements</b>
+<ul>
+<li>Analyze application architecture (e.g., client-server, microservices)</li>
+<li>List required hardware, OS, browsers, databases, and 3rd-party systems</li>
+</ul>
+</li>
+<li><b>Step 2: Define Environment Configuration</b>
+<ul>
+<li>Choose between local, cloud, or hybrid setup</li>
+<li>Select virtualization (e.g., VMs, Docker) or physical setup</li>
+</ul>
+</li>
+<li><b>Step 3: Provision and Install</b>
+<ul>
+<li>Set up servers or cloud instances</li>
+<li>Install required software, frameworks, libraries, and tools</li>
+</ul>
+</li>
+<li><b>Step 4: Deploy the Application</b>
+<ul>
+<li>Coordinate with DevOps or Developers to deploy the latest build</li>
+<li>Validate that deployment is successful</li>
+</ul>
+</li>
+<li><b>Step 5: Configure Database and Test Data</b>
+<ul>
+<li>Set up schema and seed data for different testing needs</li>
+<li>Ensure proper backup and restore procedures</li>
+</ul>
+</li>
+<li><b>Step 6: Integrate Required Tools</b>
+<ul>
+<li>Install and configure test tools (e.g., Selenium Grid, Postman, JMeter)</li>
+<li>Set up logging, monitoring, and debugging tools</li>
+</ul>
+</li>
+<li><b>Step 7: Access Management</b>
+<ul>
+<li>Create and assign tester accounts with proper permissions</li>
+<li>Secure credentials and API keys</li>
+</ul>
+</li>
+<li><b>Step 8: Validation / Smoke Check</b>
+<ul>
+<li>Run smoke tests to ensure basic functionality</li>
+<li>Document configurations and share with the QA team</li>
+</ul>
+</li>
+</ul>
+<h3>5. Types of Test Environments</h3>
+<table style='width:100%;border-collapse:collapse;border:1px solid #4285f4;'>
+<tr style='background:#e2eafc;'><th style='border:1px solid #4285f4;padding:8px;'>Environment Type</th><th style='border:1px solid #4285f4;padding:8px;'>Purpose</th></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Development (Dev)</td><td style='border:1px solid #4285f4;padding:8px;'>For developer unit and integration testing</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>QA/Test</td><td style='border:1px solid #4285f4;padding:8px;'>Main environment for functional, regression, and exploratory testing</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>UAT</td><td style='border:1px solid #4285f4;padding:8px;'>Used by business users for acceptance testing</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Staging/Pre-Prod</td><td style='border:1px solid #4285f4;padding:8px;'>Replica of production for final validations</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Performance/Test Lab</td><td style='border:1px solid #4285f4;padding:8px;'>Isolated for load, stress, and performance testing</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Sandbox</td><td style='border:1px solid #4285f4;padding:8px;'>Safe environment for experimenting with data or configuration changes</td></tr>
+</table>
+<h3>6. Test Environment Example (Web App)</h3>
+<table style='width:100%;border-collapse:collapse;border:1px solid #4285f4;'>
+<tr style='background:#e2eafc;'><th style='border:1px solid #4285f4;padding:8px;'>Component</th><th style='border:1px solid #4285f4;padding:8px;'>Details</th></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>OS</td><td style='border:1px solid #4285f4;padding:8px;'>Ubuntu 20.04 (backend), Windows 11 (client)</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Web Server</td><td style='border:1px solid #4285f4;padding:8px;'>Apache Tomcat 9</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Database</td><td style='border:1px solid #4285f4;padding:8px;'>PostgreSQL 14</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Application Build</td><td style='border:1px solid #4285f4;padding:8px;'>IMS v1.0 (Invoice Management System)</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Test Data</td><td style='border:1px solid #4285f4;padding:8px;'>100 invoices, 10 users, 5 roles</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Browsers</td><td style='border:1px solid #4285f4;padding:8px;'>Chrome 117, Firefox 115, Edge 116</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Automation Tools</td><td style='border:1px solid #4285f4;padding:8px;'>Selenium, TestNG</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Monitoring Tools</td><td style='border:1px solid #4285f4;padding:8px;'>Kibana + Elastic Stack</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Network</td><td style='border:1px solid #4285f4;padding:8px;'>Simulated VPN with proxy and firewall rules</td></tr>
+</table>
+<h3>7. Best Practices for Test Environment Setup</h3>
+<ul>
+<li>✅ Replicate production as closely as possible</li>
+<li>✅ Isolate test environment from development and production</li>
+<li>✅ Automate environment setup using scripts or tools (e.g., Docker, Ansible)</li>
+<li>✅ Maintain clear documentation and environment diagram</li>
+<li>✅ Version control infrastructure and config files</li>
+<li>✅ Set up monitoring for performance and downtime</li>
+<li>✅ Regularly refresh test data from production (with anonymization)</li>
+<li>✅ Plan environment usage schedules to avoid conflicts</li>
+<li>✅ Assign environment owners for accountability</li>
+</ul>
+<h3>8. Common Challenges and How to Handle Them</h3>
+<table style='width:100%;border-collapse:collapse;border:1px solid #4285f4;'>
+<tr style='background:#e2eafc;'><th style='border:1px solid #4285f4;padding:8px;'>Challenge</th><th style='border:1px solid #4285f4;padding:8px;'>Solution</th></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Inconsistent configuration</td><td style='border:1px solid #4285f4;padding:8px;'>Use configuration management tools like Ansible, Chef, or Puppet</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Lack of test data</td><td style='border:1px solid #4285f4;padding:8px;'>Generate synthetic data or anonymize production data</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Shared environments causing conflict</td><td style='border:1px solid #4285f4;padding:8px;'>Use isolated environments or containerization (e.g., Docker)</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Long setup times</td><td style='border:1px solid #4285f4;padding:8px;'>Automate provisioning and deployments using CI/CD</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Environment downtime during testing</td><td style='border:1px solid #4285f4;padding:8px;'>Implement health checks and monitoring</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Missing third-party stubs</td><td style='border:1px solid #4285f4;padding:8px;'>Use API mocking tools (e.g., WireMock, Postman Mock Server)</td></tr>
+</table>
+<h3>9. Tools to Support Test Environment Management</h3>
+<table style='width:100%;border-collapse:collapse;border:1px solid #4285f4;'>
+<tr style='background:#e2eafc;'><th style='border:1px solid #4285f4;padding:8px;'>Tool</th><th style='border:1px solid #4285f4;padding:8px;'>Purpose</th></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Docker / Kubernetes</td><td style='border:1px solid #4285f4;padding:8px;'>Containerization and orchestration</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Ansible / Terraform</td><td style='border:1px solid #4285f4;padding:8px;'>Automated environment provisioning</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Jenkins / GitLab CI</td><td style='border:1px solid #4285f4;padding:8px;'>Automated build and deployment</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>WireMock / MockServer</td><td style='border:1px solid #4285f4;padding:8px;'>API mocking and simulation</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Grafana / Prometheus</td><td style='border:1px solid #4285f4;padding:8px;'>Environment monitoring and alerts</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>JIRA / Confluence</td><td style='border:1px solid #4285f4;padding:8px;'>Environment usage tracking and documentation</td></tr>
+</table>
+<h3>10. Documentation for Test Environment</h3>
+<ul>
+<li>Environment name and purpose</li>
+<li>System architecture diagram</li>
+<li>Configuration details (OS, versions, ports, etc.)</li>
+<li>Installed software and tools</li>
+<li>Access credentials (secured)</li>
+<li>Test data setup</li>
+<li>Backup and restore instructions</li>
+<li>Owner/contact person</li>
+</ul>
+<h3>12. Conclusion</h3>
+<p>A well-planned and properly maintained Test Environment is crucial to the success of any software testing effort. It ensures tests are accurate, repeatable, and meaningful. By automating setup, maintaining clear documentation, and mimicking production closely, QA teams can minimize environment-related risks and deliver high-quality software with confidence.</p>
+</div>`
+,
+                            execution: `<div style='background:#fff;color:#14213d;padding:2rem 2.5rem;border-radius:30px;box-shadow:0 10px 48px 0 rgba(0,0,0,0.13), 0 2px 12px 0 rgba(0,0,0,0.10);border:1px solid #383558;max-width:900px;width:100%;margin:auto;animation:fadeInCard 0.7s ease;overflow:auto;'>
+<h2 style='color:#4285f4;'>✅ Test Execution – Complete Guide</h2>
+<h3>1. What is Test Execution?</h3>
+<p>Test Execution is the phase in the Software Testing Life Cycle (STLC) where planned test cases are run in the designated test environment to validate the functionality, performance, and reliability of the software.<br>It is the moment where preparation meets validation executing test cases, logging defects, and ensuring the software behaves as expected.</p>
+<h3>2. Objectives of Test Execution</h3>
+<ul><li>Validate the application against defined business and technical requirements</li><li>Identify and log defects or inconsistencies</li><li>Track pass/fail status of each test case</li><li>Ensure application stability, functionality, and quality</li><li>Provide feedback to developers for bug fixing</li><li>Measure the readiness of the product for release</li></ul>
+<h3>3. Prerequisites for Test Execution</h3>
+<ul><li>✅ Test Plan is approved</li><li>✅ Test cases are written, reviewed, and traceable to requirements</li><li>✅ Test data is available and verified</li><li>✅ Test environment is stable and matches the configuration</li><li>✅ Build has been deployed successfully</li><li>✅ Entry criteria are met (as defined in the test plan)</li></ul>
+<h3>4. Key Activities in Test Execution</h3>
+<table style='width:100%;border-collapse:collapse;border:1px solid #4285f4;'>
+<tr style='background:#e2eafc;'><th style='border:1px solid #4285f4;padding:8px;'>Activity</th><th style='border:1px solid #4285f4;padding:8px;'>Description</th></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Assigning Test Cases</td><td style='border:1px solid #4285f4;padding:8px;'>Test cases are assigned to QA team members</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Executing Test Cases</td><td style='border:1px solid #4285f4;padding:8px;'>Manual or automated execution of test steps</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Logging Defects</td><td style='border:1px solid #4285f4;padding:8px;'>Raise detailed bug reports for failed test cases</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Updating Test Case Status</td><td style='border:1px solid #4285f4;padding:8px;'>Mark test cases as Pass, Fail, Blocked, or Not Run</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Retesting & Regression Testing</td><td style='border:1px solid #4285f4;padding:8px;'>Verify fixed bugs and ensure nothing else is broken</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Reporting Progress</td><td style='border:1px solid #4285f4;padding:8px;'>Daily/weekly updates on execution status, defect metrics, and test coverage</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Exit Evaluation</td><td style='border:1px solid #4285f4;padding:8px;'>Validate exit criteria are met before test closure</td></tr>
+</table>
+<h3>5. Test Case Status Types</h3>
+<table style='width:100%;border-collapse:collapse;border:1px solid #4285f4;'>
+<tr style='background:#e2eafc;'><th style='border:1px solid #4285f4;padding:8px;'>Status</th><th style='border:1px solid #4285f4;padding:8px;'>Description</th></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Pass</td><td style='border:1px solid #4285f4;padding:8px;'>Test case executed successfully and met expected outcome</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Fail</td><td style='border:1px solid #4285f4;padding:8px;'>Test case failed due to a defect</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Blocked</td><td style='border:1px solid #4285f4;padding:8px;'>Execution could not proceed due to environment or dependency issues</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Not Run</td><td style='border:1px solid #4285f4;padding:8px;'>Test case has not yet been executed</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Retest</td><td style='border:1px solid #4285f4;padding:8px;'>Test case is being re-executed after bug fix</td></tr>
+</table>
+<h3>6. Test Execution Approaches</h3>
+<ul><li><b>Manual Execution:</b> Performed step-by-step by human testers using test cases and test data.</li><li><b>Automated Execution:</b> Test scripts are run using tools like Selenium, TestNG, Cypress, etc.</li><li><b>Data-Driven Execution:</b> Same test script runs with multiple data sets.</li><li><b>Batch Execution:</b> Groups of tests are executed in bulk (e.g., smoke suite, regression suite).</li></ul>
+<h3>7. Tools Used in Test Execution</h3>
+<table style='width:100%;border-collapse:collapse;border:1px solid #4285f4;'>
+<tr style='background:#e2eafc;'><th style='border:1px solid #4285f4;padding:8px;'>Tool</th><th style='border:1px solid #4285f4;padding:8px;'>Purpose</th></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>JIRA + Zephyr/Xray</td><td style='border:1px solid #4285f4;padding:8px;'>Manual test case execution tracking</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>TestRail</td><td style='border:1px solid #4285f4;padding:8px;'>Test case management and execution</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Selenium / Cypress</td><td style='border:1px solid #4285f4;padding:8px;'>Automated functional testing</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Postman</td><td style='border:1px solid #4285f4;padding:8px;'>API test execution</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Jenkins</td><td style='border:1px solid #4285f4;padding:8px;'>Automated test triggers via CI/CD</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Allure / Extent Reports</td><td style='border:1px solid #4285f4;padding:8px;'>Test execution reporting</td></tr>
+</table>
+<h3>8. Defect Logging During Test Execution</h3>
+<ol><li>Record detailed steps to reproduce</li><li>Capture screenshots/logs</li><li>Assign appropriate severity/priority</li><li>Link defect to the corresponding test case and requirement</li><li>Submit defect using the bug tracking tool (e.g., JIRA, Bugzilla)</li></ol>
+<h3>9. Test Execution Metrics</h3>
+<table style='width:100%;border-collapse:collapse;border:1px solid #4285f4;'>
+<tr style='background:#e2eafc;'><th style='border:1px solid #4285f4;padding:8px;'>Metric</th><th style='border:1px solid #4285f4;padding:8px;'>Description</th></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Test Case Execution Status</td><td style='border:1px solid #4285f4;padding:8px;'>% of test cases passed, failed, blocked</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Defect Density</td><td style='border:1px solid #4285f4;padding:8px;'>Number of defects per module or test cases</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Defect Severity Distribution</td><td style='border:1px solid #4285f4;padding:8px;'>Breakdown of critical, major, and minor bugs</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Test Coverage</td><td style='border:1px solid #4285f4;padding:8px;'>% of requirements or code covered by executed test cases</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Pass Rate</td><td style='border:1px solid #4285f4;padding:8px;'>(Passed Test Cases / Total Executed Cases) * 100</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Reopen Rate</td><td style='border:1px solid #4285f4;padding:8px;'>% of defects reopened after fixing</td></tr>
+</table>
+<h3>10. Challenges in Test Execution</h3>
+<table style='width:100%;border-collapse:collapse;border:1px solid #4285f4;'>
+<tr style='background:#e2eafc;'><th style='border:1px solid #4285f4;padding:8px;'>Challenge</th><th style='border:1px solid #4285f4;padding:8px;'>Mitigation</th></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Unstable test environment</td><td style='border:1px solid #4285f4;padding:8px;'>Validate and monitor environment health before execution</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Frequent build failures</td><td style='border:1px solid #4285f4;padding:8px;'>Coordinate with DevOps for stable deployments</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Incomplete test data</td><td style='border:1px solid #4285f4;padding:8px;'>Use data generation tools or mock data</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Poor defect reporting</td><td style='border:1px solid #4285f4;padding:8px;'>Use standardized defect templates</td></tr>
+<tr><td style='border:1px solid #4285f4;padding:8px;'>Time constraints</td><td style='border:1px solid #4285f4;padding:8px;'>Prioritize critical test cases (risk-based testing)</td></tr>
+</table>
+<h3>11. Test Execution Best Practices ✅</h3>
+<ul><li>✅ Ensure test environment is production-like and stable</li><li>✅ Prioritize high-risk and critical functionality</li><li>✅ Stick to clearly defined test steps and expected results</li><li>✅ Log detailed, reproducible bugs with supporting evidence</li><li>✅ Maintain real-time test execution dashboards</li><li>✅ Collaborate closely with developers and business analysts</li><li>✅ Review and revise test cases based on execution learnings</li><li>✅ Maintain proper versioning and history of executed tests</li></ul>
+<h3>12. Entry and Exit Criteria (Revisited)</h3>
+<b>Entry Criteria</b>
+<ul><li>Test cases are reviewed and ready</li><li>Test data and environment are available</li><li>Application build is deployed</li><li>Smoke tests have passed</li></ul>
+<b>Exit Criteria</b>
+<ul><li>All planned test cases executed</li><li>All critical/blocker bugs fixed and closed</li><li>Defect acceptance criteria met</li><li>Test summary report submitted</li><li>Stakeholder sign-off received</li></ul>
+<h3>13. Test Execution Sample Flow</h3>
+<ol><li>Tester receives a new build notification</li><li>Run a smoke test to verify build stability</li><li>Start executing assigned test cases</li><li>Log any defects encountered with full details</li><li>Update test case status: Pass, Fail, Blocked</li><li>Communicate daily progress with QA Lead/Manager</li><li>After fixes, perform retesting and regression</li><li>Generate test execution and defect reports</li><li>Verify exit criteria</li><li>Conclude test execution cycle</li></ol>
+<h3>14. Test Execution Deliverables</h3>
+<ul><li>Daily Execution Report</li><li>Defect Summary Report</li><li>Test Coverage Report</li><li>Test Execution Dashboard (Optional)</li><li>Final Test Summary Report</li></ul>
+<h3>15. Conclusion</h3>
+<p>Test Execution is a critical phase where the quality of the software is verified in a real-world-like environment. Effective execution ensures early defect detection, risk mitigation, and ultimately contributes to a more stable, user-ready product.<br>Through structured planning, strong communication, and disciplined execution, teams can significantly enhance product quality and stakeholder confidence.</p>
+</div>`,
+                            closure: `<div style='background:#fff;color:#14213d;padding:2rem 2.5rem;border-radius:30px;box-shadow:0 10px 48px 0 rgba(0,0,0,0.13), 0 2px 12px 0 rgba(0,0,0,0.10);border:1px solid #383558;max-width:900px;width:100%;margin:auto;animation:fadeInCard 0.7s ease;overflow:auto;'>
+<h2 style='color:#4285f4;'>📦 Test Cycle Closure – Complete Guide</h2>
+<h3>What is Test Cycle Closure?</h3>
+<p>Test Cycle Closure is the concluding phase in the software testing lifecycle, marking the official end of a particular test cycle or iteration. It involves comprehensive evaluation, documentation, and reporting of all testing activities conducted throughout the cycle to ensure completeness, transparency, and quality assurance.</p>
+<p>During this stage, the testing team performs a detailed review to verify that all planned tests have been executed and that all critical defects have been resolved, deferred, or documented for future consideration. Any deviations from the test plan are analyzed and recorded. The focus is on confirming that testing objectives—such as functionality, performance, and reliability—have been met according to the defined acceptance criteria.</p>
+<h3>Key Activities in Test Cycle Closure</h3>
+<ol>
+  <li><b>Verification of Test Deliverables:</b> Ensuring all test cases, scripts, data, and logs are updated and stored properly for reference.</li>
+  <li><b>Defect Analysis:</b> Reviewing all defects identified during the cycle, confirming which are fixed, and documenting unresolved issues.</li>
+  <li><b>Test Summary Reporting:</b> Preparing a detailed report that summarizes test results, defect statistics, test coverage, and overall product quality.</li>
+  <li><b>Metrics and Evaluation:</b> Analyzing metrics such as test execution rate, defect density, and pass/fail ratio to assess testing effectiveness.</li>
+  <li><b>Lessons Learned:</b> Identifying what worked well and what needs improvement to optimize future testing cycles.</li>
+  <li><b>Test Closure Meeting:</b> Conducting a formal review with stakeholders to discuss results, challenges, and recommendations for process improvement.</li>
+</ol>
+<h3>Outcome</h3>
+<p>The primary outcome of the Test Cycle Closure phase is a <b>Test Summary Report</b>, which provides stakeholders with a comprehensive overview of testing activities and outcomes. This documentation supports informed decision-making regarding product release and highlights areas for improvement in future test cycles.</p>
+<h3>Conclusion</h3>
+<p>In essence, Test Cycle Closure ensures that testing has been performed thoroughly and efficiently, providing confidence in the software’s quality and readiness for deployment.</p>
+<a href="Test-summary-report.docx" download style="display:inline-block;margin-top:1.2rem;background:#ffd600;color:#14213d;font-weight:700;font-size:1.08rem;padding:0.7rem 1.7rem;border:none;border-radius:10px;text-decoration:none;box-shadow:0 2px 12px #ffd60040;transition:background 0.2s;cursor:pointer;">
+  Download Test Cycle Closure Sample
+</a></div>`,
+                        };
+                        document.getElementById('stlc-content').innerHTML = content[phase] || '';
+                    }
+                                        // Show Requirement Analysis by default
+                                        window.onload = function() { showSTLCContent('account'); };
+
+                                        // Hamburger menu logic
+                                        function toggleSidebar() {
+                                            const sidebar = document.getElementById('sidebar');
+                                            const stlcContent = document.getElementById('stlc-content');
+                                            if (window.innerWidth <= 800) {
+                                                if (sidebar.style.transform === 'translateX(-100%)') {
+                                                    sidebar.style.transform = 'translateX(0)';
+                                                    stlcContent.style.width = '85%';
+                                                } else {
+                                                    sidebar.style.transform = 'translateX(-100%)';
+                                                    stlcContent.style.width = '100%';
+                                                }
+                                            }
+                                        }
+                                        document.addEventListener('DOMContentLoaded', function() {
+                                            const hamburgerBtn = document.getElementById('hamburger-btn');
+                                            const sidebar = document.getElementById('sidebar');
+                                            const stlcContent = document.getElementById('stlc-content');
+                                            function handleResize() {
+                                                if (window.innerWidth <= 800) {
+                                                    hamburgerBtn.style.display = 'inline-block';
+                                                    sidebar.style.transform = 'translateX(-100%)';
+                                                    stlcContent.style.width = '100%';
+                                                } else {
+                                                    hamburgerBtn.style.display = 'none';
+                                                    sidebar.style.transform = 'translateX(0)';
+                                                    stlcContent.style.width = '85%';
+                                                }
+                                            }
+                                            hamburgerBtn.addEventListener('click', toggleSidebar);
+                                            window.addEventListener('resize', handleResize);
+                                            handleResize();
+                                        });
+                                        </script>
+            
+      
+    <!-- Footer removed as requested -->
+</body>
+</html>
+                            

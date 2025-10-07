@@ -1,0 +1,114 @@
+Test Plan Document
+
+Test Plan ID: TP-2025-INV-01
+Project Name: Invoice Management System (IMS)
+Version: 1.0
+Prepared By: QA Lead – John Doe
+Date: 06-Oct-2025
+Reviewers: Project Manager, Dev Lead, Business Analyst
+
+1. Introduction
+The purpose of this test plan is to define the testing approach for the Invoice Management System (IMS). IMS is a web-based application designed to automate invoice generation, approvals, payments, and reporting. The goal is to ensure that the system meets all functional, non-functional, and security requirements before deployment.
+
+2. Test Items (Modules/Features to be Tested)
+- User Authentication (Login/Logout)
+- Invoice Creation
+- Invoice Approval Workflow
+- Payment Integration (via Stripe)
+- Reporting Dashboard
+- Notifications (Email/SMS)
+
+3. Features to be Tested
+- Secure user login and role-based access
+- Creation of new invoices with line-item details
+- Auto-calculation of tax, discount, and total
+- Approval workflow (multi-level)
+- Integration with Stripe for payments
+- Invoice status updates (draft, pending, approved, paid)
+- Report generation based on filters (date, client, status)
+- Email alerts for invoice submission and approval
+
+4. Features Not to be Tested
+- Stripe internal processing (assumed tested by Stripe)
+- 3rd-party email/SMS delivery after API success
+- UI color scheme and branding consistency (covered by UI/UX team)
+- Performance under 10,000 concurrent users (outside current scope)
+
+5. Test Strategy
+Testing Levels: Unit Testing (Dev), Integration Testing, System Testing, Regression, UAT
+Testing Types:
+- Functional Testing
+- Regression Testing
+- API Testing (Postman)
+- Smoke Testing
+- Compatibility Testing (Browser)
+- Security Testing (basic OWASP checks)
+
+6. Test Deliverables
+- Test Plan Document
+- Test Scenarios and Test Cases
+- Test Data Sets
+- Defect Reports (JIRA)
+- Daily Test Execution Reports
+- Final Test Summary Report
+- Requirement Traceability Matrix (RTM)
+
+7. Entry and Exit Criteria
+Entry Criteria:
+- Business requirements approved
+- Test environment setup complete
+- Test cases reviewed and approved
+- Code freeze notification received
+Exit Criteria:
+- All high and critical test cases executed
+- No open critical/severity-1 defects
+- All test deliverables submitted
+- UAT sign-off received
+
+8. Test Environment
+- Web App: Deployed on staging environment
+- Database: MySQL 8.0
+- OS: Windows 11, Ubuntu 20.04
+- Browsers: Chrome, Firefox, Edge (latest versions)
+- Mobile: Android (Chrome) and iOS Safari (basic compatibility check)
+- Tools: Postman, JIRA, Selenium, TestNG
+
+9. Test Schedule
+Phase	Start Date	End Date
+Test Planning	Oct 6, 2025	Oct 7, 2025
+Test Case Design	Oct 8, 2025	Oct 12, 2025
+Test Case Review	Oct 13, 2025	Oct 14, 2025
+Test Execution (Cycle 1)	Oct 15, 2025	Oct 20, 2025
+Regression Testing (Cycle 2)	Oct 21, 2025	Oct 23, 2025
+UAT Support	Oct 24, 2025	Oct 28, 2025
+Test Closure	Oct 29, 2025	Oct 30, 2025
+
+10. Resource Planning
+Role	Name	Responsibility
+QA Lead	John Doe	Planning, Coordination
+QA Engineer 1	Jane Smith	Test Design, Execution
+QA Engineer 2	Arun Patel	Regression, Automation
+Dev Support	Ahmed Khan	Defect Fixes & Build Support
+Business Analyst	Maria Gomez	Requirement Clarification
+
+11. Tools & Automation Approach
+- Test Management: JIRA + Zephyr
+- Automation Tool: Selenium WebDriver + TestNG (Java)
+- API Testing: Postman Collections
+- CI/CD Integration: Jenkins (Smoke Suite on every build)
+- Reporting: Extent Reports for automation; JIRA dashboards for manual
+
+12. Risk and Contingency Plan
+Risk	Mitigation
+Requirements change mid-sprint	Freeze scope for current test cycle
+Delay in test environment setup	Use local test environments temporarily
+Unavailability of test data	Create mock data using scripts
+High defect volume in integration phase	Prioritize blockers and coordinate with dev
+Resource availability due to overlapping projects	Escalate early and reallocate if necessary
+
+13. Approval & Sign-off
+Role	Name	Signature	Date
+QA Lead	John Doe	[Signed]	Oct 6, 2025
+Project Manager	Ravi Sharma	[Signed]	Oct 6, 2025
+Business Analyst	Maria Gomez	[Signed]	Oct 6, 2025
+Development Manager	Priya Mehta	[Signed]	Oct 6, 2025
