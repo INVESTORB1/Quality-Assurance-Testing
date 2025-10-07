@@ -1,0 +1,16 @@
+[
+  {
+    "id": "000001",
+    "name": "Ayobami",
+    "email": "pbank0001@gmail.com",
+    "password": "$2a$10$Oy2AzGiPdyUGR7Pkcmzpf.a4dHn6vZnscY2prTq4Fk/I2LTNJe2da",
+    "status": "active"
+  },
+  {
+    "id": "000002",
+    "name": "ATL",
+    "email": "ATL@billionaireclub.com",
+    "password": "$2a$10$Za4Jt51oZTp0yxmHREs.z.0g7Dvv0QI9zVw2kyoNjYSCTLzJ88OGm",
+    "status": "active"
+  }
+]
