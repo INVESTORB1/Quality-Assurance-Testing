@@ -21,6 +21,7 @@
   </style>
 </head>
 <body>
+  <script src="api-config.js"></script>
   <div class="container" style="display:flex;gap:2rem;min-height:600px;">
     <aside style="width:210px;background:#e3eafc;border-radius:10px;padding:2rem 1rem 2rem 1rem;box-shadow:0 2px 12px #1a73e810;display:flex;flex-direction:column;gap:1.5rem;">
       <button class="tab-btn" data-tab="welcome" style="padding:0.8rem 1rem;border:none;border-radius:6px;background:#1a73e8;color:#fff;font-weight:700;cursor:pointer;">Welcome</button>
@@ -39,7 +40,7 @@
       tabContent.innerHTML = `<h2>User Activity Log</h2><div id='activityTableWrap' style='overflow-x:auto;'></div>`;
       const wrap = document.getElementById('activityTableWrap');
       try {
-        const res = await fetch('http://localhost:4000/admin/interactions');
+  const res = await fetch(`${window.API_BASE || 'http://localhost:4000'}/admin/interactions`);
         const interactions = await res.json();
         if (!interactions.length) {
           wrap.innerHTML = '<p style="margin-top:2rem;">No user activity recorded yet.</p>';
@@ -93,15 +94,15 @@
       tabContent.innerHTML = `<h2>All Users</h2><div id='userListTableWrap' style='overflow-x:auto;'></div>`;
       const wrap = document.getElementById('userListTableWrap');
       try {
-        const res = await fetch('http://localhost:4000/admin/users');
+  const res = await fetch(`${window.API_BASE || 'http://localhost:4000'}/admin/users`);
         const users = await res.json();
         if (!users.length) {
           wrap.innerHTML = '<p style="margin-top:2rem;">No users found.</p>';
           return;
         }
-        let html = `<table style='width:100%;margin-top:1.5rem;'><thead><tr><th>Name</th><th>Email</th><th>Status</th></tr></thead><tbody>`;
+        let html = `<table style='width:100%;margin-top:1.5rem;'><thead><tr><th>Name</th><th>Email</th><th>Status</th><th>Action</th></tr></thead><tbody>`;
         users.forEach(user => {
-          html += `<tr><td>${user.name}</td><td>${user.email}</td><td>${user.status}</td></tr>`;
+          html += `<tr><td>${user.name}</td><td>${user.email}</td><td>${user.status}</td><td><button class='approve-btn' style='background:#e53935;' onclick="deleteUser('${user.id}', this)">Delete</button></td></tr>`;
         });
         html += '</tbody></table>';
         wrap.innerHTML = html;
@@ -113,7 +114,7 @@
     // --- Pending Approval Tab ---
     async function renderPendingApproval() {
       tabContent.innerHTML = `<h2>Pending Approval</h2><table id='usersTable' style='width:100%;margin-top:1.5rem;'><thead><tr><th>Name</th><th>Email</th><th>Status</th><th>Action</th></tr></thead><tbody></tbody></table>`;
-      const res = await fetch('http://localhost:4000/admin/users');
+  const res = await fetch(`${window.API_BASE || 'http://localhost:4000'}/admin/users`);
       const users = await res.json();
       const tbody = tabContent.querySelector('#usersTable tbody');
       users.forEach(user => {
@@ -134,7 +135,7 @@
     }
     window.rejectUser = async function(id, btn) {
       btn.disabled = true;
-      await fetch('http://localhost:4000/admin/reject', {
+  await fetch(`${window.API_BASE || 'http://localhost:4000'}/admin/reject`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id })
@@ -143,11 +144,32 @@
     }
     window.approveUser = async function(id, btn) {
       btn.disabled = true;
-      await fetch('http://localhost:4000/admin/approve', {
+  await fetch(`${window.API_BASE || 'http://localhost:4000'}/admin/approve`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id })
       });
+      renderPendingApproval();
+    }
+
+    // Delete user from user list or pending table
+    window.deleteUser = async function(id, btn) {
+      if (!confirm('Are you sure you want to delete this user? This action cannot be undone.')) return;
+      btn.disabled = true;
+      try {
+        const res = await fetch(`${window.API_BASE || 'http://localhost:4000'}/admin/reject`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id })
+        });
+        if (!res.ok) {
+          alert('Failed to delete user');
+        }
+      } catch (err) {
+        alert('Network error, please try again');
+      }
+      // Refresh both lists
+      renderUserList();
       renderPendingApproval();
     }
 
@@ -162,7 +184,7 @@
         const msgDiv = document.getElementById('adminMessage');
         msgDiv.textContent = '';
         try {
-          const res = await fetch('http://localhost:4000/admin/create', {
+          const res = await fetch(`${window.API_BASE || 'http://localhost:4000'}/admin/create`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ name, email, password })
@@ -188,7 +210,7 @@
       tabContent.innerHTML = `<h2>Contact Messages</h2><div id='messagesTableWrap' style='overflow-x:auto;'></div>`;
       const wrap = document.getElementById('messagesTableWrap');
       try {
-        const res = await fetch('http://localhost:4000/messages');
+  const res = await fetch(`${window.API_BASE || 'http://localhost:4000'}/messages`);
         const messages = await res.json();
         if (!messages.length) {
           wrap.innerHTML = '<p style="margin-top:2rem;">No messages received yet.</p>';
@@ -207,10 +229,7 @@
 
     // Add GET /messages endpoint to backend for this to work
 
-    // Default to welcome tab
-    showTab('welcome');
-    tabBtns[0].style.background = '#1a73e8';
-    tabBtns[0].style.color = '#fff';
+  // Default behavior handled inside DOMContentLoaded
   </script>
 </body>
 </html>
