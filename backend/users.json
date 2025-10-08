@@ -12,5 +12,26 @@
     "email": "ATL@billionaireclub.com",
     "password": "$2a$10$Za4Jt51oZTp0yxmHREs.z.0g7Dvv0QI9zVw2kyoNjYSCTLzJ88OGm",
     "status": "active"
+  },
+  {
+    "id": "000003",
+    "name": "ATL",
+    "email": "atl@gmail.com",
+    "password": "$2a$10$qvPtGt4tZVFkbCDq0WOw9u0GqIFnig/gxzR9GhZqcnytChsPLDe3y",
+    "status": "active"
+  },
+  {
+    "id": "000004",
+    "name": "paul",
+    "email": "bank@gmail.com",
+    "password": "$2a$10$6pkwEGC8p7blLg2U6l4E7OXBeflZBUak0F4f3ElBG/fGVkJwpqZzS",
+    "status": "active"
+  },
+  {
+    "id": "000005",
+    "name": "Basketmouth",
+    "email": "bb@gmail.com",
+    "password": "$2a$10$oV.Ur0HAPhYHb9oyPD21kuQcTwDpT8UGHB4AuFw1cngjEE8tUngs.",
+    "status": "active"
   }
 ]

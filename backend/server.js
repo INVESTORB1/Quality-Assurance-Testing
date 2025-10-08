@@ -11,11 +11,51 @@ import { readInteractions, writeInteractions } from './interactions-db.js';
 import { connect } from './mongo.js';
 import fs from 'fs';
 
+// Simple in-memory admin token store (dev-only). Tokens expire after 12 hours.
+const adminTokens = new Map();
+function genToken() {
+  return Math.random().toString(36).slice(2) + Math.random().toString(36).slice(2);
+}
+function createAdminToken() {
+  const token = genToken();
+  const expires = Date.now() + 12 * 60 * 60 * 1000; // 12h
+  adminTokens.set(token, expires);
+  return token;
+}
+function isValidAdminToken(token) {
+  if (!token) return false;
+  const exp = adminTokens.get(token);
+  if (!exp) return false;
+  if (Date.now() > exp) {
+    adminTokens.delete(token);
+    return false;
+  }
+  return true;
+}
+
+// middleware to protect admin routes
+function requireAdmin(req, res, next) {
+  const auth = req.headers.authorization || req.headers['x-admin-token'];
+  let token = null;
+  if (auth && auth.startsWith('Bearer ')) token = auth.slice(7);
+  if (!token && auth && !auth.startsWith('Bearer ')) token = auth;
+  if (isValidAdminToken(token)) return next();
+  return res.status(401).json({ error: 'Unauthorized' });
+}
+
 const app = express();
 const PORT = process.env.PORT ? Number(process.env.PORT) : 4000;
 
 app.use(cors());
 app.use(bodyParser.json());
+
+// global error handlers to avoid silent exits and log useful info
+process.on('uncaughtException', (err) => {
+  console.error('Uncaught Exception:', err && err.stack ? err.stack : err);
+});
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('Unhandled Rejection at:', promise, 'reason:', reason);
+});
 
 // Health endpoint
 app.get('/health', async (req, res) => {
@@ -70,8 +110,17 @@ app.get('/messages', async (req, res) => {
   res.json(messages);
 });
 
+// Admin login - returns a token when correct password provided
+app.post('/admin/login', async (req, res) => {
+  const { password } = req.body;
+  const adminPass = process.env.ADMIN_PASSWORD || 'admin123';
+  if (!password || password !== adminPass) return res.status(401).json({ error: 'Invalid password' });
+  const token = createAdminToken();
+  res.json({ token });
+});
+
 // Admin: reject (delete) user
-app.post('/admin/reject', async (req, res) => {
+app.post('/admin/reject', requireAdmin, async (req, res) => {
   const { id } = req.body;
   let users = await readUsers();
   const user = users.find(u => u.id === id);
@@ -126,13 +175,13 @@ app.post('/signup', async (req, res) => {
 });
 
 // Admin: list all users
-app.get('/admin/users', async (req, res) => {
+app.get('/admin/users', requireAdmin, async (req, res) => {
   const users = await readUsers();
   res.json(users);
 });
 
 // Admin: approve user
-app.post('/admin/approve', async (req, res) => {
+app.post('/admin/approve', requireAdmin, async (req, res) => {
   const { id } = req.body;
   const users = await readUsers();
   const user = users.find(u => u.id === id);
@@ -143,7 +192,7 @@ app.post('/admin/approve', async (req, res) => {
 });
 
 // Admin: create user directly
-app.post('/admin/create', async (req, res) => {
+app.post('/admin/create', requireAdmin, async (req, res) => {
   const { name, email, password, ...rest } = req.body;
   if (!name || !email || !password) return res.status(400).json({ error: 'Missing fields' });
   const users = await readUsers();
@@ -189,13 +238,13 @@ app.post('/login', async (req, res) => {
   res.json({ success: true, user: { id: user.id, name: user.name, email: user.email } });
 });
 // Admin: get all user interactions
-app.get('/admin/interactions', async (req, res) => {
+app.get('/admin/interactions', requireAdmin, async (req, res) => {
   const interactions = await readInteractions();
   res.json(interactions);
 });
 
 // Admin: get admin menu (from Mongo or fallback file)
-app.get('/admin/menu', async (req, res) => {
+app.get('/admin/menu', requireAdmin, async (req, res) => {
   try {
     const db = await connect();
     if (db) {
@@ -212,6 +261,28 @@ app.get('/admin/menu', async (req, res) => {
     return res.json(data);
   }
   res.json([]);
+});
+
+// Admin debug endpoint (non-secret) — reports whether ADMIN_PASSWORD and MONGODB_URI are set
+function redactHost(uri) {
+  if (!uri) return null;
+  try {
+    const withoutProto = uri.replace(/^mongodb(?:\+srv)?:\/\//, '');
+    const afterAuth = withoutProto.includes('@') ? withoutProto.split('@').pop() : withoutProto;
+    const hostPart = afterAuth.split('/')[0];
+    // hide any possible credentials (already removed) and only return host names
+    return hostPart;
+  } catch (err) {
+    return null;
+  }
+}
+
+app.get('/admin/env', (req, res) => {
+  const adminPasswordSet = typeof process.env.ADMIN_PASSWORD !== 'undefined' && process.env.ADMIN_PASSWORD !== null && process.env.ADMIN_PASSWORD !== '';
+  const usingDefaultPassword = !adminPasswordSet;
+  const mongoConfigured = typeof process.env.MONGODB_URI === 'string' && process.env.MONGODB_URI.trim() !== '';
+  const mongoHost = redactHost(process.env.MONGODB_URI || '');
+  res.json({ adminPasswordSet, usingDefaultPassword, mongoConfigured, mongoHost });
 });
 
 // Connect to Mongo (if configured) before starting server
