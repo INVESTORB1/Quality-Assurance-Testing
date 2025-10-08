@@ -220,6 +220,37 @@ app.post('/admin/create', requireAdmin, async (req, res) => {
   res.json({ success: true });
 });
 
+// Admin: deactivate (set user status to 'inactive')
+app.post('/admin/deactivate', requireAdmin, async (req, res) => {
+  const { id } = req.body;
+  if (!id) return res.status(400).json({ error: 'Missing id' });
+  const users = await readUsers();
+  const user = users.find(u => u.id === id);
+  if (!user) return res.status(404).json({ error: 'User not found' });
+  user.status = 'inactive';
+  await writeUsers(users);
+  res.json({ success: true });
+});
+
+// Admin: reset user password. If newPassword not provided, generate a temporary one and return it.
+app.post('/admin/reset-password', requireAdmin, async (req, res) => {
+  const { id, newPassword } = req.body;
+  if (!id) return res.status(400).json({ error: 'Missing id' });
+  const users = await readUsers();
+  const user = users.find(u => u.id === id);
+  if (!user) return res.status(404).json({ error: 'User not found' });
+  // generate temp password if not provided
+  let temp = newPassword;
+  if (!temp) {
+    temp = Math.random().toString(36).slice(-8);
+  }
+  const hashed = bcrypt.hashSync(temp, 10);
+  user.password = hashed;
+  await writeUsers(users);
+  // return the (plaintext) temp password so admin can communicate it to the user
+  res.json({ success: true, tempPassword: newPassword ? undefined : temp });
+});
+
 // Login endpoint
 app.post('/login', async (req, res) => {
   const { email, password } = req.body;
