@@ -86,27 +86,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up - B.O.B Academy</title>
-    <link rel="stylesheet" href="engainsmedia-homepage.css?v=2">
+    <link rel="stylesheet" href="bob-academy-homepage.css?v=2">
     <link rel="stylesheet" href="hamburger-nav.css?v=2">
     <script defer src="hamburger-nav.js?v=2"></script>
     <script src="api-config.js"></script>
     <style>
+        html, body { height: 100%; }
         .signup-container {
             display: flex;
-            flex-wrap: wrap;
+            flex-wrap: nowrap;
             align-items: center;
             justify-content: center;
-            min-height: 80vh;
-            gap: 2.5rem;
+            min-height: 100vh; /* fill viewport */
+            gap: 1rem;
+            padding: 0.6rem;
+            box-sizing: border-box;
+            overflow: hidden; /* prevent outer page scrolling */
         }
         .signup-form {
             background: #f8faff;
-            border-radius: 12px;
+            border-radius: 10px;
             box-shadow: 0 2px 12px #1a73e820;
-            padding: 2.5rem 2.5rem 2rem 2.5rem;
-            min-width: 320px;
-            max-width: 370px;
+            padding: 1rem 1rem 0.8rem 1rem;
+            min-width: 260px;
+            max-width: 420px;
             width: 100%;
+            max-height: calc(100vh - 80px); /* keep form within viewport */
+            overflow: auto;
         }
         .signup-form h2 {
             color: #1a73e8;
@@ -150,13 +156,17 @@
             background: #174ea6;
         }
         .signup-side {
-            min-width: 260px;
+            min-width: 140px;
             text-align: center;
+            display:flex;align-items:center;justify-content:center;padding:0.6rem;
         }
         .signup-side img {
-            max-width: 220px;
+            max-width: 140px;
             width: 100%;
-            margin-bottom: 1.2rem;
+            margin-bottom: 0.6rem;
+            display:block;
+            height:auto;
+            object-fit:contain;
         }
         .signup-side h3 {
             color: #1a73e8;
@@ -177,8 +187,15 @@
             color: #174ea6;
         }
         @media (max-width: 900px) {
-            .signup-container { flex-direction: column; gap: 1.5rem; }
-            .signup-side img { max-width: 160px; }
+            .signup-container { flex-direction: column; gap: 0.6rem; padding: 0.4rem; }
+            .signup-form { max-width: 100%; margin: 0; }
+            .signup-side img { max-width: 120px; }
+        }
+        /* For very short viewports: hide the illustration entirely and maximize form space */
+        @media (max-height: 700px) {
+            .signup-side { display: none !important; }
+            .signup-form { max-width: 96%; padding: 0.8rem; max-height: calc(100vh - 40px); }
+            .signup-container { padding: 0.3rem; }
         }
     </style>
 </head>
@@ -193,7 +210,7 @@
             </div>
             <!-- Navigation -->
             <nav style="display:flex;gap:1.5rem;flex:1;justify-content:center;margin-left:14rem;">
-                <a href="engainsmedia-homepage.html" style="color:#f7f7f8;font-size:1.25rem;font-weight:500;text-decoration:none;">Home</a>
+                <a href="bob-academy-homepage.html" style="color:#f7f7f8;font-size:1.25rem;font-weight:500;text-decoration:none;">Home</a>
                 <a href="signup.html" style="color:#f7f7f8;font-size:1.25rem;font-weight:500;text-decoration:none;">Account</a>
                 <a href="courses.html" style="color:#f7f7f8;font-size:1.25rem;font-weight:500;text-decoration:none;">Courses</a>
                 <a href="services.html" style="color:#f7f7f8;font-size:1.25rem;font-weight:500;text-decoration:none;">Services</a>
@@ -215,7 +232,7 @@
     <!-- Mobile nav links moved outside header for visibility -->
     <ul class="mobile-nav-links" id="mobile-nav">
         <li class="mobile-nav-close"><button id="close-mobile-nav" aria-label="Close menu">&times;</button></li>
-    <li><a href="engainsmedia-homepage.html">Home</a></li>
+    <li><a href="bob-academy-homepage.html">Home</a></li>
     <li><a href="signup.html">Account</a></li>
     <li><a href="courses.html">Courses</a></li>
     <li><a href="services.html">Services</a></li>
@@ -269,25 +286,55 @@
         const signupTab = document.getElementById('signupTab');
         const loginForm = document.getElementById('loginForm');
         const signupForm = document.getElementById('signupForm');
+        function showClickFeedback(btn) {
+            // small ephemeral feedback on click
+            const old = btn.textContent;
+            btn.textContent = old + ' ✓';
+            setTimeout(() => { btn.textContent = old; }, 600);
+        }
+
+        function clearFormFields(formEl) {
+            if (!formEl) return;
+            // clear only input and textarea fields
+            const fields = formEl.querySelectorAll('input, textarea');
+            fields.forEach(f => { f.value = ''; });
+        }
+
         loginTab.onclick = function() {
+            showClickFeedback(loginTab);
             loginTab.style.background = 'linear-gradient(90deg,#1a73e8 60%,#4285f4 100%)';
             loginTab.style.color = '#fff';
             signupTab.style.background = '#fff';
             signupTab.style.color = '#222';
             loginForm.style.display = 'block';
             signupForm.style.display = 'none';
+            // clear signup fields when switching to login
+            clearFormFields(document.getElementById('signupFormElement'));
         };
         signupTab.onclick = function() {
+            showClickFeedback(signupTab);
             signupTab.style.background = 'linear-gradient(90deg,#1a73e8 60%,#4285f4 100%)';
             signupTab.style.color = '#fff';
             loginTab.style.background = '#fff';
             loginTab.style.color = '#222';
             loginForm.style.display = 'none';
             signupForm.style.display = 'block';
+            // clear login fields when switching to signup
+            clearFormFields(document.getElementById('loginFormElement'));
         };
         // Login form handler
         const loginFormElement = document.getElementById('loginFormElement');
         if (loginFormElement) {
+            const loginBtn = loginFormElement.querySelector('button[type="submit"]');
+            if (loginBtn) {
+                loginBtn.addEventListener('click', function() {
+                    // quick visual feedback
+                    const old = loginBtn.textContent;
+                    loginBtn.textContent = 'Clicked...';
+                    setTimeout(() => { loginBtn.textContent = old; }, 700);
+                });
+            }
+
             loginFormElement.addEventListener('submit', async function(e) {
                 e.preventDefault();
                 const email = document.getElementById('login-email').value.trim();
@@ -327,6 +374,15 @@
         // Signup form handler
         const signupFormElement = document.getElementById('signupFormElement');
         if (signupFormElement) {
+            const signupBtn = signupFormElement.querySelector('button[type="submit"]');
+            if (signupBtn) {
+                signupBtn.addEventListener('click', function() {
+                    const old = signupBtn.textContent;
+                    signupBtn.textContent = 'Clicked...';
+                    setTimeout(() => { signupBtn.textContent = old; }, 700);
+                });
+            }
+
             signupFormElement.addEventListener('submit', async function(e) {
                 e.preventDefault();
                 const name = document.getElementById('username').value.trim();

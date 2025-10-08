@@ -21,6 +21,8 @@
   </style>
 </head>
 <body>
+  <!-- DEV OVERRIDE: force local backend for testing. Remove this line in production if you want to use the deployed API. -->
+  <script>window.API_BASE = window.API_BASE || 'http://localhost:4000';</script>
   <script src="api-config.js"></script>
   <div class="container" style="display:flex;gap:2rem;min-height:600px;">
     <aside style="width:210px;background:#e3eafc;border-radius:10px;padding:2rem 1rem 2rem 1rem;box-shadow:0 2px 12px #1a73e810;display:flex;flex-direction:column;gap:1.5rem;">

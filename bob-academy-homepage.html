@@ -1,2 +1,252 @@
 <!DOCTYPE html>
-<!-- ...existing code from engainsmedia-homepage.html, with all references updated to bob-academy-homepage.* ... -->
+<html lang="en">
+<head>
+<style>
+.mobile-nav-links {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	background: linear-gradient(180deg,#3365c1 80%,#4285f4 100%);
+	box-shadow: 0 2px 16px #23408e40;
+	z-index: 2000;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-start;
+	padding-top: 2.5rem;
+	margin: 0;
+	list-style: none;
+	font-size: 1.3rem;
+	font-weight: 600;
+	transition: left 0.3s;
+}
+.mobile-nav-links li {
+	margin: 1rem 0;
+	width: 90vw;
+	text-align: center;
+}
+.mobile-nav-links a {
+	color: #fff;
+	text-decoration: none;
+	display: block;
+	padding: 1rem 0;
+	border-radius: 8px;
+	background: none;
+	transition: background 0.2s, color 0.2s;
+}
+.mobile-nav-links a:hover {
+	background: #23408e;
+	color: #e3eafc;
+}
+.mobile-nav-close button {
+	font-size: 2rem;
+	background: #fff;
+	color: #23408e;
+	border: none;
+	border-radius: 50%;
+	width: 44px;
+	height: 44px;
+	margin-bottom: 1.5rem;
+	cursor: pointer;
+	box-shadow: 0 2px 8px #23408e20;
+}
+</style>
+<style>
+@media (max-width: 700px) {
+	nav {
+		display: none !important;
+		margin-left: 0 !important;
+	}
+	.hamburger {
+		display: flex !important;
+		position: absolute;
+		top: 18px;
+		right: 18px;
+		margin: 0 !important;
+		z-index: 1001;
+	}
+	.header-icon {
+		display: none !important;
+	}
+}
+@media (min-width: 701px) {
+	.hamburger {
+		display: none !important;
+	}
+	nav {
+		display: flex !important;
+	}
+	.header-icon {
+		display: flex !important;
+	}
+}
+</style>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>B.O.B Quality Assurance Testing - Reliable & Affordable QA Services</title>
+	<link rel="stylesheet" href="bob-academy-homepage.css">
+	<link rel="stylesheet" href="hamburger-nav.css">
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+	<script defer src="bob-academy-homepage.js"></script>
+	<script defer src="hamburger-nav.js"></script>
+
+</head>
+<style>
+/* Responsive slideshow fix */
+.slideshow-container {
+	max-width: 100%;
+	width: 100%;
+	overflow: hidden;
+}
+.slideshow-container img, .slideshow-item img {
+	max-width: 100%;
+	width: 100%;
+	height: auto;
+	display: block;
+}
+@media (max-width: 600px) {
+	.slideshow-container, .slideshow-item {
+		padding: 0 !important;
+		margin: 0 !important;
+		max-width: 100vw;
+		width: 100vw;
+	}
+}
+</style>
+<body>
+    
+	<header style="position:sticky;top:0;z-index:1000;background:#3365c1;padding:0.7rem 0 0.7rem 0;overflow:hidden;min-height:64px;">
+		<div style="position:absolute;inset:0;z-index:0;background:linear-gradient(-360deg,rgba(3, 2, 103, 0.92) 60%,rgba(3, 77, 150, 0.85) 100%);border-radius:0 0 18px 18px;"></div>
+		<div style="max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:2rem;position:relative;z-index:1;">
+			<!-- Logo -->
+			<div style="display:flex;align-items:center;gap:0.5rem;">
+				<img src="BOB.png" alt="B.O.B Academy Logo" style="height:72px;">
+				<span style="font-size:2rem;font-style:italic;color:#4285f4;margin-left:-0.4rem;align-self:flex-end;">Academy</span>
+			</div>
+			<!-- Navigation -->
+			<nav style="display:flex;gap:1.5rem;flex:1;justify-content:center;margin-left:14rem;">
+				<a href="bob-academy-homepage.html" style="color:#f7f7f8;font-size:1.25rem;font-weight:500;text-decoration:none;">Home</a>
+				<a href="signup.html" style="color:#f7f7f8;font-size:1.25rem;font-weight:500;text-decoration:none;">Account</a>
+				<a href="courses.html" style="color:#f7f7f8;font-size:1.25rem;font-weight:500;text-decoration:none;">Courses</a>
+				<a href="services.html" style="color:#f7f7f8;font-size:1.25rem;font-weight:500;text-decoration:none;">Services</a>
+				<a href="about.html" style="color:#f7f7f8;font-size:1.25rem;font-weight:500;text-decoration:none;">About Us</a>
+				<a href="contact.html" style="color:#f7f7f8;font-size:1.25rem;font-weight:500;text-decoration:none;">Contact Us</a>
+			</nav>
+			<!-- Icon/Button -->
+			<div style="width:44px;height:44px;background:#e6007a;border-radius:50%;display:flex;align-items:center;justify-content:center;">
+				<span style="font-size:1.7rem;color:#fff;">🧑‍💻</span>
+			</div>
+			<!-- Hamburger menu for mobile (moved to right) -->
+			<div class="hamburger" id="hamburger-menu" style="margin-left:1.5rem;">
+				<span></span>
+				<span></span>
+				<span></span>
+			</div>
+		</div>
+	<!-- Mobile nav links -->
+	</header>
+	<!-- Mobile nav links moved outside header for visibility -->
+	<ul class="mobile-nav-links" id="mobile-nav">
+		<li class="mobile-nav-close"><button id="close-mobile-nav" aria-label="Close menu">&times;</button></li>
+	<li><a href="bob-academy-homepage.html">Home</a></li>
+		<li><a href="signup.html">Account</a></li>
+		<li><a href="courses.html">Courses</a></li>
+		<li><a href="services.html">Services</a></li>
+		<li><a href="about.html">About Us</a></li>
+		<li><a href="contact.html">Contact Us</a></li>
+	</ul>
+	<div class="mobile-nav-overlay" id="mobile-nav-overlay"></div>
+	</header>
+	<main>
+		<section style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:2rem 1rem;margin-bottom:2.5rem;">
+			<div style="flex:1 1 320px;min-width:280px;">
+				<h2 style="color:#1a73e8;font-size:2rem;margin-bottom:1rem;">Master Software Testing</h2>
+				<p style="font-size:1.1rem;line-height:1.6;text-align:matchparent;">Unlock your career potential with hands-on training in software testing. Our platform provides expert-led courses, real-world projects, and a supportive community to help you become a professional software tester no matter your background.</p>
+				<ul style="margin:1.5rem 0 0 1.2rem;padding:0;font-size:1rem;line-height:1.7;">
+					<li>Comprehensive courses on manual and automated testing</li>
+					<li>Real-world projects and practical assignments</li>
+					<li>Mentorship from experienced QA professionals</li>
+					<li>Career support and certification guidance</li>
+				</ul>
+				<a class="cta" href="https://bobacademy.com/signup">Start Promotion</a>
+			</div>
+			<div style="flex:1 1 320px;min-width:260px;text-align:center;">
+				<img src="Front page.PNG" alt="SMM Panel" style="max-width:100%;height:auto;border-radius:12px;box-shadow:0 2px 12px #1a73e820;">
+			</div>
+		</section>
+		<section class="stats">
+			<div class="stat">
+				<h4>60,000+ Active Users</h4>
+			</div>
+			<div class="stat">
+				<h4>822,534 Total Orders</h4>
+			</div>
+			<div class="stat">
+				<h4>457 Total Services</h4>
+			</div>
+		</section>
+		<h2 style="text-align:center;margin-top:2.5rem;color:#23408e;font-family:'Inter','Segoe UI',sans-serif;font-weight:600;letter-spacing:0.01em;">Empowering Excellence in Quality Assurance Testing</h2>
+		<div class="features">
+			<div class="feature-slideshow-container">
+				<div class="feature-slideshow" style="position:relative;width:480px;height:260px;margin:0 auto;overflow:hidden;background:#f8faff;border-radius:16px;box-shadow:0 2px 12px #1a73e820;display:flex;align-items:center;justify-content:center;">
+					<button id="prevFeature" style="position:absolute;left:10px;top:50%;transform:translateY(-50%);background:#1a73e8;color:#fff;border:none;border-radius:50%;width:36px;height:36px;font-size:1.5rem;cursor:pointer;z-index:3;opacity:0.8;">&#8592;</button>
+					<button id="nextFeature" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:#1a73e8;color:#fff;border:none;border-radius:50%;width:36px;height:36px;font-size:1.5rem;cursor:pointer;z-index:3;opacity:0.8;">&#8594;</button>
+					<div class="feature-slide active" style="position:absolute;top:0;left:0;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity 0.5s;">
+						<img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Manual Testing" style="width:70px;height:70px;object-fit:contain;margin-bottom:1rem;">
+						<h4 style="color:#1a73e8;margin-bottom:0.5rem;">Manual Testing</h4>
+						<p>Learn the fundamentals of manual testing, including test case design, execution, and defect reporting to ensure software quality.</p>
+					</div>
+					<div class="feature-slide" style="position:absolute;top:0;left:0;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity 0.5s;">
+						<img src="https://cdn-icons-png.flaticon.com/512/1828/1828919.png" alt="Automation Testing" style="width:70px;height:70px;object-fit:contain;margin-bottom:1rem;">
+						<h4 style="color:#1a73e8;margin-bottom:0.5rem;">Automation Testing</h4>
+						<p>Discover how to automate repetitive tests using tools like Selenium, reducing human error and increasing efficiency.</p>
+					</div>
+					<div class="feature-slide" style="position:absolute;top:0;left:0;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity 0.5s;">
+						<img src="https://cdn-icons-png.flaticon.com/512/2921/2921222.png" alt="Performance Testing" style="width:70px;height:70px;object-fit:contain;margin-bottom:1rem;">
+						<h4 style="color:#1a73e8;margin-bottom:0.5rem;">Performance Testing</h4>
+						<p>Understand how to evaluate software speed, scalability, and stability under load using performance testing techniques.</p>
+					</div>
+					<div class="feature-slide" style="position:absolute;top:0;left:0;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity 0.5s;">
+						<img src="https://cdn-icons-png.flaticon.com/512/3135/3135789.png" alt="Security Testing" style="width:70px;height:70px;object-fit:contain;margin-bottom:1rem;">
+						<h4 style="color:#1a73e8;margin-bottom:0.5rem;">Security Testing</h4>
+						<p>Explore security testing concepts to identify vulnerabilities and protect applications from threats and attacks.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<section class="steps">
+			<div class="step">
+				<h4>STEP 1</h4>
+				<h5>Enroll in QA Training</h5>
+				<p>Register for our expert-led quality assurance courses and start your learning journey.</p>
+			</div>
+			<div class="step">
+				<h4>STEP 2</h4>
+				<h5>Master Core QA Concepts</h5>
+				<p>Learn manual and automation testing, test case design, bug reporting, and best practices.</p>
+			</div>
+			<div class="step">
+				<h4>STEP 3</h4>
+				<h5>Practice with Real Projects</h5>
+				<p>Apply your skills on real-world projects and simulations to gain hands-on experience.</p>
+			</div>
+			<div class="step">
+				<h4>STEP 4</h4>
+				<h5>Get Certified & Advance</h5>
+				<p>Earn QA certifications and receive career guidance to launch your professional journey.</p>
+			</div>
+		</section>
+	</main>
+	<footer class="contact">
+	<div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:2.5rem 1.5rem;padding:1.2rem 0 0.5rem 0;color:#fff;font-size:1.12rem;background:transparent;">
+		<span>Contact: <a href="mailto:qa-support@engains.com" style="color:#fff;text-decoration:none;font-weight:500;">qa-support@engains.com</a> | <a href="tel:+1234567890" style="color:#fff;text-decoration:none;font-weight:500;">+1 (234) 567-890</a> | <span style="color:#fff;">123 Academy Lane, Suite 200, Lagos, Nigeria</span></span>
+	</div>
+	<div style="text-align:center;color:#ffffff;font-size:1rem;margin-top:0.5rem;">
+		Advancing software quality through education, practice, and certification.<br>© 2024 B.O.B QA Academy. All Rights Reserved.
+	</div>
+	</footer>
+
+</body>
+</html>

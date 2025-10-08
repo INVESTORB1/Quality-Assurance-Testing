@@ -6,8 +6,14 @@ const DB_FILE = './users.json';
 async function useMongo() {
   try {
     const db = await connect();
-    return db ? db.collection('users') : null;
+    if (db) {
+      console.debug('[db] using MongoDB for users collection');
+      return db.collection('users');
+    }
+    console.debug('[db] MongoDB not available, falling back to file users.json');
+    return null;
   } catch (err) {
+    console.debug('[db] error checking MongoDB availability:', err && err.message ? err.message : err);
     return null;
   }
 }
@@ -30,6 +36,7 @@ export async function readUsers() {
 export async function writeUsers(users) {
   const col = await useMongo();
   if (col) {
+    console.debug('[db] writeUsers: writing to MongoDB (replacing collection)');
     // replace collection contents
     await col.deleteMany({});
     if (users.length) {
@@ -43,5 +50,6 @@ export async function writeUsers(users) {
     }
     return;
   }
+  console.debug('[db] writeUsers: writing to file', DB_FILE);
   fs.writeFileSync(DB_FILE, JSON.stringify(users, null, 2));
 }

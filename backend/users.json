@@ -33,5 +33,19 @@
     "email": "bb@gmail.com",
     "password": "$2a$10$oV.Ur0HAPhYHb9oyPD21kuQcTwDpT8UGHB4AuFw1cngjEE8tUngs.",
     "status": "active"
+  },
+  {
+    "id": "000006",
+    "name": "jkfgjkf",
+    "email": "jhfjhfjh@gjvjhvjh",
+    "password": "$2a$10$K/KHvMf1Ybey0Y/8HWVLg.Ufg5wUGp9i83T5yIIDezQpfQUGUA9a6",
+    "status": "pending"
+  },
+  {
+    "id": "000007",
+    "name": "bolu",
+    "email": "tife@gmail.com",
+    "password": "$2a$10$GGamGXhy1OHQ2ji4xn6DQuE6vpQRMDuxqfdY6g3ZiWqeOzMl7yoee",
+    "status": "active"
   }
 ]

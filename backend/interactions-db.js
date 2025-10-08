@@ -5,8 +5,14 @@ const FILE = './interactions.json';
 async function getCol() {
   try {
     const db = await connect();
-    return db ? db.collection('interactions') : null;
+    if (db) {
+      console.debug('[interactions-db] using MongoDB for interactions collection');
+      return db.collection('interactions');
+    }
+    console.debug('[interactions-db] MongoDB not available, falling back to file interactions.json');
+    return null;
   } catch (err) {
+    console.debug('[interactions-db] error checking MongoDB availability:', err && err.message ? err.message : err);
     return null;
   }
 }
@@ -27,6 +33,7 @@ export async function readInteractions() {
 export async function writeInteractions(interactions) {
   const col = await getCol();
   if (col) {
+    console.debug('[interactions-db] writeInteractions: writing to MongoDB (replace collection)');
     await col.deleteMany({});
     if (interactions.length) {
       const docs = interactions.map(i => {
@@ -38,5 +45,6 @@ export async function writeInteractions(interactions) {
     }
     return;
   }
+  console.debug('[interactions-db] writeInteractions: writing to file', FILE);
   fs.writeFileSync(FILE, JSON.stringify(interactions, null, 2));
 }

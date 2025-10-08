@@ -25,15 +25,34 @@ export async function connect() {
   if (!uri) return null;
   if (client && db) return db;
   client = new MongoClient(uri, {
+    // Fail fast options: keep selection/connect timeouts low so an unreachable
+    // MongoDB URI doesn't cause the app to hang for long on each request.
     serverApi: {
       version: ServerApiVersion.v1,
       strict: true,
       deprecationErrors: true,
     },
+    // allow overriding via env for debugging; sensible defaults otherwise
+    serverSelectionTimeoutMS: Number(process.env.MONGO_SELECTION_TIMEOUT_MS) || 3000,
+    connectTimeoutMS: Number(process.env.MONGO_CONNECT_TIMEOUT_MS) || 3000,
   });
-  await client.connect();
-  // verify connection with a ping
-  await client.db('admin').command({ ping: 1 });
+  try {
+    await client.connect();
+    // verify connection with a ping
+    await client.db('admin').command({ ping: 1 });
+  } catch (err) {
+    // Don't throw - return null so callers fall back to file-based DBs.
+    console.error('MongoDB connection failed (fast-fail):', err && err.message ? err.message : err);
+    try {
+      // Ensure client is cleaned up if partially connected
+      if (client) await client.close();
+    } catch (closeErr) {
+      // ignore
+    }
+    client = null;
+    db = null;
+    return null;
+  }
   // use database name from env or default to 'qa_app'
   const dbName = process.env.MONGODB_DB || 'qa_app';
   db = client.db(dbName);
