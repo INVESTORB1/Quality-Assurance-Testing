@@ -1,0 +1,7 @@
+[
+  { "id": "m001", "label": "Pending Approval", "route": "/admin/pending", "order": 1 },
+  { "id": "m002", "label": "User Creation", "route": "/admin/create", "order": 2 },
+  { "id": "m003", "label": "Messages", "route": "/admin/messages", "order": 3 },
+  { "id": "m004", "label": "User List", "route": "/admin/users", "order": 4, "highlighted": true },
+  { "id": "m005", "label": "User Activity", "route": "/admin/interactions", "order": 5 }
+]
