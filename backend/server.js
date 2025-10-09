@@ -162,15 +162,39 @@ app.post('/signup', async (req, res) => {
     ...rest
   });
   await writeUsers(users);
-  // Log interaction
+  // Log interaction (file-based)
   const interactions = await readInteractions();
+  const timestamp = new Date().toISOString();
   interactions.push({
     type: 'signup',
     name,
     email,
-    timestamp: new Date().toISOString()
+    timestamp
   });
   await writeInteractions(interactions);
+  // Also attempt to log pending approval to Mongo when configured
+  try {
+    const db = await connect();
+    if (db) {
+      // store a richer pending user record (excluding password)
+      const pendingRecord = {
+        userId: id,
+        user: {
+          id,
+          name,
+          email,
+          status: 'pending',
+          ...rest
+        },
+        status: 'pending',
+        createdAt: timestamp
+      };
+      await db.collection('pending_approvals').insertOne(pendingRecord);
+    }
+  } catch (err) {
+    // don't fail the signup if Mongo logging fails; it's informational only
+    console.error('[signup] failed to log pending approval to Mongo:', err && err.message ? err.message : err);
+  }
   res.json({ success: true });
 });
 
@@ -188,7 +212,48 @@ app.post('/admin/approve', requireAdmin, async (req, res) => {
   if (!user) return res.status(404).json({ error: 'User not found' });
   user.status = 'active';
   await writeUsers(users);
+  // Also log approval to pending_approvals collection (mark resolved)
+  try {
+    const db = await connect();
+    if (db) {
+      const now = new Date().toISOString();
+      await db.collection('pending_approvals').updateMany({ 'user.id': id }, { $set: { status: 'approved', approvedAt: now } });
+      // Optionally also write an audit entry
+      await db.collection('pending_approvals_audit').insertOne({ userId: id, action: 'approved', admin: req.headers['x-admin-token'] || null, timestamp: now });
+    }
+  } catch (err) {
+    console.error('[admin/approve] failed to update pending approvals in Mongo:', err && err.message ? err.message : err);
+  }
+  // Record as interaction as well
+  try {
+    const interactions = await readInteractions();
+    interactions.push({ type: 'approve', userId: id, timestamp: new Date().toISOString() });
+    await writeInteractions(interactions);
+  } catch (err) {
+    console.error('[admin/approve] failed to write interaction:', err && err.message ? err.message : err);
+  }
   res.json({ success: true });
+});
+
+// Admin: get pending approvals
+app.get('/admin/pending', requireAdmin, async (req, res) => {
+  try {
+    const db = await connect();
+    if (db) {
+      const items = await db.collection('pending_approvals').find({ status: 'pending' }).sort({ createdAt: -1 }).toArray();
+      return res.json(items.map(i => ({ id: i._id ? String(i._id) : undefined, ...i })));
+    }
+  } catch (err) {
+    console.error('[admin/pending] mongo read failed, falling back to file:', err && err.message ? err.message : err);
+  }
+  // fallback: return users with status 'pending' from file DB
+  try {
+    const users = await readUsers();
+    const pending = users.filter(u => u.status === 'pending').map(u => ({ user: { id: u.id, name: u.name, email: u.email, status: u.status } }));
+    return res.json(pending);
+  } catch (err) {
+    return res.status(500).json({ error: 'Failed to read pending users', detail: err.message });
+  }
 });
 
 // Admin: create user directly
