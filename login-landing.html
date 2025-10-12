@@ -299,6 +299,20 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     });
+
+    // Ensure Start Testing link closes sidebar on mobile
+    const startTestingLink = document.getElementById('startTestingLink');
+    if (startTestingLink) {
+        startTestingLink.addEventListener('click', function() {
+            const sidebar = document.getElementById('sidebar');
+            if (window.innerWidth <= 800 && sidebar) {
+                sidebar.classList.remove('open');
+                const overlay = document.getElementById('sidebar-overlay');
+                if (overlay) overlay.style.display = 'none';
+            }
+            // normal navigation to start-testing.html will proceed
+        });
+    }
 });
 </script>
                 </div>
@@ -324,6 +338,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     </a>
                     <a href="#" onclick="showSTLCContent('environment')" style="display:flex;align-items:center;gap:0.8rem;color:#fff;text-decoration:none;font-size:0.8rem;font-weight:500;">
                         <span style="font-size:1.3rem;">🖥️</span> Test Environment
+                    </a>
+                    <a href="start-testing.html" id="startTestingLink" style="display:flex;align-items:center;gap:0.8rem;color:#fff;text-decoration:none;font-size:0.8rem;font-weight:500;">
+                        <span style="font-size:1.3rem;">🚀</span> Start Testing
                     </a>
                 </nav>
             </div>

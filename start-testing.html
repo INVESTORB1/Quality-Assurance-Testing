@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Start Testing</title>
+  <link rel="stylesheet" href="bob-academy-homepage.css">
+  <style>
+    body { font-family: 'Segoe UI', Arial, sans-serif; background:#f5f7fa; color:#14213d; margin:0; padding:2rem; }
+    .container { max-width:900px; margin:2rem auto; background:#fff; padding:1.6rem; border-radius:12px; box-shadow:0 6px 30px rgba(8,24,63,0.08); }
+    h1 { color:#14213d; margin-bottom:0.4rem; }
+    p.lead { color:#4b5563; margin-bottom:1rem; }
+    table { width:100%; border-collapse:collapse; margin-top:1rem; }
+    th, td { padding:0.8rem 0.6rem; border:1px solid #e6eefc; text-align:left; }
+    th { background:#e9f1ff; color:#14213d; }
+    .btn { background:#ffd600; color:#14213d; padding:0.45rem 0.9rem; border-radius:8px; font-weight:700; text-decoration:none; display:inline-block; }
+    /* Responsive helpers */
+    .table-wrap { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+    @media (max-width:640px) {
+      .container { padding:1rem; margin:1rem; }
+      h1 { font-size:1.4rem; }
+      p.lead { font-size:0.95rem; }
+      th, td { padding:0.6rem 0.5rem; }
+      .btn { display:block; width:100%; text-align:center; padding:0.7rem 0.9rem; font-size:0.98rem; }
+      /* Stack each table row as a card */
+      table, thead, tbody, th, td, tr { display:block; }
+      thead { display:none; }
+      tr { margin-bottom:0.9rem; background:#fff; border-radius:10px; box-shadow:0 4px 14px rgba(8,24,63,0.04); padding:0.6rem; }
+      td { border:none; padding:0.35rem 0; }
+      td:first-child { font-weight:700; margin-bottom:0.35rem; }
+      td:last-child { margin-top:0.6rem; }
+    }
+    .hint { margin-top:1.2rem; color:#2563eb; font-weight:600; }
+    @media (max-width:700px) { body { padding:0.8rem; } .container{ padding:1rem;} }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <button id="backBtn" aria-label="Go back" style="background:#e6eefc;color:#14213d;border:none;padding:0.45rem 0.8rem;border-radius:8px;font-weight:700;cursor:pointer;margin-bottom:0.8rem;">← Back</button>
+    <h1>Start Testing</h1>
+    <p class="lead">Are you done reading all the requirements to begin testing? If yes, check the table below, select the test application and begin testing.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Application</th>
+          <th>Description</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Signup / Login API</td>
+          <td>Backend auth endpoints used by signup and login flows.</td>
+          <td><a class="btn" href="signup.html">Begin Testing</a></td>
+        </tr>
+        <tr>
+          <td>Bank Sandbox</td>
+          <td>External test sandbox for payment/banking flows.</td>
+          <td><a class="btn" href="https://test-environment-4ura.onrender.com/tester-login" target="_blank" rel="noopener noreferrer">Begin Testing</a></td>
+        </tr>
+        <tr>
+          <td>Admin Dashboard</td>
+          <td>Backend admin pages and user interactions management.</td>
+          <td><a class="btn" href="login-landing.html">Begin Testing</a></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="hint">Tip: Open the selected application in a new tab to preserve this Start Testing checklist.</div>
+  </div>
+  <script>
+    (function(){
+      const back = document.getElementById('backBtn');
+      if (!back) return;
+      back.addEventListener('click', function(){
+        try {
+          // prefer history.back if there's history
+          if (window.history && window.history.length > 1) {
+            window.history.back();
+            return;
+          }
+        } catch (e) {
+          // ignore
+        }
+        // fallback to referrer or login landing
+        var dest = document.referrer || 'login-landing.html';
+        window.location.href = dest;
+      });
+    })();
+  </script>
+</body>
+</html>
